@@ -17,9 +17,9 @@
 
 <br>
 
-**Jiaojie 把目标、决策、废案、产物和下一步交给另一个 AI，让它从你真正停下的地方继续。**
+**交接 Skill（Jiaojie）把当前目标、决策、废案、关键产物和下一步交给另一个 AI，让它从真正停下的位置继续。**
 
-<sub>基于开放的 [Agent Skills 协议](https://agentskills.io)，面向 Claude Code、Codex、Cursor、OpenClaw、Gemini CLI、OpenCode 等兼容 runtime；实际验证范围以公开兼容矩阵为准。</sub>
+<sub>一个跨窗口、跨模型、跨设备、跨语言的开源 AI 上下文交接工具，基于开放的 [Agent Skills 协议](https://agentskills.io)；实际验证范围以公开兼容矩阵为准。</sub>
 
 <br>
 
@@ -37,7 +37,7 @@
 
 <br>
 
-[![GitHub Stars](https://img.shields.io/github/stars/Jordanwei1/jiaojie-skill?style=social)](https://github.com/Jordanwei1/jiaojie-skill/stargazers)
+[![Release](https://img.shields.io/github/v/release/Jordanwei1/jiaojie-skill?label=release)](https://github.com/Jordanwei1/jiaojie-skill/releases/latest) [![validate](https://github.com/Jordanwei1/jiaojie-skill/actions/workflows/validate.yml/badge.svg)](https://github.com/Jordanwei1/jiaojie-skill/actions/workflows/validate.yml)
 
 </div>
 
