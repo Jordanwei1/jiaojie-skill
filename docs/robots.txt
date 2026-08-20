@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jordanwei1.github.io/jiaojie-skill/sitemap.xml
