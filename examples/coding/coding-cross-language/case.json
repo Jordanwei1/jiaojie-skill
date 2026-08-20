@@ -1,0 +1,24 @@
+{
+  "case_id": "coding-cross-language",
+  "domain": "coding",
+  "title": "Webhook deduplication across languages",
+  "synthetic": true,
+  "license": "MIT",
+  "publication_clearance": "APPROVED_BY_PROJECT_OWNER",
+  "status": "GOLD_CANDIDATE",
+  "human_verification": "NOT_PERFORMED",
+  "source_language": "zh-Hans",
+  "receipt_language": "fr",
+  "coverage": [
+    "cross_language",
+    "decision_evolution",
+    "technical_failure",
+    "user_veto",
+    "parallel_actions",
+    "stale_external_state"
+  ],
+  "limitations": [
+    "Not a real user conversation",
+    "Not independent model evidence"
+  ]
+}

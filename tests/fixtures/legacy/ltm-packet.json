@@ -1,0 +1,52 @@
+{
+  "ltm_version": "0.2",
+  "id": "cmp-v02-valid-0001",
+  "parent_id": "cmp-parent-00000001",
+  "created_at": "2026-08-20T00:00:00Z",
+  "project": {
+    "name": "public-fixture",
+    "ref": "accessibility-review"
+  },
+  "goal": "Complete the keyboard accessibility review.",
+  "constraints": [
+    "Do not claim full conformance from automation alone."
+  ],
+  "decisions": [
+    {
+      "what": "Test the primary path first.",
+      "why": "It exposes the highest-impact interactions.",
+      "locked": true,
+      "consequences": "Secondary paths remain open work."
+    }
+  ],
+  "attempts": [
+    {
+      "tried": "Run an automated scan.",
+      "outcome": "partial",
+      "learned": "Manual focus-order testing is still required.",
+      "confidence": "high"
+    }
+  ],
+  "open_questions": [
+    "Does the modal restore focus after closing?"
+  ],
+  "next_step": "Test focus restoration for the modal.",
+  "success_criteria": [
+    "Focus returns to the control that opened the modal."
+  ],
+  "methods": [
+    {
+      "name": "keyboard-focus-check",
+      "when_applicable": "An interactive modal is present.",
+      "how": "Open and close the modal using keyboard controls, then observe focus."
+    }
+  ],
+  "tags": [
+    "accessibility",
+    "keyboard"
+  ],
+  "provenance": {
+    "author_model": "synthetic-fixture-generator",
+    "confidence": "medium"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:lch:schema:0.1:detached-envelope",
+  "title": "Lossless Context Handoff detached envelope payload v0.1",
+  "description": "A detached frame or Bundle envelope contains one direct role-specific payload. Transport framing supplies opaque ID, expected type, byte length, and raw digest; this schema does not invent a second wrapper.",
+  "x-lch-schema-version": "0.1.0",
+  "oneOf": [
+    {
+      "$ref": "urn:lch:schema:0.1:verification-result"
+    },
+    {
+      "$ref": "urn:lch:schema:0.1:receipt"
+    }
+  ],
+  "$comment": "Detached payloads are always post-seal and excluded from the T0 control and Bundle Manifest roots. Frame or INDEX metadata is routing data only and never proves issuer trust or a positive result."
+}

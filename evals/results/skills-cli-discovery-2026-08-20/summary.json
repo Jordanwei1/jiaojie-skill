@@ -1,0 +1,22 @@
+{
+  "schema_version": "jiaojie-installer-evidence-v0.1",
+  "evidence_id": "skills-cli-discovery-2026-08-20",
+  "date": "2026-08-20",
+  "tool": "skills",
+  "tool_version": "1.5.23",
+  "command": "npx --yes skills add . --list",
+  "source": "local repository",
+  "status": "PASS",
+  "observed": {
+    "skill_count": 1,
+    "skill_names": ["jiaojie"],
+    "frontmatter_description_read": true
+  },
+  "not_claimed": [
+    "installation into any Runtime",
+    "implicit invocation",
+    "semantic continuity",
+    "cross-device behavior",
+    "cross-language model behavior"
+  ]
+}

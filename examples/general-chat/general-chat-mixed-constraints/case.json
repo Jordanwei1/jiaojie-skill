@@ -1,0 +1,22 @@
+{
+  "case_id": "general-chat-mixed-constraints",
+  "domain": "general-chat",
+  "title": "A complex personal plan with explicit boundaries",
+  "synthetic": true,
+  "license": "MIT",
+  "publication_clearance": "APPROVED_BY_PROJECT_OWNER",
+  "status": "GOLD_CANDIDATE",
+  "human_verification": "NOT_PERFORMED",
+  "source_language": "ko",
+  "receipt_language": "zh-Hans",
+  "coverage": [
+    "general_chat",
+    "stale_external_state",
+    "user_veto",
+    "authority_boundary"
+  ],
+  "limitations": [
+    "Not a real user conversation",
+    "Not independent model evidence"
+  ]
+}

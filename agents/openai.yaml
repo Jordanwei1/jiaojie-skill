@@ -1,0 +1,4 @@
+interface:
+  display_name: "Jiaojie / 交接"
+  short_description: "Carry AI work safely across chats and models"
+  default_prompt: "Use $jiaojie to hand off this task so another AI can continue from the exact stop point."

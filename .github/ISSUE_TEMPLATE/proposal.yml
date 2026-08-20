@@ -1,0 +1,31 @@
+name: Protocol or evaluation proposal
+description: Propose a compatible extension, breaking change, or evidence-policy change
+title: "[Proposal]: "
+labels: ["proposal"]
+body:
+  - type: textarea
+    attributes:
+      label: Problem
+      description: What cannot be solved with the current protocol or Profile?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Proposed change
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Compatibility and migration
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Security, multilingual, and claim impact
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Test and evidence plan
+    validations:
+      required: true

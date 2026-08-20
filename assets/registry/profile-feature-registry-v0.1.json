@@ -1,0 +1,124 @@
+{
+  "registry_version": "0.1.0",
+  "profiles": [
+    {
+      "id": "urn:lch:profile:core-markdown",
+      "version": "0.1.0",
+      "status": "SUPPORTED",
+      "selectable": true,
+      "requirements": [
+        "transport:t0-or-bundle",
+        "wire:ascii-identifiers",
+        "text:utf8-lf-no-bom",
+        "review:review-v1",
+        "layers:hot-warm-cold",
+        "receiver:markdown-readable",
+        "claims:producer-only"
+      ],
+      "qualification": {
+        "scope": "SPECIFIED_V0_1",
+        "vector_ids": [
+          "jcs-sha256-basic-001",
+          "review-projection-v1-minimal-001",
+          "derived-digests-v1-001"
+        ],
+        "excluded_claims": []
+      }
+    },
+    {
+      "id": "urn:lch:profile:self-contained",
+      "version": "0.1.0",
+      "status": "SUPPORTED",
+      "selectable": true,
+      "requirements": [
+        "scope:anchored",
+        "inventory:canonical",
+        "objects:material-transferables-embedded",
+        "artifacts:material-transferables-embedded",
+        "locators:no-absolute-only",
+        "omissions:declared",
+        "external-state:declared-no-secrets"
+      ],
+      "qualification": {
+        "scope": "SPECIFIED_V0_1",
+        "vector_ids": [],
+        "excluded_claims": []
+      }
+    },
+    {
+      "id": "urn:lch:profile:multilingual",
+      "version": "0.1.0",
+      "status": "QUALIFIED_SUBSET",
+      "selectable": true,
+      "requirements": [
+        "language:registry-lock-verified",
+        "language:extension-registry-lock-verified",
+        "language:rfc5646-vector-scope",
+        "unicode:15-1-0",
+        "source:raw-bytes-authoritative",
+        "localized-text:authority-direction",
+        "vectors:language-unicode-v1"
+      ],
+      "qualification": {
+        "scope": "REGISTERED_VECTOR_SCOPE_ONLY",
+        "vector_ids": [
+          "language-unicode-v1-001"
+        ],
+        "excluded_claims": [
+          "FULL_UAX9",
+          "FULL_UAX29",
+          "FULL_UTS39",
+          "PACKAGE_CONTENT_NORMALIZATION",
+          "PACKAGE_PROTECTED_SPAN_PRESERVATION",
+          "PACKAGE_BIDI_CONTROL_SCAN"
+        ]
+      }
+    },
+    {
+      "id": "urn:lch:profile:confidential-transport",
+      "version": "0.1.0",
+      "status": "UNSUPPORTED",
+      "selectable": false,
+      "requirements": [
+        "encryption:recipient-bound",
+        "algorithms:versioned-suite",
+        "keys:lifecycle-recovery",
+        "vectors:published-interoperability",
+        "failure:closed"
+      ],
+      "qualification": {
+        "scope": "NOT_IMPLEMENTED",
+        "vector_ids": [],
+        "excluded_claims": []
+      }
+    }
+  ],
+  "features": [
+    {
+      "id": "urn:lch:feature:detached-envelopes",
+      "version": "0.1.0",
+      "status": "SUPPORTED",
+      "requirements": [
+        "lifecycle:seal-then-attest",
+        "root:detached-excluded",
+        "slots:opaque-id-type-purpose-required",
+        "candidate:actual-raw-digest",
+        "subject:root-state-role-bound"
+      ]
+    }
+  ],
+  "domain_guidance": {
+    "version": "0.1.0",
+    "status": "CAPTURE_GUIDANCE_ONLY",
+    "wire_profile_id": null,
+    "guides": [
+      "references/domain-business.md",
+      "references/domain-coding.md",
+      "references/domain-general-chat.md",
+      "references/domain-learning.md",
+      "references/domain-product-design.md",
+      "references/domain-research.md",
+      "references/domain-writing.md"
+    ]
+  }
+}

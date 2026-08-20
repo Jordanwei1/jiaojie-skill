@@ -1,0 +1,35 @@
+{
+  "schema_version": "jiaojie-project-evidence-v0.1",
+  "evidence_id": "project-deterministic-2026-08-20",
+  "captured_at": "2026-08-20T09:44:26Z",
+  "status": "PASS",
+  "claim_scope": [
+    "public package contract",
+    "human-first format selection and round trip",
+    "audit byte mutation rejection",
+    "path and attachment safety",
+    "strict JSON and pinned protocol asset integrity",
+    "seven-domain synthetic candidate corpus structure"
+  ],
+  "not_claimed": [
+    "cross-model semantic continuity",
+    "cross-language model performance",
+    "Runtime installation or behavior beyond the separately recorded local discovery probe",
+    "source truth, origin, approval, authorization, or absence of all secrets",
+    "human or third-party verification"
+  ],
+  "test_count": 28,
+  "command": "python3 scripts/project_check.py",
+  "exit_code": 0,
+  "python": "3.13.11",
+  "platform": "Darwin",
+  "artifacts": {
+    "SKILL.md": "sha256:75787a2306c181949ff227b88d5b50d8aac69ad5d049bff86b4b4f8febe0c1b2",
+    "assets/protocol-version.json": "sha256:88456d1527047dd9e7477c7ef50dd329b6384f42b979d91ec6560542da2998cf",
+    "assets/registry/registry-lock.json": "sha256:6bfa603cc1c4586494bad02e10b2866df8769b5451dd416a017ecaa15e646404",
+    "assets/vectors/index.json": "sha256:2218c96dc99e783cceca309d7a27c91bfae55254b71ea159bf202c1a2d6828e8",
+    "examples/index.json": "sha256:404c967960bf6aa87927b6f96f237c3bd71e69a276ca7f6a83ee3682075df264",
+    "scripts/project_check.py": "sha256:df747fe352231478a5dca2d85e7cb25bee6731058dcc6f8e486fcd7207182319"
+  },
+  "log_sha256": "sha256:1072886678eb5ef7a90c40e5fdb0f5d9258389c7b8cebd2ac693ad385edde4ea"
+}

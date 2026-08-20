@@ -1,0 +1,78 @@
+{
+  "vector_id": "derived-digests-v1-001",
+  "kind": "derived_digests_v1",
+  "protocol_version": "0.1.0",
+  "digest_profile": "lch-derived-digest-v1",
+  "cases": [
+    {
+      "digest_type": "scope_digest",
+      "value": {"approval_statement_slot":"slot_approval","material_exclusion_ids":["omission_001"],"scope_id":"scope_001","selection_basis":"USER_SELECTED","statement":{"authority":"canonical_assertion","dir":"ltr","fidelity":"derived_restatement","kind":"canonical_assertion","lang":"en","review_status":"not_applicable","text_id":"scope_text_001","translation_method":null,"translation_of":null,"value":"Continue the exact selected task."},"user_request_refs":["msg_001"]},
+      "expected": "sha256:c5395883333bbaede69d65305dd114e0cf2432f4423f9babc3eb6ca2d9fd76d7"
+    },
+    {
+      "digest_type": "material_exclusions_digest",
+      "value": [{"category":"policy_exclusion","description":{"authority":"canonical_assertion","dir":"ltr","fidelity":"derived_restatement","kind":"canonical_assertion","lang":"en","review_status":"not_applicable","text_id":"omission_description_001","translation_method":null,"translation_of":null,"value":"Secret credential bytes are excluded."},"materiality":"MATERIAL","omission_id":"omission_001","reason":{"authority":"canonical_assertion","dir":"ltr","fidelity":"derived_restatement","kind":"canonical_assertion","lang":"en","review_status":"not_applicable","text_id":"omission_reason_001","translation_method":null,"translation_of":null,"value":"Credentials must be reacquired in the receiving environment."},"recoverable":true}],
+      "expected": "sha256:80993a7bc2e5bb167592b15d66ec8a4ff5176dc6c7e2139a3ac2c6b56d772e30"
+    },
+    {
+      "digest_type": "recipient_binding_digest",
+      "value": null,
+      "expected": "sha256:f3f5ff0c3f27b19ee89cf6abdd6a4a548d8b932f28feb62d116d08eacb6669a4"
+    },
+    {
+      "digest_type": "display_evidence_digest",
+      "value": {"approval_challenge_nonce":"nonce_7f2f1727db4049ca8e33b9aa2b75380a","canonical_state_digest":"sha256:1111111111111111111111111111111111111111111111111111111111111111","display_surface":{"runtime":"fixture-runtime","surface_id":"surface_001"},"displayed_at":"2026-08-20T00:00:00Z","displayed_review_sha256_raw":"sha256:2222222222222222222222222222222222222222222222222222222222222222","package_integrity_ref":{"byte_length":1234,"kind":"bundle_manifest","sha256":"sha256:3333333333333333333333333333333333333333333333333333333333333333"},"recipient_binding":{"recipient_id":"recipient_001","tenant_id":"tenant_001"},"response_sha256_raw":"sha256:4444444444444444444444444444444444444444444444444444444444444444","review_projection_ref":{"byte_length":5678,"kind":"bundle_handoff","projection_version":"review-v1","sha256_raw":"sha256:2222222222222222222222222222222222222222222222222222222222222222"}},
+      "expected": "sha256:e556306fd19cf0f1d2a44d7816c2c8c821492ce1293caa3392953287d3398af2"
+    },
+    {
+      "digest_type": "materiality_profile_digest",
+      "value": {"classifications":[{"definition":"Continuation cannot proceed safely or faithfully without the item.","id":"BLOCKING"},{"definition":"The item can change intent, a decision, a constraint, negative knowledge, an allowed action, or an action dependency.","id":"MATERIAL"},{"definition":"The item cannot change the current working judgment or permitted next action.","id":"NON_MATERIAL"}],"complete_claim_rule":"A COMPLETE Producer claim is permitted only when every omission within the anchored scope is NON_MATERIAL and every material exclusion is explicitly identified for approval.","material_if_affects":["intent","decision","constraint","negative_knowledge","allowed_action","action_dependency","authorization_requirement","external_state_recheck"],"profile_id":"materiality-v1","profile_version":"0.1.0","review_inclusion":["BLOCKING","MATERIAL"]},
+      "expected": "sha256:dc4d4a4d9cba3213756ecb7e8650d1b32d727ee077145f512409db2fea142d52"
+    },
+    {
+      "digest_type": "package_profile_digest",
+      "value": {"must_understand":["urn:lch:feature:detached-envelopes"],"profiles":[{"id":"urn:lch:profile:core-markdown","required":true,"version":"0.1.0"},{"id":"urn:lch:profile:self-contained","required":true,"version":"0.1.0"}]},
+      "expected": "sha256:4d81e45dd5fc61fcb1a8ef6b8cbe069a9bcfdab39823809c25deae616751bae3"
+    },
+    {
+      "digest_type": "read_set_digest",
+      "value": {"package_integrity_ref":{"byte_length":1234,"kind":"bundle_manifest","sha256":"sha256:3333333333333333333333333333333333333333333333333333333333333333"},"read_objects":[{"object_id":"object_001","sha256_raw":"sha256:5555555555555555555555555555555555555555555555555555555555555555"}]},
+      "expected": "sha256:ff313790d0b22ff8c63f1adced4aadb9e687be0db2c57df0e6f23a238c34c863"
+    },
+    {
+      "digest_type": "processing_coverage_digest",
+      "value": {"external_state_rechecks":[],"processed_modalities":["text"],"processing_basis":"original","processing_coverage":"FULL","processing_status":"FULL","protected_spans_failed":[],"receiver_execution_context":{"sandbox_claim":"CLAIMED","side_effects":"DISABLED","tools":"DISABLED"},"runtime_limits":[],"selected_continuation_language":"en","unprocessed_modalities":[]},
+      "expected": "sha256:68c6792da424a170e254024b05b8c2bf94bf13199ec6a763f80af57cd283b264"
+    },
+    {
+      "digest_type": "purpose_digest",
+      "value": {"purpose_id":"continue_text_analysis","statement":"Continue the selected text-only analysis."},
+      "expected": "sha256:f1f622b6971b1d5f08cf8d80a83a7226dbb975796546e72f9e3017695626678f"
+    },
+    {
+      "digest_type": "constraints_digest",
+      "value": [],
+      "expected": "sha256:f18191a4a5f5afc4f55e58102963de124432533b8812ea349eb963b0220562ea"
+    },
+    {
+      "digest_type": "inventory_digest",
+      "value": {"capture_boundary":{"ended_at":"2026-08-20T00:00:00Z","first_native_id":"msg_001","last_native_id":"msg_001","started_at":"2026-08-20T00:00:00Z"},"collector_claim":{"method":"fixture","principal_id":"collector_001"},"entries":[{"attachment_object_ids":[],"object_id":"object_001","object_sha256":"sha256:5555555555555555555555555555555555555555555555555555555555555555","observed_at":"2026-08-20T00:00:00Z","ordinal":1,"source_id":"msg_001","source_principal_id":"user_001","source_role":"user","stream_id":"session_001","tool_result_object_ids":[]}],"gaps":[],"inventory_id":"inventory_001","platform_attestation_ref":null,"source_session_ids":["session_001"],"tenant_id":"tenant_001"},
+      "expected": "sha256:07b826d5c50cd6aa6fb42439544ea24a8332c9e8482a410b405f6c4deefda1db"
+    },
+    {
+      "digest_type": "approval_statement_digest",
+      "value": {"decision":"APPROVED","expires_at":"2026-08-20T00:10:00Z","issued_at":"2026-08-20T00:00:00Z","issuer":{"authority_at_issue":"approve_export_scope","principal_id":"approver_001"},"issuer_evidence_ref":"evidence_001","statement_id":"statement_001","subject":{"approval_challenge_nonce":"nonce_7f2f1727db4049ca8e33b9aa2b75380a","canonical_state_digest":"sha256:1111111111111111111111111111111111111111111111111111111111111111","material_exclusions_digest":"sha256:6666666666666666666666666666666666666666666666666666666666666666","package_id":"package_001","package_integrity_ref":{"byte_length":1234,"kind":"bundle_manifest","sha256":"sha256:3333333333333333333333333333333333333333333333333333333333333333"},"recipient_binding_digest":"sha256:7777777777777777777777777777777777777777777777777777777777777777","review_projection_ref":{"byte_length":5678,"kind":"bundle_handoff","projection_version":"review-v1","sha256_raw":"sha256:2222222222222222222222222222222222222222222222222222222222222222"},"scope_digest":"sha256:8888888888888888888888888888888888888888888888888888888888888888"}},
+      "expected": "sha256:c5c2c053405551e8555fade5d820c2a92b1d1d67db9d04508d197e80c53ce173"
+    },
+    {
+      "digest_type": "receipt_sha256",
+      "value": {"active_constraint_ids":[],"active_decision_ids":[],"answered_question_ids":[],"authorization_evaluations":[],"authorization_summary":"NOT_APPLICABLE","blocked_action_ids":["action_001"],"blocking_reasons":[{"action_id":"action_001","code":"SECURITY_BLOCKED","evidence_refs":[]}],"canonical_state_digest":"sha256:1111111111111111111111111111111111111111111111111111111111111111","challenge_nonce":"nonce_7f2f1727db4049ca8e33b9aa2b75380a","conflicts":[],"continuation_status":"BLOCKED","current_intent_id":"intent_001","external_state_rechecks":[],"failed_attempt_ids":[],"issues":[{"code":"LCH-SECURITY-RUN-NOT-RUN","object_id":"action_001","severity":"blocking"}],"material_ambiguities":[],"package_id":"package_001","package_integrity_ref":{"byte_length":1234,"kind":"bundle_manifest","sha256":"sha256:3333333333333333333333333333333333333333333333333333333333333333"},"processed_modalities":["text"],"processing_basis":"original","processing_coverage":"PARTIAL","processing_status":"SECURITY_LIMITED","protected_spans_failed":[],"read_object_ids":["object_001"],"ready_action_ids":[],"receipt_attestation_ref":"receipt_attestation_001","receipt_issuer":{"authority":"receive_and_verify","principal_id":"receiver_001","tenant_id":"tenant_001"},"receipt_version":"0.1.0","received_at":"2026-08-20T00:00:00Z","receiver":{"implementation_version":"0.1.0","model":"fixture-model","runtime":"fixture-runtime"},"receiver_execution_context":{"sandbox_claim":"CLAIMED","side_effects":"DISABLED","tools":"DISABLED"},"recommended_action_id":null,"rejected_decision_ids":[],"runtime_limits":[],"selected_continuation_action_ids":[],"selected_continuation_language":"en","unprocessed_modalities":[],"verification_mode":"deterministic","verification_result_refs":{"approval":null,"byte_consistency":null,"inventory_authenticity":null,"inventory_scope_coverage":null,"origin":null,"package_vs_inventory_coverage":null,"review_projection":null,"security_run":null,"structure_conformance":null},"verification_summary":{"approval_gate":"NOT_RUN","approval_statement_authenticity":"NOT_RUN","approval_verified_decision":"UNKNOWN","byte_consistency":"NOT_RUN","inventory_authenticity":"NOT_RUN","inventory_scope_coverage":"NOT_RUN","origin":"NOT_RUN","package_vs_inventory_coverage":"NOT_RUN","review_projection_conformance":"NOT_RUN","structure_conformance":"NOT_RUN"},"observed_producer_claims":{"approval":{"package_claim_ref":"root.approval_claim","value":"PROPOSED"},"content_coverage":{"package_claim_ref":"root.content_coverage","value":"UNKNOWN"},"semantic_actionability":{"package_claim_ref":"root.semantic_actionability_claim","value":"UNKNOWN"}}},
+      "expected": "sha256:9ead2c9178366850c88968d01fe5925fe5c40e265202caf3bae5476944eeaf87"
+    },
+    {
+      "digest_type": "revision_digest",
+      "value": {"action_edges":[],"action_graph_revision":{"activated_by_event_id":"event_graph_001","previous_revision_ids":[],"record_id":"graph_001","revision_id":"revision_001"},"action_groups":[],"actions":[],"recommendation_basis_ids":[],"recommended_action_id":null},
+      "expected": "sha256:140c61b7d5d5a8a6e8cfd636ac680feb35c1cf2acdb23c8b4e2f28435b83caef"
+    }
+  ]
+}

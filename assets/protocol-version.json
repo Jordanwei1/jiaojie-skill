@@ -1,0 +1,59 @@
+{
+  "protocol_id": "lossless-context-handoff",
+  "protocol_version": "0.1.0",
+  "schema_version": "0.1.0",
+  "receipt_version": "0.1.0",
+  "skill_version": "0.1.0",
+  "state_projection_version": "state-projection-v1",
+  "review_projection_version": "review-v1",
+  "derived_digest_profile": "lch-derived-digest-v1",
+  "materiality_profile": {
+    "id": "materiality-v1",
+    "version": "0.1.0",
+    "sha256": "sha256:1930541dda9af3a5374f892fd3621d8ac80b7025638e9d401b164e2e6178979c"
+  },
+  "registry_lock": {
+    "path": "registry/registry-lock.json",
+    "byte_length_raw": 1206,
+    "sha256_raw": "sha256:6bfa603cc1c4586494bad02e10b2866df8769b5451dd416a017ecaa15e646404",
+    "byte_length_canonical": 1097,
+    "sha256_canonical": "sha256:92a6d0d7c9a28633c436803398baa90c41f7de4fe17102179d175d950ea7bc97",
+    "iana_file_date": "2026-08-08",
+    "iana_sha256_raw": "sha256:be21e91b6851f750a7b1a687f11209d46ad5a8471d6b10a1efc8d1dac4c8a926",
+    "iana_extensions_path": "registry/iana-language-tag-extensions-registry-2014-04-02.txt",
+    "iana_extensions_file_date": "2014-04-02",
+    "iana_extensions_byte_length": 1069,
+    "iana_extensions_sha256_raw": "sha256:fdf7764455c493c245a9b3b5b9cd3938391f0637302c3e943fde86aee652e376",
+    "unicode_version": "15.1.0"
+  },
+  "profile_feature_registry": {
+    "path": "registry/profile-feature-registry-v0.1.json",
+    "byte_length_raw": 3414,
+    "sha256_raw": "sha256:547f3051668c5b800e38e0d14d9ff61c4486d4d2e4d31a570e8e2b27c6b71a96",
+    "byte_length_canonical": 2436,
+    "sha256_canonical": "sha256:c961f9afe177430a234ceb06a16e49f25b3b9c5ee147045c7164e9fb57332172"
+  },
+  "schema_catalog": {
+    "path": "registry/schema-catalog-v0.1.json",
+    "byte_length_raw": 4228,
+    "sha256_raw": "sha256:902af004ab1e4d2c3a56c146c2388588c5e148abdb8f20a517ee69c57535108b",
+    "byte_length_canonical": 3474,
+    "sha256_canonical": "sha256:3d85610bca1cf18b1cbdeae3b03e365c854e6e5b86e80f7d2b955471af9031ed",
+    "remote_fetch": "FORBIDDEN"
+  },
+  "vector_catalog": {
+    "path": "vectors/index.json",
+    "byte_length_raw": 2158,
+    "sha256_raw": "sha256:2218c96dc99e783cceca309d7a27c91bfae55254b71ea159bf202c1a2d6828e8",
+    "byte_length_canonical": 1793,
+    "sha256_canonical": "sha256:affb27410a8c99023109be4c8ae20ed2c4ed1201d1c2c63dc2d0294e26f0b740"
+  },
+  "language_unicode_vector": {
+    "path": "vectors/language-unicode-v1-001.json",
+    "byte_length_raw": 10125,
+    "sha256_raw": "sha256:17e129721d11aca7c15719b1234b54c1436c19a062d2629264cbcf3980c46720",
+    "byte_length_canonical": 6888,
+    "sha256_canonical": "sha256:6e41cbcbd0654bacdd39c71d8ee9cb941d664d0516b6f0fa2dff3f1350b37748"
+  },
+  "status": "IMPLEMENTED"
+}

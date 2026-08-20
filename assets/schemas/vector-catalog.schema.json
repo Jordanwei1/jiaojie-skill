@@ -1,0 +1,239 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:lch:schema:0.1:vector-catalog",
+  "title": "Lossless Context Handoff hash-bound vector catalog v0.1",
+  "type": "object",
+  "required": [
+    "vector_set_version",
+    "protocol_version",
+    "fixture_format",
+    "vectors"
+  ],
+  "properties": {
+    "vector_set_version": {
+      "const": "0.1.0"
+    },
+    "protocol_version": {
+      "const": "0.1.0"
+    },
+    "fixture_format": {
+      "const": "lch-golden-vector-index-0.1"
+    },
+    "vectors": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/jcs"
+        },
+        {
+          "$ref": "#/$defs/review"
+        },
+        {
+          "$ref": "#/$defs/derived"
+        },
+        {
+          "$ref": "#/$defs/language"
+        }
+      ],
+      "items": false
+    }
+  },
+  "$defs": {
+    "entry": {
+      "type": "object",
+      "required": [
+        "vector_id",
+        "path",
+        "kind",
+        "byte_length_raw",
+        "sha256_raw",
+        "byte_length_canonical",
+        "sha256_canonical"
+      ],
+      "properties": {
+        "vector_id": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*-[0-9]{3}\\.json$"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "byte_length_raw": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sha256_raw": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "byte_length_canonical": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sha256_canonical": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "canonicalization": {
+          "type": "string"
+        },
+        "hash": {
+          "type": "string"
+        },
+        "projection_version": {
+          "type": "string"
+        },
+        "digest_profile": {
+          "type": "string"
+        },
+        "registry_file_date": {
+          "type": "string"
+        },
+        "extensions_registry_file_date": {
+          "type": "string"
+        },
+        "unicode_version": {
+          "type": "string"
+        },
+        "qualification_scope": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "jcs": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/entry"
+        },
+        {
+          "properties": {
+            "vector_id": {
+              "const": "jcs-sha256-basic-001"
+            },
+            "path": {
+              "const": "jcs-sha256-basic-001.json"
+            },
+            "kind": {
+              "const": "jcs_sha256"
+            },
+            "canonicalization": {
+              "const": "RFC8785-JCS"
+            },
+            "hash": {
+              "const": "sha-256"
+            }
+          },
+          "required": [
+            "canonicalization",
+            "hash"
+          ]
+        }
+      ]
+    },
+    "review": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/entry"
+        },
+        {
+          "properties": {
+            "vector_id": {
+              "const": "review-projection-v1-minimal-001"
+            },
+            "path": {
+              "const": "review-projection-v1-minimal-001.json"
+            },
+            "kind": {
+              "const": "review_projection_v1"
+            },
+            "projection_version": {
+              "const": "review-v1"
+            },
+            "hash": {
+              "const": "sha-256"
+            }
+          },
+          "required": [
+            "projection_version",
+            "hash"
+          ]
+        }
+      ]
+    },
+    "derived": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/entry"
+        },
+        {
+          "properties": {
+            "vector_id": {
+              "const": "derived-digests-v1-001"
+            },
+            "path": {
+              "const": "derived-digests-v1-001.json"
+            },
+            "kind": {
+              "const": "derived_digests_v1"
+            },
+            "digest_profile": {
+              "const": "lch-derived-digest-v1"
+            },
+            "hash": {
+              "const": "sha-256"
+            }
+          },
+          "required": [
+            "digest_profile",
+            "hash"
+          ]
+        }
+      ]
+    },
+    "language": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/entry"
+        },
+        {
+          "properties": {
+            "vector_id": {
+              "const": "language-unicode-v1-001"
+            },
+            "path": {
+              "const": "language-unicode-v1-001.json"
+            },
+            "kind": {
+              "const": "language_unicode_v1"
+            },
+            "registry_file_date": {
+              "const": "2026-08-08"
+            },
+            "extensions_registry_file_date": {
+              "const": "2014-04-02"
+            },
+            "unicode_version": {
+              "const": "15.1.0"
+            },
+            "qualification_scope": {
+              "const": "REGISTERED_VECTOR_SCOPE_ONLY"
+            }
+          },
+          "required": [
+            "registry_file_date",
+            "extensions_registry_file_date",
+            "unicode_version",
+            "qualification_scope"
+          ]
+        }
+      ]
+    }
+  },
+  "additionalProperties": false
+}

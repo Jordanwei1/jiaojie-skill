@@ -1,0 +1,22 @@
+{
+  "case_id": "product-design-parallel",
+  "domain": "product-design",
+  "title": "Mobile onboarding redesign with parallel actions",
+  "synthetic": true,
+  "license": "MIT",
+  "publication_clearance": "APPROVED_BY_PROJECT_OWNER",
+  "status": "GOLD_CANDIDATE",
+  "human_verification": "NOT_PERFORMED",
+  "source_language": "ja",
+  "receipt_language": "ko",
+  "coverage": [
+    "parallel_actions",
+    "missing_artifact",
+    "privacy_boundary",
+    "discarded_option"
+  ],
+  "limitations": [
+    "Not a real user conversation",
+    "Not independent model evidence"
+  ]
+}

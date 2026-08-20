@@ -1,0 +1,196 @@
+{
+  "protocol_id": "lossless-context-handoff",
+  "protocol_version": "__LCH_PROTOCOL_VERSION__",
+  "package_id": "__LCH_PACKAGE_ID__",
+  "created_at": "__LCH_CREATED_AT_RFC3339__",
+  "producer": {
+    "runtime": "__LCH_PRODUCER_RUNTIME__",
+    "model": "__LCH_PRODUCER_MODEL__",
+    "skill_version": "__LCH_SKILL_VERSION__"
+  },
+  "profiles": [
+    {
+      "id": "__LCH_PROFILE_URI__",
+      "version": "__LCH_PROFILE_VERSION__",
+      "required": true
+    }
+  ],
+  "must_understand": [],
+  "source_boundary": {},
+  "scope": {
+    "scope_id": "__LCH_SCOPE_ID__",
+    "statement": {
+      "text_id": "__LCH_SCOPE_TEXT_ID__",
+      "value": "__LCH_SCOPE_TEXT_UTF8__",
+      "lang": "__LCH_SCOPE_BCP47__",
+      "dir": "ltr",
+      "kind": "canonical_assertion",
+      "authority": "canonical_assertion",
+      "fidelity": "derived_restatement",
+      "translation_of": null,
+      "translation_method": null,
+      "review_status": "not_applicable"
+    },
+    "user_request_refs": [
+      "__LCH_ORIGINAL_USER_REQUEST_SOURCE_ID__"
+    ],
+    "selection_basis": "__LCH_SCOPE_SELECTION_BASIS__",
+    "material_exclusion_ids": [],
+    "approval_statement_slot": "__LCH_APPROVAL_STATEMENT_SLOT_ID__"
+  },
+  "policy_boundary": {},
+  "external_state_dependencies": [],
+  "resource_requirements": {},
+  "language_profile": {
+    "source_languages": [
+      {
+        "tag": "__LCH_SOURCE_BCP47__",
+        "provenance": "__LCH_SOURCE_LANGUAGE_PROVENANCE__"
+      }
+    ],
+    "content_languages": [
+      "__LCH_CONTENT_BCP47__"
+    ],
+    "continuation_language_ranges": [
+      "__LCH_CONTINUATION_BCP47_RANGE__"
+    ],
+    "selected_continuation_language": "__LCH_SELECTED_CONTINUATION_BCP47__",
+    "translation_policy": "original_authoritative",
+    "generated_text_normalization": "NFC"
+  },
+  "materiality_profile_ref": {
+    "id": "materiality-v1",
+    "version": "0.1.0",
+    "sha256": "sha256:1930541dda9af3a5374f892fd3621d8ac80b7025638e9d401b164e2e6178979c"
+  },
+  "structure_self_check": "NOT_RUN",
+  "byte_digests_present": "NO",
+  "content_coverage": {
+    "claim": "UNKNOWN",
+    "claim_issuer": "producer",
+    "scope": {
+      "scope_id": "__LCH_SCOPE_ID__",
+      "statement": {
+        "text_id": "__LCH_SCOPE_TEXT_ID__",
+        "value": "__LCH_SCOPE_TEXT_UTF8__",
+        "lang": "__LCH_SCOPE_BCP47__",
+        "dir": "ltr",
+        "kind": "canonical_assertion",
+        "authority": "canonical_assertion",
+        "fidelity": "derived_restatement",
+        "translation_of": null,
+        "translation_method": null,
+        "review_status": "not_applicable"
+      },
+      "user_request_refs": [
+        "__LCH_ORIGINAL_USER_REQUEST_SOURCE_ID__"
+      ],
+      "selection_basis": "__LCH_SCOPE_SELECTION_BASIS__",
+      "material_exclusion_ids": [],
+      "approval_statement_slot": "__LCH_APPROVAL_STATEMENT_SLOT_ID__"
+    },
+    "source_access": "UNKNOWN",
+    "inventory_object_id": "__LCH_INVENTORY_OBJECT_ID__",
+    "raw_coverage": "UNKNOWN",
+    "artifact_coverage": "NOT_APPLICABLE",
+    "coverage_envelope_slot_ids": [],
+    "omissions": []
+  },
+  "consistency_claim": "UNKNOWN",
+  "semantic_actionability_claim": "BLOCKED",
+  "continuity_eval_eligibility_claim": "UNKNOWN",
+  "approval_claim": {
+    "state": "PROPOSED",
+    "approval_statement_slot": "__LCH_APPROVAL_STATEMENT_SLOT_ID__"
+  },
+  "origin_claim": {
+    "claimed_principal": "__LCH_CLAIMED_PRINCIPAL_ID__",
+    "claimed_method": "__LCH_CLAIMED_ORIGIN_METHOD__",
+    "tenant_id": "__LCH_TENANT_ID__",
+    "recipient_binding": null
+  },
+  "detached_envelope_slots": [
+    {
+      "opaque_id": "__LCH_REVIEW_PROJECTION_RESULT_OPAQUE_ID__",
+      "expected_type": "review_projection_conformance",
+      "purpose": {
+        "text_id": "__LCH_REVIEW_RESULT_SLOT_PURPOSE_TEXT_ID__",
+        "value": "Review projection conformance result for the sealed export root.",
+        "lang": "en",
+        "dir": "ltr",
+        "kind": "canonical_assertion",
+        "authority": "canonical_assertion",
+        "fidelity": "derived_restatement",
+        "translation_of": null,
+        "translation_method": null,
+        "review_status": "not_applicable"
+      },
+      "required": true
+    },
+    {
+      "opaque_id": "__LCH_APPROVAL_STATEMENT_SLOT_ID__",
+      "expected_type": "approval_statement",
+      "purpose": {
+        "text_id": "__LCH_APPROVAL_STATEMENT_SLOT_PURPOSE_TEXT_ID__",
+        "value": "Approval statement for the sealed export root.",
+        "lang": "en",
+        "dir": "ltr",
+        "kind": "canonical_assertion",
+        "authority": "canonical_assertion",
+        "fidelity": "derived_restatement",
+        "translation_of": null,
+        "translation_method": null,
+        "review_status": "not_applicable"
+      },
+      "required": true
+    },
+    {
+      "opaque_id": "__LCH_APPROVAL_VERIFICATION_SLOT_ID__",
+      "expected_type": "approval_verification",
+      "purpose": {
+        "text_id": "__LCH_APPROVAL_VERIFICATION_SLOT_PURPOSE_TEXT_ID__",
+        "value": "Approval verification and gate for the sealed export root.",
+        "lang": "en",
+        "dir": "ltr",
+        "kind": "canonical_assertion",
+        "authority": "canonical_assertion",
+        "fidelity": "derived_restatement",
+        "translation_of": null,
+        "translation_method": null,
+        "review_status": "not_applicable"
+      },
+      "required": true
+    }
+  ],
+  "review_projection_ref": {
+    "kind": "t0_human_view",
+    "projection_version": "review-v1",
+    "sha256_raw": "sha256:__LCH_REVIEW_PROJECTION_SHA256_HEX__",
+    "byte_length": "__LCH_REVIEW_PROJECTION_BYTE_LENGTH_UINT__"
+  },
+  "canonical_state_digest": "sha256:__LCH_CANONICAL_STATE_SHA256_HEX__",
+  "embedded_objects": [
+    {
+      "object_id": "__LCH_WARM_OBJECT_ID__",
+      "ordinal": 1,
+      "media_type": "application/json",
+      "encoding": "base64url",
+      "encoded_byte_length": "__LCH_WARM_ENCODED_BYTE_LENGTH_UINT__",
+      "decoded_byte_length": "__LCH_WARM_BYTE_LENGTH_UINT__",
+      "chunk_size": 4096,
+      "chunk_count": "__LCH_WARM_CHUNK_COUNT_UINT__",
+      "sha256_raw": "sha256:__LCH_WARM_SHA256_HEX__"
+    },
+    {
+      "object_id": "__LCH_COLD_OBJECT_ID__",
+      "ordinal": 2,
+      "media_type": "__LCH_COLD_MEDIA_TYPE__",
+      "encoding": "base64url",
+      "encoded_byte_length": "__LCH_COLD_ENCODED_BYTE_LENGTH_UINT__",
+      "decoded_byte_length": "__LCH_COLD_BYTE_LENGTH_UINT__",
+      "chunk_size": 4096,
+      "chunk_count": "__LCH_COLD_CHUNK_COUNT_UINT__",
+      "sha256_raw": "sha256:__LCH_COLD_SHA256_HEX__"
+    }
+  ]
+}

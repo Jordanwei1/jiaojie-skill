@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:lch:schema:0.1:schema-catalog",
+  "title": "Lossless Context Handoff offline schema catalog v0.1",
+  "type": "object",
+  "required": [
+    "catalog_version",
+    "path_base",
+    "dialect",
+    "remote_fetch",
+    "schemas"
+  ],
+  "properties": {
+    "catalog_version": {
+      "const": "0.1.0"
+    },
+    "path_base": {
+      "const": "assets"
+    },
+    "dialect": {
+      "type": "object",
+      "required": [
+        "id",
+        "resolution"
+      ],
+      "properties": {
+        "id": {
+          "const": "https://json-schema.org/draft/2020-12/schema"
+        },
+        "resolution": {
+          "const": "BUILT_IN_NO_FETCH"
+        }
+      },
+      "additionalProperties": false
+    },
+    "remote_fetch": {
+      "const": "FORBIDDEN"
+    },
+    "schemas": {
+      "type": "array",
+      "minItems": 17,
+      "maxItems": 17,
+      "items": {
+        "$ref": "#/$defs/catalogEntry"
+      },
+      "uniqueItems": true
+    }
+  },
+  "$defs": {
+    "catalogEntry": {
+      "type": "object",
+      "required": [
+        "id",
+        "path",
+        "byte_length",
+        "sha256_raw"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^urn:lch:schema:0\\.1:[a-z][a-z0-9-]*$"
+        },
+        "path": {
+          "type": "string",
+          "pattern": "^schemas/[a-z][a-z0-9-]*\\.schema\\.json$"
+        },
+        "byte_length": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sha256_raw": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,947 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:lch:schema:0.1:verification-result",
+  "title": "Lossless Context Handoff detached statements and results v0.1",
+  "description": "Role-specific post-seal objects. Each object binds the exact package integrity reference and relevant subject digests. NOT_RUN is a Receipt summary state and is not minted as a result object.",
+  "x-lch-schema-version": "0.1.0",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/deterministicResult"
+    },
+    {
+      "$ref": "#/$defs/attestation"
+    },
+    {
+      "$ref": "#/$defs/approvalStatement"
+    },
+    {
+      "$ref": "#/$defs/approvalVerification"
+    },
+    {
+      "$ref": "#/$defs/receiptAttestation"
+    },
+    {
+      "$ref": "#/$defs/authorizationResult"
+    },
+    {
+      "$ref": "#/$defs/securityRunResult"
+    }
+  ],
+  "$defs": {
+    "issuer": {
+      "type": "object",
+      "required": [
+        "principal_id",
+        "authority"
+      ],
+      "properties": {
+        "principal_id": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+        },
+        "tenant_id": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+        },
+        "runtime": {
+          "type": "string",
+          "minLength": 1
+        },
+        "authority": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+        }
+      },
+      "additionalProperties": false
+    },
+    "boundSubject": {
+      "type": "object",
+      "required": [
+        "package_id",
+        "package_integrity_ref",
+        "canonical_state_digest"
+      ],
+      "properties": {
+        "package_id": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+        },
+        "package_integrity_ref": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/packageIntegrityRef"
+        },
+        "canonical_state_digest": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/sha256"
+        },
+        "profiles": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:lch:schema:0.1:common#/$defs/profileRef"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "deterministicResult": {
+      "type": "object",
+      "required": [
+        "result_id",
+        "type",
+        "issuer",
+        "subject",
+        "result",
+        "issues",
+        "implementation_version",
+        "issued_at"
+      ],
+      "properties": {
+        "result_id": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+        },
+        "type": {
+          "enum": [
+            "structure_conformance",
+            "byte_consistency",
+            "review_projection_conformance"
+          ]
+        },
+        "issuer": {
+          "$ref": "#/$defs/issuer"
+        },
+        "subject": {
+          "$ref": "#/$defs/boundSubject"
+        },
+        "result": {
+          "enum": [
+            "PASS",
+            "WARN",
+            "FAIL",
+            "VERIFIED",
+            "UNVERIFIED"
+          ]
+        },
+        "issues": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:lch:schema:0.1:common#/$defs/issue"
+          }
+        },
+        "implementation_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "issued_at": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/timestamp"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "structure_conformance"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "result": {
+                "enum": [
+                  "PASS",
+                  "WARN",
+                  "FAIL"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "byte_consistency"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "result": {
+                "enum": [
+                  "VERIFIED",
+                  "UNVERIFIED",
+                  "FAIL"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "review_projection_conformance"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "result": {
+                "enum": [
+                  "PASS",
+                  "FAIL"
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "attestation": {
+      "type": "object",
+      "required": [
+        "attestation_id",
+        "type",
+        "issuer",
+        "subject",
+        "result",
+        "method",
+        "issued_at",
+        "expires_at",
+        "trust_anchor_ref"
+      ],
+      "properties": {
+        "attestation_id": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+        },
+        "type": {
+          "enum": [
+            "inventory_authenticity",
+            "inventory_scope_coverage",
+            "package_vs_inventory_coverage",
+            "origin"
+          ]
+        },
+        "issuer": {
+          "$ref": "#/$defs/issuer"
+        },
+        "subject": {
+          "type": "object",
+          "required": [
+            "package_id",
+            "package_integrity_ref",
+            "canonical_state_digest",
+            "scope_digest",
+            "inventory_digest",
+            "materiality_profile_digest",
+            "package_profile_digest"
+          ],
+          "properties": {
+            "package_id": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+            },
+            "package_integrity_ref": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/packageIntegrityRef"
+            },
+            "canonical_state_digest": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/sha256"
+            },
+            "scope_digest": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/sha256"
+            },
+            "inventory_digest": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/sha256"
+            },
+            "materiality_profile_digest": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/sha256"
+            },
+            "package_profile_digest": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/sha256"
+            }
+          },
+          "additionalProperties": false
+        },
+        "result": {
+          "enum": [
+            "VERIFIED",
+            "PARTIAL",
+            "UNKNOWN",
+            "UNAUTHENTICATED",
+            "TRANSPORT_AUTHENTICATED",
+            "SIGNATURE_VERIFIED",
+            "FAIL"
+          ]
+        },
+        "method": {
+          "enum": [
+            "platform_attestation",
+            "trusted_export_compare",
+            "fixture_compare",
+            "signature_verify"
+          ]
+        },
+        "issued_at": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/timestamp"
+        },
+        "expires_at": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/timestamp"
+        },
+        "trust_anchor_ref": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "inventory_authenticity"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "result": {
+                "enum": [
+                  "VERIFIED",
+                  "FAIL"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "enum": [
+                  "inventory_scope_coverage",
+                  "package_vs_inventory_coverage"
+                ]
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "result": {
+                "enum": [
+                  "VERIFIED",
+                  "PARTIAL",
+                  "UNKNOWN",
+                  "FAIL"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "origin"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "result": {
+                "enum": [
+                  "UNAUTHENTICATED",
+                  "TRANSPORT_AUTHENTICATED",
+                  "SIGNATURE_VERIFIED",
+                  "FAIL"
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "approvalStatement": {
+      "type": "object",
+      "required": [
+        "statement_id",
+        "issuer",
+        "subject",
+        "decision",
+        "issued_at",
+        "expires_at",
+        "issuer_evidence_ref"
+      ],
+      "properties": {
+        "statement_id": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+        },
+        "issuer": {
+          "type": "object",
+          "required": [
+            "principal_id",
+            "authority_at_issue"
+          ],
+          "properties": {
+            "principal_id": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+            },
+            "authority_at_issue": {
+              "const": "approve_export_scope"
+            }
+          },
+          "additionalProperties": false
+        },
+        "subject": {
+          "type": "object",
+          "required": [
+            "package_id",
+            "package_integrity_ref",
+            "review_projection_ref",
+            "canonical_state_digest",
+            "scope_digest",
+            "material_exclusions_digest",
+            "recipient_binding_digest",
+            "approval_challenge_nonce"
+          ],
+          "properties": {
+            "package_id": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+            },
+            "package_integrity_ref": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/packageIntegrityRef"
+            },
+            "review_projection_ref": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/reviewProjectionRef"
+            },
+            "canonical_state_digest": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/sha256"
+            },
+            "scope_digest": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/sha256"
+            },
+            "material_exclusions_digest": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/sha256"
+            },
+            "recipient_binding_digest": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/sha256"
+            },
+            "approval_challenge_nonce": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "decision": {
+          "enum": [
+            "APPROVED",
+            "REVIEWED",
+            "DENIED"
+          ]
+        },
+        "issued_at": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/timestamp"
+        },
+        "expires_at": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/timestamp"
+        },
+        "issuer_evidence_ref": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+        }
+      },
+      "additionalProperties": false
+    },
+    "approvalVerification": {
+      "type": "object",
+      "required": [
+        "verification_id",
+        "issuer",
+        "subject",
+        "statement_authenticity",
+        "verified_decision",
+        "subject_match",
+        "recipient_match",
+        "time_validity",
+        "review_projection_conformance",
+        "approval_gate",
+        "method",
+        "issued_at",
+        "expires_at",
+        "trust_anchor_ref"
+      ],
+      "properties": {
+        "verification_id": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+        },
+        "issuer": {
+          "$ref": "#/$defs/issuer"
+        },
+        "subject": {
+          "type": "object",
+          "required": [
+            "approval_statement_digest",
+            "package_id",
+            "package_integrity_ref",
+            "review_projection_ref",
+            "canonical_state_digest",
+            "scope_digest",
+            "recipient_binding_digest",
+            "approval_challenge_nonce",
+            "display_evidence_digest",
+            "review_projection_result_ref"
+          ],
+          "properties": {
+            "approval_statement_digest": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/sha256"
+            },
+            "package_id": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+            },
+            "package_integrity_ref": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/packageIntegrityRef"
+            },
+            "review_projection_ref": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/reviewProjectionRef"
+            },
+            "canonical_state_digest": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/sha256"
+            },
+            "scope_digest": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/sha256"
+            },
+            "recipient_binding_digest": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/sha256"
+            },
+            "approval_challenge_nonce": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "display_evidence_digest": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/sha256"
+            },
+            "review_projection_result_ref": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/nullableDetachedObjectRef"
+            }
+          },
+          "additionalProperties": false
+        },
+        "statement_authenticity": {
+          "enum": [
+            "VERIFIED",
+            "UNVERIFIED",
+            "FAIL"
+          ]
+        },
+        "verified_decision": {
+          "enum": [
+            "APPROVED",
+            "REVIEWED",
+            "DENIED",
+            "UNKNOWN"
+          ]
+        },
+        "subject_match": {
+          "enum": [
+            "PASS",
+            "FAIL"
+          ]
+        },
+        "recipient_match": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "UNKNOWN"
+          ]
+        },
+        "time_validity": {
+          "enum": [
+            "CURRENT",
+            "EXPIRED",
+            "UNKNOWN"
+          ]
+        },
+        "review_projection_conformance": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "NOT_RUN"
+          ]
+        },
+        "approval_gate": {
+          "enum": [
+            "PASS",
+            "FAIL"
+          ]
+        },
+        "method": {
+          "enum": [
+            "signature_verify",
+            "platform_session_challenge",
+            "current_user_challenge"
+          ]
+        },
+        "issued_at": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/timestamp"
+        },
+        "expires_at": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/timestamp"
+        },
+        "trust_anchor_ref": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "approval_gate": {
+                "const": "PASS"
+              }
+            },
+            "required": [
+              "approval_gate"
+            ]
+          },
+          "then": {
+            "properties": {
+              "statement_authenticity": {
+                "const": "VERIFIED"
+              },
+              "verified_decision": {
+                "const": "APPROVED"
+              },
+              "subject_match": {
+                "const": "PASS"
+              },
+              "recipient_match": {
+                "const": "PASS"
+              },
+              "time_validity": {
+                "const": "CURRENT"
+              },
+              "review_projection_conformance": {
+                "const": "PASS"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method": {
+                "enum": [
+                  "platform_session_challenge",
+                  "current_user_challenge"
+                ]
+              }
+            },
+            "required": [
+              "method"
+            ]
+          },
+          "then": {
+            "properties": {
+              "subject": {
+                "properties": {
+                  "approval_challenge_nonce": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "review_projection_conformance": {
+                "const": "NOT_RUN"
+              }
+            },
+            "required": [
+              "review_projection_conformance"
+            ]
+          },
+          "then": {
+            "properties": {
+              "subject": {
+                "properties": {
+                  "review_projection_result_ref": {
+                    "type": "null"
+                  }
+                }
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "subject": {
+                "properties": {
+                  "review_projection_result_ref": {
+                    "$ref": "urn:lch:schema:0.1:common#/$defs/detachedObjectRef"
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "receiptAttestation": {
+      "type": "object",
+      "required": [
+        "type",
+        "issuer",
+        "subject",
+        "issued_at",
+        "expires_at",
+        "trust_anchor_ref"
+      ],
+      "properties": {
+        "type": {
+          "const": "receiver_receipt"
+        },
+        "issuer": {
+          "type": "object",
+          "required": [
+            "principal_id",
+            "tenant_id",
+            "runtime",
+            "authority"
+          ],
+          "properties": {
+            "principal_id": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+            },
+            "tenant_id": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+            },
+            "runtime": {
+              "type": "string",
+              "minLength": 1
+            },
+            "authority": {
+              "const": "receive_and_attest"
+            }
+          },
+          "additionalProperties": false
+        },
+        "subject": {
+          "type": "object",
+          "required": [
+            "receipt_sha256",
+            "package_integrity_ref",
+            "canonical_state_digest",
+            "challenge_nonce",
+            "read_set_digest",
+            "processing_coverage_digest"
+          ],
+          "properties": {
+            "receipt_sha256": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/sha256"
+            },
+            "package_integrity_ref": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/packageIntegrityRef"
+            },
+            "canonical_state_digest": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/sha256"
+            },
+            "challenge_nonce": {
+              "type": "string",
+              "minLength": 1
+            },
+            "read_set_digest": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/sha256"
+            },
+            "processing_coverage_digest": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/sha256"
+            }
+          },
+          "additionalProperties": false
+        },
+        "issued_at": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/timestamp"
+        },
+        "expires_at": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/timestamp"
+        },
+        "trust_anchor_ref": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+        }
+      },
+      "additionalProperties": false
+    },
+    "authorizationResult": {
+      "type": "object",
+      "required": [
+        "result_id",
+        "issuer",
+        "subject",
+        "result",
+        "issued_at",
+        "expires_at",
+        "trust_anchor_ref"
+      ],
+      "properties": {
+        "result_id": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+        },
+        "issuer": {
+          "type": "object",
+          "required": [
+            "principal_id",
+            "tenant_id",
+            "authority"
+          ],
+          "properties": {
+            "principal_id": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+            },
+            "tenant_id": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+            },
+            "authority": {
+              "const": "authorize_operation"
+            }
+          },
+          "additionalProperties": false
+        },
+        "subject": {
+          "type": "object",
+          "required": [
+            "challenge_nonce",
+            "package_id",
+            "package_integrity_ref",
+            "canonical_state_digest",
+            "action_id",
+            "principal_id",
+            "tenant_id",
+            "resource",
+            "operation",
+            "purpose_digest",
+            "constraints_digest"
+          ],
+          "properties": {
+            "challenge_nonce": {
+              "type": "string",
+              "minLength": 1
+            },
+            "package_id": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+            },
+            "package_integrity_ref": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/packageIntegrityRef"
+            },
+            "canonical_state_digest": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/sha256"
+            },
+            "action_id": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+            },
+            "principal_id": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+            },
+            "tenant_id": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+            },
+            "resource": {
+              "type": "string",
+              "minLength": 1
+            },
+            "operation": {
+              "type": "string",
+              "minLength": 1
+            },
+            "purpose_digest": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/sha256"
+            },
+            "constraints_digest": {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/sha256"
+            }
+          },
+          "additionalProperties": false
+        },
+        "result": {
+          "enum": [
+            "AUTHORIZED",
+            "DENIED"
+          ]
+        },
+        "issued_at": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/timestamp"
+        },
+        "expires_at": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/timestamp"
+        },
+        "trust_anchor_ref": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+        }
+      },
+      "additionalProperties": false
+    },
+    "securityRunResult": {
+      "type": "object",
+      "required": [
+        "result_id",
+        "type",
+        "issuer",
+        "subject",
+        "result",
+        "issues",
+        "implementation_version",
+        "issued_at"
+      ],
+      "properties": {
+        "result_id": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+        },
+        "type": {
+          "const": "security_run"
+        },
+        "issuer": {
+          "$ref": "#/$defs/issuer"
+        },
+        "subject": {
+          "$ref": "#/$defs/boundSubject"
+        },
+        "result": {
+          "enum": [
+            "PASS",
+            "FAIL"
+          ]
+        },
+        "issues": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:lch:schema:0.1:common#/$defs/issue"
+          }
+        },
+        "implementation_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "issued_at": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/timestamp"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

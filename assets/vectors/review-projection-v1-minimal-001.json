@@ -1,0 +1,341 @@
+{
+  "vector_version": "0.1.0",
+  "vector_id": "review-projection-v1-minimal-001",
+  "fixture_format": "lch-golden-vector-0.1",
+  "kind": "review_projection_v1",
+  "input": {
+    "warm": {
+      "protocol_version": "0.1.0",
+      "state_projection_version": "state-projection-v1",
+      "boundaries": {
+        "source_boundary": {
+          "source_session_ids": [
+            "session_001"
+          ],
+          "first_source_id": "msg_001",
+          "last_source_id": "msg_001"
+        },
+        "scope": {
+          "scope_id": "scope_001",
+          "statement": {
+            "text_id": "text_scope_001",
+            "value": "Continue the task in the declared handoff scope.",
+            "lang": "en",
+            "dir": "ltr",
+            "kind": "canonical_assertion",
+            "authority": "canonical_assertion",
+            "fidelity": "derived_restatement",
+            "translation_of": null,
+            "translation_method": null,
+            "review_status": "not_applicable"
+          },
+          "user_request_refs": [
+            "msg_001"
+          ],
+          "selection_basis": "USER_SELECTED",
+          "material_exclusion_ids": [],
+          "approval_statement_slot": "slot_approval_statement"
+        },
+        "policy_boundary": {
+          "sharing": "recipient_only",
+          "sensitivity": "public"
+        },
+        "external_state_dependencies": []
+      },
+      "source_inventory": {
+        "inventory_id": "inventory_001",
+        "collector_claim": {
+          "principal_id": "producer_001",
+          "method": "fixture"
+        },
+        "tenant_id": "tenant_001",
+        "source_session_ids": [
+          "session_001"
+        ],
+        "capture_boundary": {
+          "started_at": "2026-08-19T00:00:00Z",
+          "ended_at": "2026-08-19T00:00:00Z",
+          "first_native_id": "msg_001",
+          "last_native_id": "msg_001"
+        },
+        "entries": [
+          {
+            "ordinal": 1,
+            "source_id": "msg_001",
+            "stream_id": "session_001",
+            "source_principal_id": "user_001",
+            "source_role": "user",
+            "observed_at": "2026-08-19T00:00:00Z",
+            "object_id": "source_object_001",
+            "object_sha256": "sha256:15483b8b9a593e3e4c761889ccf94f6c7019148a6a8aaa631cce507158cb4e00",
+            "attachment_object_ids": [],
+            "tool_result_object_ids": []
+          }
+        ],
+        "gaps": [],
+        "inventory_digest": "sha256:f2df0de20b18cc24f85ff86219e91aa5aab32fac4d937d722d871e1398d59299",
+        "platform_attestation_ref": null
+      },
+      "records": [
+        {
+          "id": "intent_001",
+          "type": "intent",
+          "assertion": {
+            "text_id": "text_intent_001",
+            "value": "Continue the task.",
+            "lang": "en",
+            "dir": "ltr",
+            "kind": "canonical_assertion",
+            "authority": "canonical_assertion",
+            "fidelity": "derived_restatement",
+            "translation_of": null,
+            "translation_method": null,
+            "review_status": "not_applicable"
+          },
+          "evidence_spans": [
+            {
+              "object_id": "source_object_001",
+              "source_id": "msg_001",
+              "byte_start": 0,
+              "byte_end": 18,
+              "sha256_raw": "sha256:15483b8b9a593e3e4c761889ccf94f6c7019148a6a8aaa631cce507158cb4e00"
+            }
+          ],
+          "source_principal": {
+            "principal_id": "user_001",
+            "tenant_id": "tenant_001",
+            "source_role": "user",
+            "authority_at_capture": "user_instruction"
+          },
+          "ordering": {
+            "stream_id": "session_001",
+            "sequence": 0,
+            "causal_parent_ids": [],
+            "logical_clock": 0
+          },
+          "temporal": {
+            "observed_at": "2026-08-19T00:00:00Z",
+            "valid_from": "2026-08-19T00:00:00Z",
+            "expires_at": null,
+            "revalidate_before": null
+          },
+          "related_records": [],
+          "transition_event_ids": [
+            "event_intent_001"
+          ],
+          "scope_id": "scope_001",
+          "sensitivity": "public",
+          "lifecycle": "ACTIVE"
+        }
+      ],
+      "transition_events": [
+        {
+          "event_id": "event_graph_001",
+          "event_stream_id": "producer_stream_001",
+          "event_sequence": 0,
+          "record_id": "graph_001",
+          "previous_event_ids": [],
+          "from": null,
+          "to": {
+            "lifecycle": "ACTIVE"
+          },
+          "reason_kind": "ACTION_GRAPH_ACTIVATED",
+          "principal_id": "producer_001",
+          "source_refs": [
+            "msg_001"
+          ],
+          "scope_id": "scope_001",
+          "occurred_at": "2026-08-19T00:00:00Z",
+          "logical_clock": 0
+        },
+        {
+          "event_id": "event_intent_001",
+          "event_stream_id": "producer_stream_001",
+          "event_sequence": 1,
+          "record_id": "intent_001",
+          "previous_event_ids": [],
+          "from": null,
+          "to": {
+            "lifecycle": "ACTIVE"
+          },
+          "reason_kind": "INITIALIZED",
+          "principal_id": "user_001",
+          "source_refs": [
+            "msg_001"
+          ],
+          "scope_id": "scope_001",
+          "occurred_at": "2026-08-19T00:00:00Z",
+          "logical_clock": 1
+        }
+      ],
+      "action_graph": {
+        "action_graph_revision": {
+          "record_id": "graph_001",
+          "revision_id": "revision_001",
+          "previous_revision_ids": [],
+          "activated_by_event_id": "event_graph_001",
+          "revision_digest": "sha256:140c61b7d5d5a8a6e8cfd636ac680feb35c1cf2acdb23c8b4e2f28435b83caef"
+        },
+        "actions": [],
+        "action_edges": [],
+        "action_groups": [],
+        "recommended_action_id": null,
+        "recommendation_basis_ids": []
+      },
+      "current_projection": {
+        "current_intent_id": "intent_001",
+        "current_phase": "draft",
+        "active_decision_ids": [],
+        "rejected_decision_ids": [],
+        "failed_attempt_ids": [],
+        "active_constraint_ids": [],
+        "answered_question_ids": [],
+        "ready_action_ids": [],
+        "blocked_action_ids": [],
+        "recommended_action_id": null
+      },
+      "content_coverage": {
+        "claim": "COMPLETE",
+        "claim_issuer": "producer",
+        "scope": {
+          "scope_id": "scope_001",
+          "statement": {
+            "text_id": "text_scope_001",
+            "value": "Continue the task in the declared handoff scope.",
+            "lang": "en",
+            "dir": "ltr",
+            "kind": "canonical_assertion",
+            "authority": "canonical_assertion",
+            "fidelity": "derived_restatement",
+            "translation_of": null,
+            "translation_method": null,
+            "review_status": "not_applicable"
+          },
+          "user_request_refs": [
+            "msg_001"
+          ],
+          "selection_basis": "USER_SELECTED",
+          "material_exclusion_ids": [],
+          "approval_statement_slot": "slot_approval_statement"
+        },
+        "source_access": "FULL",
+        "inventory_object_id": "inventory_001",
+        "raw_coverage": "FULL_WITHIN_SCOPE",
+        "artifact_coverage": "NOT_APPLICABLE",
+        "coverage_envelope_slot_ids": [],
+        "omissions": []
+      },
+      "consistency_claim": "CONSISTENT",
+      "semantic_actionability_claim": "SEMANTICALLY_READY",
+      "language_profile": {
+        "source_languages": [
+          {
+            "tag": "en",
+            "provenance": "msg_001"
+          }
+        ],
+        "content_languages": [
+          "en"
+        ],
+        "continuation_language_ranges": [
+          "en"
+        ],
+        "selected_continuation_language": "en",
+        "translation_policy": "original_authoritative",
+        "generated_text_normalization": "NFC"
+      },
+      "materiality_profile_ref": {
+        "id": "materiality-v1",
+        "version": "0.1.0",
+        "sha256": "sha256:1930541dda9af3a5374f892fd3621d8ac80b7025638e9d401b164e2e6178979c"
+      }
+    },
+    "review_context": {
+      "protocol_id": "lossless-context-handoff",
+      "package_id": "pkg_vector_review_001",
+      "profiles": [
+        {
+          "id": "urn:lch:profile:core-markdown",
+          "version": "0.1.0",
+          "required": true
+        }
+      ],
+      "integrity_kind": "bundle_manifest",
+      "integrity_algorithm": "sha-256",
+      "recipient_and_sharing_scope": {
+        "recipient_id": "recipient_001",
+        "sharing": "recipient_only"
+      },
+      "detached_envelope_policy": [
+        {
+          "opaque_id": "slot_review_projection",
+          "expected_type": "review_projection_conformance",
+          "purpose": {
+            "text_id": "text_review_result",
+            "value": "Carry the detached review result.",
+            "lang": "en",
+            "dir": "ltr",
+            "kind": "canonical_assertion",
+            "authority": "canonical_assertion",
+            "fidelity": "derived_restatement",
+            "translation_of": null,
+            "translation_method": null,
+            "review_status": "not_applicable"
+          },
+          "required": true
+        },
+        {
+          "opaque_id": "slot_approval_verification",
+          "expected_type": "approval_verification",
+          "purpose": {
+            "text_id": "text_approval_verification",
+            "value": "Verify approval without rewriting the root.",
+            "lang": "en",
+            "dir": "ltr",
+            "kind": "canonical_assertion",
+            "authority": "canonical_assertion",
+            "fidelity": "derived_restatement",
+            "translation_of": null,
+            "translation_method": null,
+            "review_status": "not_applicable"
+          },
+          "required": true
+        },
+        {
+          "opaque_id": "slot_approval_statement",
+          "expected_type": "approval_statement",
+          "purpose": {
+            "text_id": "text_approval_statement",
+            "value": "Approve the sealed review subject.",
+            "lang": "en",
+            "dir": "ltr",
+            "kind": "canonical_assertion",
+            "authority": "canonical_assertion",
+            "fidelity": "derived_restatement",
+            "translation_of": null,
+            "translation_method": null,
+            "review_status": "not_applicable"
+          },
+          "required": true
+        }
+      ]
+    }
+  },
+  "projection_rules": {
+    "encoding": "UTF-8",
+    "bom": false,
+    "line_endings": "LF",
+    "final_lf": true,
+    "section_count": 9,
+    "dynamic_value_format": "restricted-rfc8785-jcs-indented-block",
+    "stable_id_order": "UTF-16-code-unit",
+    "causal_transition_order": true,
+    "package_root_digest_included": false
+  },
+  "expected": {
+    "canonical_state_digest": "sha256:49981c61847ca5e43313e2a163b2f952f9d31126a13a680e1b1866eb6069e975",
+    "projection_utf8": "# Context Handoff Review Projection\n\n## 1. Protocol and rooted state\n\n- Protocol (JCS):\n\n    {\"protocol_id\":\"lossless-context-handoff\",\"protocol_version\":\"0.1.0\"}\n\n- Profiles (JCS):\n\n    [{\"id\":\"urn:lch:profile:core-markdown\",\"required\":true,\"version\":\"0.1.0\"}]\n\n- Package ID (JCS):\n\n    \"pkg_vector_review_001\"\n\n- Integrity kind (JCS):\n\n    \"bundle_manifest\"\n\n- Integrity algorithm (JCS):\n\n    \"sha-256\"\n\n- Canonical state digest (JCS):\n\n    \"sha256:49981c61847ca5e43313e2a163b2f952f9d31126a13a680e1b1866eb6069e975\"\n\n- Materiality profile (JCS):\n\n    {\"id\":\"materiality-v1\",\"sha256\":\"sha256:1930541dda9af3a5374f892fd3621d8ac80b7025638e9d401b164e2e6178979c\",\"version\":\"0.1.0\"}\n\n## 2. Boundaries, requests, exclusions, and recipient\n\n- Boundaries (JCS):\n\n    {\"external_state_dependencies\":[],\"policy_boundary\":{\"sensitivity\":\"public\",\"sharing\":\"recipient_only\"},\"scope\":{\"approval_statement_slot\":\"slot_approval_statement\",\"material_exclusion_ids\":[],\"scope_id\":\"scope_001\",\"selection_basis\":\"USER_SELECTED\",\"statement\":{\"authority\":\"canonical_assertion\",\"dir\":\"ltr\",\"fidelity\":\"derived_restatement\",\"kind\":\"canonical_assertion\",\"lang\":\"en\",\"review_status\":\"not_applicable\",\"text_id\":\"text_scope_001\",\"translation_method\":null,\"translation_of\":null,\"value\":\"Continue the task in the declared handoff scope.\"},\"user_request_refs\":[\"msg_001\"]},\"source_boundary\":{\"first_source_id\":\"msg_001\",\"last_source_id\":\"msg_001\",\"source_session_ids\":[\"session_001\"]}}\n\n- Original user request refs (JCS):\n\n    [\"msg_001\"]\n\n- Material exclusion IDs (JCS):\n\n    []\n\n- Recipient and sharing scope (JCS):\n\n    {\"recipient_id\":\"recipient_001\",\"sharing\":\"recipient_only\"}\n\n## 3. Current intent and phase\n\n- Current intent (JCS):\n\n    {\"assertion\":{\"authority\":\"canonical_assertion\",\"dir\":\"ltr\",\"fidelity\":\"derived_restatement\",\"kind\":\"canonical_assertion\",\"lang\":\"en\",\"review_status\":\"not_applicable\",\"text_id\":\"text_intent_001\",\"translation_method\":null,\"translation_of\":null,\"value\":\"Continue the task.\"},\"evidence_spans\":[{\"byte_end\":18,\"byte_start\":0,\"object_id\":\"source_object_001\",\"sha256_raw\":\"sha256:15483b8b9a593e3e4c761889ccf94f6c7019148a6a8aaa631cce507158cb4e00\",\"source_id\":\"msg_001\"}],\"id\":\"intent_001\",\"lifecycle\":\"ACTIVE\",\"ordering\":{\"causal_parent_ids\":[],\"logical_clock\":0,\"sequence\":0,\"stream_id\":\"session_001\"},\"related_records\":[],\"scope_id\":\"scope_001\",\"sensitivity\":\"public\",\"source_principal\":{\"authority_at_capture\":\"user_instruction\",\"principal_id\":\"user_001\",\"source_role\":\"user\",\"tenant_id\":\"tenant_001\"},\"temporal\":{\"expires_at\":null,\"observed_at\":\"2026-08-19T00:00:00Z\",\"revalidate_before\":null,\"valid_from\":\"2026-08-19T00:00:00Z\"},\"transition_event_ids\":[\"event_intent_001\"],\"type\":\"intent\"}\n\n- Intent evolution events (JCS):\n\n    [{\"event_id\":\"event_intent_001\",\"event_sequence\":1,\"event_stream_id\":\"producer_stream_001\",\"from\":null,\"logical_clock\":1,\"occurred_at\":\"2026-08-19T00:00:00Z\",\"previous_event_ids\":[],\"principal_id\":\"user_001\",\"reason_kind\":\"INITIALIZED\",\"record_id\":\"intent_001\",\"scope_id\":\"scope_001\",\"source_refs\":[\"msg_001\"],\"to\":{\"lifecycle\":\"ACTIVE\"}}]\n\n- Current phase (JCS):\n\n    \"draft\"\n\n## 4. Active decisions and conflicts\n\n- Active decisions (JCS):\n\n    []\n\n- Decision evolution events (JCS):\n\n    []\n\n- Consistency claim (JCS):\n\n    \"CONSISTENT\"\n\n- Conflict records (JCS):\n\n    []\n\n## 5. Negative knowledge and questions\n\n- Rejected, superseded, failed, or prohibited records (JCS):\n\n    []\n\n- Answered and open questions (JCS):\n\n    []\n\n## 6. Constraints, sensitivity, freshness, and rechecks\n\n- Active constraints (JCS):\n\n    []\n\n- Policy and sensitivity boundary (JCS):\n\n    {\"sensitivity\":\"public\",\"sharing\":\"recipient_only\"}\n\n- Freshness and recheck records (JCS):\n\n    []\n\n- External state dependencies (JCS):\n\n    []\n\n## 7. Action graph\n\n- Complete active action graph (JCS):\n\n    {\"action_edges\":[],\"action_graph_revision\":{\"activated_by_event_id\":\"event_graph_001\",\"previous_revision_ids\":[],\"record_id\":\"graph_001\",\"revision_digest\":\"sha256:140c61b7d5d5a8a6e8cfd636ac680feb35c1cf2acdb23c8b4e2f28435b83caef\",\"revision_id\":\"revision_001\"},\"action_groups\":[],\"actions\":[],\"recommendation_basis_ids\":[],\"recommended_action_id\":null}\n\n## 8. Coverage, inventory, omissions, modalities, and conflicts\n\n- Content coverage claim (JCS):\n\n    {\"artifact_coverage\":\"NOT_APPLICABLE\",\"claim\":\"COMPLETE\",\"claim_issuer\":\"producer\",\"coverage_envelope_slot_ids\":[],\"inventory_object_id\":\"inventory_001\",\"omissions\":[],\"raw_coverage\":\"FULL_WITHIN_SCOPE\",\"scope\":{\"approval_statement_slot\":\"slot_approval_statement\",\"material_exclusion_ids\":[],\"scope_id\":\"scope_001\",\"selection_basis\":\"USER_SELECTED\",\"statement\":{\"authority\":\"canonical_assertion\",\"dir\":\"ltr\",\"fidelity\":\"derived_restatement\",\"kind\":\"canonical_assertion\",\"lang\":\"en\",\"review_status\":\"not_applicable\",\"text_id\":\"text_scope_001\",\"translation_method\":null,\"translation_of\":null,\"value\":\"Continue the task in the declared handoff scope.\"},\"user_request_refs\":[\"msg_001\"]},\"source_access\":\"FULL\"}\n\n- Source inventory (JCS):\n\n    {\"capture_boundary\":{\"ended_at\":\"2026-08-19T00:00:00Z\",\"first_native_id\":\"msg_001\",\"last_native_id\":\"msg_001\",\"started_at\":\"2026-08-19T00:00:00Z\"},\"collector_claim\":{\"method\":\"fixture\",\"principal_id\":\"producer_001\"},\"entries\":[{\"attachment_object_ids\":[],\"object_id\":\"source_object_001\",\"object_sha256\":\"sha256:15483b8b9a593e3e4c761889ccf94f6c7019148a6a8aaa631cce507158cb4e00\",\"observed_at\":\"2026-08-19T00:00:00Z\",\"ordinal\":1,\"source_id\":\"msg_001\",\"source_principal_id\":\"user_001\",\"source_role\":\"user\",\"stream_id\":\"session_001\",\"tool_result_object_ids\":[]}],\"gaps\":[],\"inventory_digest\":\"sha256:f2df0de20b18cc24f85ff86219e91aa5aab32fac4d937d722d871e1398d59299\",\"inventory_id\":\"inventory_001\",\"platform_attestation_ref\":null,\"source_session_ids\":[\"session_001\"],\"tenant_id\":\"tenant_001\"}\n\n- Omissions (JCS):\n\n    []\n\n- Artifact and modality records (JCS):\n\n    []\n\n- Consistency and conflicts (JCS):\n\n    {\"conflict_records\":[],\"consistency_claim\":\"CONSISTENT\"}\n\n## 9. Approval slot and detached-envelope policy\n\n- Approval statement slot (JCS):\n\n    \"slot_approval_statement\"\n\n- Detached-envelope policy (JCS):\n\n    [{\"expected_type\":\"approval_statement\",\"opaque_id\":\"slot_approval_statement\",\"purpose\":{\"authority\":\"canonical_assertion\",\"dir\":\"ltr\",\"fidelity\":\"derived_restatement\",\"kind\":\"canonical_assertion\",\"lang\":\"en\",\"review_status\":\"not_applicable\",\"text_id\":\"text_approval_statement\",\"translation_method\":null,\"translation_of\":null,\"value\":\"Approve the sealed review subject.\"},\"required\":true},{\"expected_type\":\"approval_verification\",\"opaque_id\":\"slot_approval_verification\",\"purpose\":{\"authority\":\"canonical_assertion\",\"dir\":\"ltr\",\"fidelity\":\"derived_restatement\",\"kind\":\"canonical_assertion\",\"lang\":\"en\",\"review_status\":\"not_applicable\",\"text_id\":\"text_approval_verification\",\"translation_method\":null,\"translation_of\":null,\"value\":\"Verify approval without rewriting the root.\"},\"required\":true},{\"expected_type\":\"review_projection_conformance\",\"opaque_id\":\"slot_review_projection\",\"purpose\":{\"authority\":\"canonical_assertion\",\"dir\":\"ltr\",\"fidelity\":\"derived_restatement\",\"kind\":\"canonical_assertion\",\"lang\":\"en\",\"review_status\":\"not_applicable\",\"text_id\":\"text_review_result\",\"translation_method\":null,\"translation_of\":null,\"value\":\"Carry the detached review result.\"},\"required\":true}]\n\nThis is the pending-approval review projection for the exact root. Display the final `package_integrity_ref` separately after sealing and bind it with these review bytes in approval display evidence.\n",
+    "byte_length": 7519,
+    "sha256_raw": "sha256:7d0d9fca9fd26bb22fc52c655527b704e2f12f3d414d87f3e79afcf9912ec4ed"
+  }
+}

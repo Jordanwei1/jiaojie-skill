@@ -1,0 +1,113 @@
+{
+  "catalog_version": "0.1.0",
+  "path_base": "assets",
+  "dialect": {
+    "id": "https://json-schema.org/draft/2020-12/schema",
+    "resolution": "BUILT_IN_NO_FETCH"
+  },
+  "remote_fetch": "FORBIDDEN",
+  "schemas": [
+    {
+      "id": "urn:lch:schema:0.1:action-graph",
+      "path": "schemas/action-graph.schema.json",
+      "byte_length": 5700,
+      "sha256_raw": "sha256:2db3c316488673d2cae599755ec5161c9eca2038f00e26a5efaf3ee37832b4a7"
+    },
+    {
+      "id": "urn:lch:schema:0.1:common",
+      "path": "schemas/common.schema.json",
+      "byte_length": 26337,
+      "sha256_raw": "sha256:88fb0cd6bbb2deed26d89e0fe173af65e5e5a8bb7244db5bd2e1017cbbea0e85"
+    },
+    {
+      "id": "urn:lch:schema:0.1:derived-digest-vector",
+      "path": "schemas/derived-digest-vector.schema.json",
+      "byte_length": 1504,
+      "sha256_raw": "sha256:442c4f46bf6e83ac0206ba2b7f60e952e066d51e1559497bb824021660368dce"
+    },
+    {
+      "id": "urn:lch:schema:0.1:detached-envelope",
+      "path": "schemas/detached-envelope.schema.json",
+      "byte_length": 799,
+      "sha256_raw": "sha256:755cea90d5e70569118292c80fa162c95d3dd77aaffec0846a40c70a0b46c6be"
+    },
+    {
+      "id": "urn:lch:schema:0.1:event",
+      "path": "schemas/event.schema.json",
+      "byte_length": 4558,
+      "sha256_raw": "sha256:2fa18c464ae01ab21a4061766b2e8181a4fad39fb66aae6aa8dc18f07358d76d"
+    },
+    {
+      "id": "urn:lch:schema:0.1:language-unicode-vector",
+      "path": "schemas/language-unicode-vector.schema.json",
+      "byte_length": 8838,
+      "sha256_raw": "sha256:dddf9b55532442fb973ff7f4396186c974a54378d3937e1944ae369366c7ea9e"
+    },
+    {
+      "id": "urn:lch:schema:0.1:legacy-conversion-report",
+      "path": "schemas/legacy-conversion-report.schema.json",
+      "byte_length": 4535,
+      "sha256_raw": "sha256:db0c85b2104eae39d5602a1c815684196675ebbd27c1d9e2907bb9494f80c62c"
+    },
+    {
+      "id": "urn:lch:schema:0.1:manifest",
+      "path": "schemas/manifest.schema.json",
+      "byte_length": 6755,
+      "sha256_raw": "sha256:c43951f03078acecbfd83fd36b67fb320359544f2cb8f58f901812bdf954d021"
+    },
+    {
+      "id": "urn:lch:schema:0.1:materiality-profile",
+      "path": "schemas/materiality-profile.schema.json",
+      "byte_length": 1609,
+      "sha256_raw": "sha256:57c352fdcb146e9828c38ad826a43b8f91da5543e9f72ee168226171684b08c3"
+    },
+    {
+      "id": "urn:lch:schema:0.1:profile-feature-registry",
+      "path": "schemas/profile-feature-registry.schema.json",
+      "byte_length": 7425,
+      "sha256_raw": "sha256:9b22227c886728a5e9271f05067d8b7ec1e1978ce70f260e59b2d03211a84c72"
+    },
+    {
+      "id": "urn:lch:schema:0.1:receipt",
+      "path": "schemas/receipt.schema.json",
+      "byte_length": 16005,
+      "sha256_raw": "sha256:2eab55af0224160208ca62b6f7bf097a7a2f335723c1284eab13521165611a48"
+    },
+    {
+      "id": "urn:lch:schema:0.1:registry-lock",
+      "path": "schemas/registry-lock.schema.json",
+      "byte_length": 1965,
+      "sha256_raw": "sha256:c137ccf5075a4bf7c208aa33898bc4a6c5962a93e6950cf8e724410fccb302f0"
+    },
+    {
+      "id": "urn:lch:schema:0.1:schema-catalog",
+      "path": "schemas/schema-catalog.schema.json",
+      "byte_length": 1724,
+      "sha256_raw": "sha256:f9b8d46ec927d3f080d35898eeea08ca50cf37e1c08d7483d1d9b426c851cc6e"
+    },
+    {
+      "id": "urn:lch:schema:0.1:state",
+      "path": "schemas/state.schema.json",
+      "byte_length": 12193,
+      "sha256_raw": "sha256:83ed45d6b045c97b5326bc0c8eaab2b9ffa28961a85f298adaaa571ebb0c5f36"
+    },
+    {
+      "id": "urn:lch:schema:0.1:t0-control",
+      "path": "schemas/t0-control.schema.json",
+      "byte_length": 2726,
+      "sha256_raw": "sha256:489e832dfbeeb72cdb40239efb32b48f59fac0ca5fd958fee65106cd11702f34"
+    },
+    {
+      "id": "urn:lch:schema:0.1:vector-catalog",
+      "path": "schemas/vector-catalog.schema.json",
+      "byte_length": 5418,
+      "sha256_raw": "sha256:1c5a9bb793dff720e24502ff4905ffce5ce39e118ffbfdab27d04a60f2c307d0"
+    },
+    {
+      "id": "urn:lch:schema:0.1:verification-result",
+      "path": "schemas/verification-result.schema.json",
+      "byte_length": 24768,
+      "sha256_raw": "sha256:22a24291655f073b25197548cd7cc741f686b722d3061f97016f122bb2759b7f"
+    }
+  ]
+}

@@ -1,0 +1,256 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:lch:schema:0.1:manifest",
+  "title": "Lossless Context Handoff Bundle Manifest v0.1",
+  "description": "The sole integrity root for a T1-T3 Bundle. This object never contains its own digest or any detached envelope digest.",
+  "x-lch-schema-version": "0.1.0",
+  "allOf": [
+    {
+      "$ref": "urn:lch:schema:0.1:common#/$defs/packageRoot"
+    },
+    {
+      "type": "object",
+      "required": [
+        "integrity",
+        "objects"
+      ],
+      "properties": {
+        "review_projection_ref": {
+          "allOf": [
+            {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/reviewProjectionRef"
+            },
+            {
+              "properties": {
+                "kind": {
+                  "const": "bundle_handoff"
+                }
+              }
+            }
+          ]
+        },
+        "integrity": {
+          "type": "object",
+          "required": [
+            "algorithm",
+            "manifest_canonicalization",
+            "canonicalization_profile"
+          ],
+          "properties": {
+            "algorithm": {
+              "const": "sha-256"
+            },
+            "manifest_canonicalization": {
+              "const": "RFC8785-JCS"
+            },
+            "canonicalization_profile": {
+              "const": "state-projection-v1"
+            }
+          },
+          "additionalProperties": false
+        },
+        "objects": {
+          "type": "array",
+          "minItems": 3,
+          "items": {
+            "$ref": "#/$defs/manifestObject"
+          },
+          "allOf": [
+            {
+              "contains": {
+                "properties": {
+                  "location": {
+                    "properties": {
+                      "path": {
+                        "const": "HANDOFF.md"
+                      }
+                    },
+                    "required": [
+                      "path"
+                    ]
+                  },
+                  "role": {
+                    "const": "handoff_view"
+                  }
+                },
+                "required": [
+                  "location",
+                  "role"
+                ]
+              },
+              "minContains": 1,
+              "maxContains": 1
+            },
+            {
+              "contains": {
+                "properties": {
+                  "location": {
+                    "properties": {
+                      "path": {
+                        "const": "state/warm.json"
+                      }
+                    },
+                    "required": [
+                      "path"
+                    ]
+                  },
+                  "role": {
+                    "const": "state"
+                  }
+                },
+                "required": [
+                  "location",
+                  "role"
+                ]
+              },
+              "minContains": 1,
+              "maxContains": 1
+            },
+            {
+              "contains": {
+                "properties": {
+                  "location": {
+                    "properties": {
+                      "path": {
+                        "pattern": "^cold/"
+                      }
+                    },
+                    "required": [
+                      "path"
+                    ]
+                  }
+                },
+                "required": [
+                  "location"
+                ]
+              },
+              "minContains": 1
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "unevaluatedProperties": false,
+  "$comment": "MANIFEST.json must be serialized as exact RFC 8785 JCS UTF-8 bytes without BOM or trailing LF. MANIFEST.sha256 is a separate sidecar. A deterministic validator must enforce unique object IDs and paths, actual file presence, exact raw hashes and lengths, path collision rules, HANDOFF.md review-ref equality, and exclusion of MANIFEST.json, MANIFEST.sha256, and envelopes/.",
+  "$defs": {
+    "safeBundlePath": {
+      "type": "string",
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\)[A-Za-z0-9._/-]+$",
+      "not": {
+        "anyOf": [
+          {
+            "enum": [
+              "MANIFEST.json",
+              "MANIFEST.sha256"
+            ]
+          },
+          {
+            "pattern": "^envelopes(?:/|$)"
+          }
+        ]
+      }
+    },
+    "manifestObject": {
+      "type": "object",
+      "required": [
+        "object_id",
+        "location",
+        "logical_name",
+        "role",
+        "media_type",
+        "charset",
+        "byte_length",
+        "sha256_raw",
+        "source_refs",
+        "authority",
+        "derived_from"
+      ],
+      "properties": {
+        "object_id": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+        },
+        "location": {
+          "type": "object",
+          "required": [
+            "kind",
+            "path",
+            "section_id",
+            "encoding"
+          ],
+          "properties": {
+            "kind": {
+              "const": "path"
+            },
+            "path": {
+              "$ref": "#/$defs/safeBundlePath"
+            },
+            "section_id": {
+              "type": "null"
+            },
+            "encoding": {
+              "const": "identity"
+            }
+          },
+          "additionalProperties": false
+        },
+        "logical_name": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/localizedText"
+        },
+        "role": {
+          "enum": [
+            "handoff_view",
+            "transcript",
+            "evidence",
+            "artifact",
+            "state",
+            "imported_source"
+          ]
+        },
+        "media_type": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/mediaType"
+        },
+        "charset": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "byte_length": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sha256_raw": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/sha256"
+        },
+        "source_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+          },
+          "uniqueItems": true
+        },
+        "authority": {
+          "enum": [
+            "normative",
+            "source_evidence",
+            "derived_view"
+          ]
+        },
+        "derived_from": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

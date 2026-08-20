@@ -1,0 +1,22 @@
+{
+  "case_id": "research-partial",
+  "domain": "research",
+  "title": "Market research with a missing licensed paper",
+  "synthetic": true,
+  "license": "MIT",
+  "publication_clearance": "APPROVED_BY_PROJECT_OWNER",
+  "status": "GOLD_CANDIDATE",
+  "human_verification": "NOT_PERFORMED",
+  "source_language": "en",
+  "receipt_language": "zh-Hans",
+  "coverage": [
+    "partial",
+    "missing_artifact",
+    "answered_question",
+    "source_authority"
+  ],
+  "limitations": [
+    "Not a real user conversation",
+    "Not independent model evidence"
+  ]
+}

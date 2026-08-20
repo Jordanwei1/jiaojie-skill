@@ -1,0 +1,194 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:lch:schema:0.1:event",
+  "title": "Lossless Context Handoff transition event v0.1",
+  "description": "Immutable transition event for protocol version 0.1.0.",
+  "x-lch-schema-version": "0.1.0",
+  "type": "object",
+  "required": [
+    "event_id",
+    "event_stream_id",
+    "event_sequence",
+    "record_id",
+    "previous_event_ids",
+    "from",
+    "to",
+    "reason_kind",
+    "principal_id",
+    "source_refs",
+    "scope_id",
+    "occurred_at",
+    "logical_clock"
+  ],
+  "properties": {
+    "event_id": {
+      "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+    },
+    "event_stream_id": {
+      "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+    },
+    "event_sequence": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "record_id": {
+      "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+    },
+    "previous_event_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+      },
+      "uniqueItems": true
+    },
+    "from": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/axisProjection"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "to": {
+      "$ref": "#/$defs/axisProjection"
+    },
+    "reason_kind": {
+      "enum": [
+        "INITIALIZED",
+        "USER_CONFIRMED",
+        "REQUIREMENT_CHANGED",
+        "EVIDENCE_UPDATED",
+        "STATE_RECOMPUTED",
+        "ACTION_GRAPH_ACTIVATED",
+        "SYSTEM_MIGRATION",
+        "USER_REJECTED",
+        "REQUIREMENT_CONFLICT",
+        "SCOPE_EXCLUDED",
+        "RISK_REJECTED",
+        "TECHNICAL_FAILURE",
+        "EVIDENCE_FAILURE",
+        "POLICY_BLOCKED",
+        "UNKNOWN_REASON"
+      ]
+    },
+    "principal_id": {
+      "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+      },
+      "uniqueItems": true
+    },
+    "scope_id": {
+      "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+    },
+    "occurred_at": {
+      "$ref": "urn:lch:schema:0.1:common#/$defs/timestamp"
+    },
+    "logical_clock": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "additionalProperties": false,
+  "$comment": "from may be null only for a genesis event. A deterministic validator must additionally reject non-genesis null transitions, graph cycles, dangling heads, invalid type-specific transitions, duplicate or decreasing stream sequences, illegal merges, and projections inconsistent with event heads.",
+  "$defs": {
+    "axisProjection": {
+      "type": "object",
+      "minProperties": 1,
+      "properties": {
+        "lifecycle": {
+          "enum": [
+            "PROPOSED",
+            "ACTIVE",
+            "SUPERSEDED",
+            "ABANDONED",
+            "CANDIDATE",
+            "REJECTED",
+            "RELEASED",
+            "OPEN",
+            "ANSWERED",
+            "DEFERRED",
+            "CANCELLED"
+          ]
+        },
+        "epistemic_basis": {
+          "enum": [
+            "USER_STATED",
+            "TOOL_OBSERVED",
+            "EXTERNAL_ASSERTED",
+            "INFERRED",
+            "ASSUMED",
+            "UNKNOWN"
+          ]
+        },
+        "verification": {
+          "enum": [
+            "UNVERIFIED",
+            "CORROBORATED",
+            "DISPUTED",
+            "REFUTED"
+          ]
+        },
+        "temporal_validity": {
+          "enum": [
+            "CURRENT",
+            "STALE",
+            "EXPIRED",
+            "UNKNOWN"
+          ]
+        },
+        "compliance": {
+          "enum": [
+            "SATISFIED",
+            "VIOLATED",
+            "UNKNOWN"
+          ]
+        },
+        "outcome": {
+          "enum": [
+            "SUCCEEDED",
+            "FAILED",
+            "INCONCLUSIVE",
+            "ABORTED"
+          ]
+        },
+        "availability": {
+          "enum": [
+            "PRESENT",
+            "MISSING",
+            "EXTERNAL_ONLY",
+            "REDACTED"
+          ]
+        },
+        "freshness": {
+          "enum": [
+            "CURRENT",
+            "STALE",
+            "UNKNOWN"
+          ]
+        },
+        "authority": {
+          "enum": [
+            "USER_CONFIRMED",
+            "OBSERVED_PATTERN",
+            "INFERRED"
+          ]
+        },
+        "eligibility": {
+          "enum": [
+            "READY",
+            "BLOCKED",
+            "COMPLETED",
+            "SUPERSEDED"
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

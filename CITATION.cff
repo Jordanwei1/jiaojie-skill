@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If Jiaojie helps your research or Agent implementation, cite this repository and the exact release used."
+title: "Jiaojie: Human-first context handoff for continuous AI collaboration"
+type: software
+authors:
+  - family-names: Wei
+    given-names: Jordan
+repository-code: "https://github.com/Jordanwei1/jiaojie-skill"
+url: "https://github.com/Jordanwei1/jiaojie-skill"
+license: MIT
+version: 0.1.0
+date-released: 2026-08-20
+keywords:
+  - agent-skills
+  - context-handoff
+  - ai-continuity
+  - multi-model
+  - multilingual

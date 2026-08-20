@@ -1,0 +1,22 @@
+{
+  "case_id": "business-external-state",
+  "domain": "business",
+  "title": "Pricing decision with stale vendor terms",
+  "synthetic": true,
+  "license": "MIT",
+  "publication_clearance": "APPROVED_BY_PROJECT_OWNER",
+  "status": "GOLD_CANDIDATE",
+  "human_verification": "NOT_PERFORMED",
+  "source_language": "en",
+  "receipt_language": "es",
+  "coverage": [
+    "stale_external_state",
+    "authority_boundary",
+    "decision_evolution",
+    "user_veto"
+  ],
+  "limitations": [
+    "Not a real user conversation",
+    "Not independent model evidence"
+  ]
+}

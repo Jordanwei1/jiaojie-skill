@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:lch:schema:0.1:materiality-profile",
+  "title": "Lossless Context Handoff materiality-v1 profile",
+  "type": "object",
+  "required": [
+    "classifications",
+    "complete_claim_rule",
+    "material_if_affects",
+    "profile_id",
+    "profile_version",
+    "review_inclusion"
+  ],
+  "properties": {
+    "classifications": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/classification",
+          "properties": {"id": {"const": "BLOCKING"}}
+        },
+        {
+          "$ref": "#/$defs/classification",
+          "properties": {"id": {"const": "MATERIAL"}}
+        },
+        {
+          "$ref": "#/$defs/classification",
+          "properties": {"id": {"const": "NON_MATERIAL"}}
+        }
+      ],
+      "items": false,
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "complete_claim_rule": {"type": "string", "minLength": 1},
+    "material_if_affects": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "profile_id": {"const": "materiality-v1"},
+    "profile_version": {"const": "0.1.0"},
+    "review_inclusion": {
+      "const": ["BLOCKING", "MATERIAL"]
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "classification": {
+      "type": "object",
+      "required": ["definition", "id"],
+      "properties": {
+        "definition": {"type": "string", "minLength": 1},
+        "id": {"enum": ["BLOCKING", "MATERIAL", "NON_MATERIAL"]}
+      },
+      "additionalProperties": false
+    }
+  }
+}

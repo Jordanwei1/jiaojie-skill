@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:lch:schema:0.1:derived-digest-vector",
+  "title": "Lossless Context Handoff derived-digest-v1 golden vector",
+  "type": "object",
+  "required": ["vector_id", "kind", "protocol_version", "digest_profile", "cases"],
+  "properties": {
+    "vector_id": {"const": "derived-digests-v1-001"},
+    "kind": {"const": "derived_digests_v1"},
+    "protocol_version": {"const": "0.1.0"},
+    "digest_profile": {"const": "lch-derived-digest-v1"},
+    "cases": {
+      "type": "array",
+      "minItems": 14,
+      "maxItems": 14,
+      "items": {
+        "type": "object",
+        "required": ["digest_type", "value", "expected"],
+        "properties": {
+          "digest_type": {
+            "enum": [
+              "scope_digest",
+              "material_exclusions_digest",
+              "recipient_binding_digest",
+              "display_evidence_digest",
+              "materiality_profile_digest",
+              "package_profile_digest",
+              "read_set_digest",
+              "processing_coverage_digest",
+              "purpose_digest",
+              "constraints_digest",
+              "inventory_digest",
+              "approval_statement_digest",
+              "receipt_sha256",
+              "revision_digest"
+            ]
+          },
+          "value": {},
+          "expected": {"pattern": "^sha256:[0-9a-f]{64}$"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,639 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:lch:schema:0.1:receipt",
+  "title": "Lossless Context Handoff Receiver Receipt v0.1",
+  "description": "Receiver-issued report bound to one package, canonical state, receiving challenge, read set, and execution context. It is not a verifier result for another role.",
+  "x-lch-schema-version": "0.1.0",
+  "type": "object",
+  "required": [
+    "receipt_version",
+    "package_id",
+    "package_integrity_ref",
+    "canonical_state_digest",
+    "challenge_nonce",
+    "received_at",
+    "receiver",
+    "receipt_issuer",
+    "receipt_attestation_ref",
+    "verification_mode",
+    "verification_result_refs",
+    "verification_summary",
+    "observed_producer_claims",
+    "receiver_execution_context",
+    "processing_coverage",
+    "runtime_limits",
+    "processed_modalities",
+    "unprocessed_modalities",
+    "read_object_ids",
+    "current_intent_id",
+    "active_decision_ids",
+    "rejected_decision_ids",
+    "failed_attempt_ids",
+    "active_constraint_ids",
+    "answered_question_ids",
+    "ready_action_ids",
+    "blocked_action_ids",
+    "recommended_action_id",
+    "selected_continuation_action_ids",
+    "selected_continuation_language",
+    "processing_basis",
+    "protected_spans_failed",
+    "conflicts",
+    "material_ambiguities",
+    "external_state_rechecks",
+    "authorization_evaluations",
+    "authorization_summary",
+    "blocking_reasons",
+    "issues",
+    "processing_status",
+    "continuation_status"
+  ],
+  "properties": {
+    "receipt_version": {
+      "const": "0.1.0"
+    },
+    "package_id": {
+      "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+    },
+    "package_integrity_ref": {
+      "$ref": "urn:lch:schema:0.1:common#/$defs/packageIntegrityRef"
+    },
+    "canonical_state_digest": {
+      "$ref": "urn:lch:schema:0.1:common#/$defs/sha256"
+    },
+    "challenge_nonce": {
+      "type": "string",
+      "minLength": 1
+    },
+    "received_at": {
+      "$ref": "urn:lch:schema:0.1:common#/$defs/timestamp"
+    },
+    "receiver": {
+      "type": "object",
+      "required": [
+        "runtime",
+        "model",
+        "implementation_version"
+      ],
+      "properties": {
+        "runtime": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1
+        },
+        "implementation_version": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "receipt_issuer": {
+      "type": "object",
+      "required": [
+        "principal_id",
+        "tenant_id",
+        "authority"
+      ],
+      "properties": {
+        "principal_id": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+        },
+        "tenant_id": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+        },
+        "authority": {
+          "const": "receive_and_verify"
+        }
+      },
+      "additionalProperties": false
+    },
+    "receipt_attestation_ref": {
+      "oneOf": [
+        {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "$comment": "This field reserves only the stable opaque ID. The post-seal attestation digest is never written back into the Receipt."
+    },
+    "verification_mode": {
+      "enum": [
+        "deterministic",
+        "model_only",
+        "hybrid"
+      ]
+    },
+    "verification_result_refs": {
+      "$ref": "#/$defs/verificationResultRefs"
+    },
+    "verification_summary": {
+      "$ref": "#/$defs/verificationSummary"
+    },
+    "observed_producer_claims": {
+      "$ref": "#/$defs/observedProducerClaims"
+    },
+    "receiver_execution_context": {
+      "type": "object",
+      "required": [
+        "tools",
+        "side_effects",
+        "sandbox_claim"
+      ],
+      "properties": {
+        "tools": {
+          "enum": [
+            "DISABLED",
+            "ENABLED"
+          ]
+        },
+        "side_effects": {
+          "enum": [
+            "DISABLED",
+            "ENABLED_WITH_CURRENT_AUTHORIZATION"
+          ]
+        },
+        "sandbox_claim": {
+          "enum": [
+            "NONE",
+            "CLAIMED"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "processing_coverage": {
+      "enum": [
+        "FULL",
+        "PARTIAL",
+        "FAILED"
+      ]
+    },
+    "runtime_limits": {
+      "type": "array"
+    },
+    "processed_modalities": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+      },
+      "uniqueItems": true
+    },
+    "unprocessed_modalities": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+      },
+      "uniqueItems": true
+    },
+    "read_object_ids": {
+      "$ref": "#/$defs/idArray"
+    },
+    "current_intent_id": {
+      "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+    },
+    "active_decision_ids": {
+      "$ref": "#/$defs/idArray"
+    },
+    "rejected_decision_ids": {
+      "$ref": "#/$defs/idArray"
+    },
+    "failed_attempt_ids": {
+      "$ref": "#/$defs/idArray"
+    },
+    "active_constraint_ids": {
+      "$ref": "#/$defs/idArray"
+    },
+    "answered_question_ids": {
+      "$ref": "#/$defs/idArray"
+    },
+    "ready_action_ids": {
+      "$ref": "#/$defs/idArray"
+    },
+    "blocked_action_ids": {
+      "$ref": "#/$defs/idArray"
+    },
+    "recommended_action_id": {
+      "oneOf": [
+        {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "selected_continuation_action_ids": {
+      "$ref": "#/$defs/idArray"
+    },
+    "selected_continuation_language": {
+      "type": "string",
+      "format": "bcp47"
+    },
+    "processing_basis": {
+      "enum": [
+        "original",
+        "original_and_translation",
+        "translation_only"
+      ]
+    },
+    "protected_spans_failed": {
+      "type": "array"
+    },
+    "conflicts": {
+      "type": "array"
+    },
+    "material_ambiguities": {
+      "type": "array"
+    },
+    "external_state_rechecks": {
+      "type": "array"
+    },
+    "authorization_evaluations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/authorizationEvaluation"
+      }
+    },
+    "authorization_summary": {
+      "enum": [
+        "NOT_APPLICABLE",
+        "ALL_REQUIRED_AUTHORIZED",
+        "REAUTHORIZATION_REQUIRED",
+        "DENIED",
+        "UNKNOWN"
+      ]
+    },
+    "blocking_reasons": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/blockingReason"
+      }
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:lch:schema:0.1:common#/$defs/issue"
+      }
+    },
+    "processing_status": {
+      "enum": [
+        "FULL",
+        "LANGUAGE_LIMITED",
+        "MODALITY_LIMITED",
+        "PACKAGE_LIMITED",
+        "SECURITY_LIMITED"
+      ]
+    },
+    "continuation_status": {
+      "enum": [
+        "READY",
+        "BLOCKED"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "$comment": "A non-null verification result ref is only an opaque locator plus the actual raw digest; it is not a trust result. A deterministic Receipt validator must derive the summary from valid owning-role results and candidate-slot validation state, enforce NOT_RUN for no complete candidate bytes, enforce UNVERIFIED for captured but invalid candidates, and evaluate READY per selected action.",
+  "$defs": {
+    "idArray": {
+      "type": "array",
+      "items": {
+        "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+      },
+      "uniqueItems": true
+    },
+    "verificationResultRefs": {
+      "type": "object",
+      "required": [
+        "structure_conformance",
+        "byte_consistency",
+        "security_run",
+        "origin",
+        "inventory_authenticity",
+        "inventory_scope_coverage",
+        "package_vs_inventory_coverage",
+        "review_projection",
+        "approval"
+      ],
+      "properties": {
+        "structure_conformance": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/nullableDetachedObjectRef"
+        },
+        "byte_consistency": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/nullableDetachedObjectRef"
+        },
+        "security_run": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/nullableDetachedObjectRef"
+        },
+        "origin": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/nullableDetachedObjectRef"
+        },
+        "inventory_authenticity": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/nullableDetachedObjectRef"
+        },
+        "inventory_scope_coverage": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/nullableDetachedObjectRef"
+        },
+        "package_vs_inventory_coverage": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/nullableDetachedObjectRef"
+        },
+        "review_projection": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/nullableDetachedObjectRef"
+        },
+        "approval": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/nullableDetachedObjectRef"
+        }
+      },
+      "additionalProperties": false
+    },
+    "verificationSummary": {
+      "type": "object",
+      "required": [
+        "structure_conformance",
+        "byte_consistency",
+        "origin",
+        "inventory_authenticity",
+        "inventory_scope_coverage",
+        "package_vs_inventory_coverage",
+        "approval_statement_authenticity",
+        "approval_verified_decision",
+        "review_projection_conformance",
+        "approval_gate"
+      ],
+      "properties": {
+        "structure_conformance": {
+          "enum": [
+            "NOT_RUN",
+            "UNVERIFIED",
+            "PASS",
+            "WARN",
+            "FAIL"
+          ]
+        },
+        "byte_consistency": {
+          "enum": [
+            "NOT_RUN",
+            "UNVERIFIED",
+            "VERIFIED",
+            "FAIL"
+          ]
+        },
+        "origin": {
+          "enum": [
+            "NOT_RUN",
+            "UNVERIFIED",
+            "UNAUTHENTICATED",
+            "TRANSPORT_AUTHENTICATED",
+            "SIGNATURE_VERIFIED",
+            "FAIL"
+          ]
+        },
+        "inventory_authenticity": {
+          "enum": [
+            "NOT_RUN",
+            "UNVERIFIED",
+            "VERIFIED",
+            "FAIL"
+          ]
+        },
+        "inventory_scope_coverage": {
+          "enum": [
+            "NOT_RUN",
+            "UNVERIFIED",
+            "UNKNOWN",
+            "VERIFIED",
+            "PARTIAL",
+            "FAIL"
+          ]
+        },
+        "package_vs_inventory_coverage": {
+          "enum": [
+            "NOT_RUN",
+            "UNVERIFIED",
+            "UNKNOWN",
+            "VERIFIED",
+            "PARTIAL",
+            "FAIL"
+          ]
+        },
+        "approval_statement_authenticity": {
+          "enum": [
+            "NOT_RUN",
+            "UNVERIFIED",
+            "VERIFIED",
+            "FAIL"
+          ]
+        },
+        "approval_verified_decision": {
+          "enum": [
+            "APPROVED",
+            "REVIEWED",
+            "DENIED",
+            "UNKNOWN"
+          ]
+        },
+        "review_projection_conformance": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "UNVERIFIED",
+            "NOT_RUN"
+          ]
+        },
+        "approval_gate": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "NOT_RUN"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "claimObservation": {
+      "type": "object",
+      "required": [
+        "value",
+        "package_claim_ref"
+      ],
+      "properties": {
+        "value": {},
+        "package_claim_ref": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+        }
+      },
+      "additionalProperties": false
+    },
+    "observedProducerClaims": {
+      "type": "object",
+      "required": [
+        "content_coverage",
+        "approval",
+        "semantic_actionability"
+      ],
+      "properties": {
+        "content_coverage": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/claimObservation"
+            },
+            {
+              "properties": {
+                "value": {
+                  "enum": [
+                    "COMPLETE",
+                    "PARTIAL",
+                    "UNKNOWN"
+                  ]
+                },
+                "package_claim_ref": {
+                  "const": "root.content_coverage"
+                }
+              }
+            }
+          ]
+        },
+        "approval": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/claimObservation"
+            },
+            {
+              "properties": {
+                "value": {
+                  "const": "PROPOSED"
+                },
+                "package_claim_ref": {
+                  "const": "root.approval_claim"
+                }
+              }
+            }
+          ]
+        },
+        "semantic_actionability": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/claimObservation"
+            },
+            {
+              "properties": {
+                "value": {
+                  "enum": [
+                    "SEMANTICALLY_READY",
+                    "BLOCKED",
+                    "UNKNOWN"
+                  ]
+                },
+                "package_claim_ref": {
+                  "const": "root.semantic_actionability_claim"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "authorizationEvaluation": {
+      "type": "object",
+      "required": [
+        "action_id",
+        "principal_id",
+        "tenant_id",
+        "resource",
+        "operation",
+        "purpose",
+        "expires_at",
+        "constraints",
+        "evidence_refs",
+        "authorization_result_ref",
+        "status"
+      ],
+      "properties": {
+        "action_id": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+        },
+        "principal_id": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+        },
+        "tenant_id": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+        },
+        "resource": {
+          "type": "string",
+          "minLength": 1
+        },
+        "operation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "purpose": {
+          "type": "string"
+        },
+        "expires_at": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/nullableTimestamp"
+        },
+        "constraints": {
+          "type": "array"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+          },
+          "uniqueItems": true
+        },
+        "authorization_result_ref": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/nullableDetachedObjectRef"
+        },
+        "status": {
+          "enum": [
+            "AUTHORIZED",
+            "REAUTHORIZATION_REQUIRED",
+            "DENIED",
+            "UNKNOWN"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "blockingReason": {
+      "type": "object",
+      "required": [
+        "code",
+        "action_id",
+        "evidence_refs"
+      ],
+      "properties": {
+        "code": {
+          "enum": [
+            "REAUTHORIZATION_REQUIRED",
+            "EXTERNAL_STATE_RECHECK_REQUIRED",
+            "CAPABILITY_MISSING",
+            "BLOCKING_CONFLICT",
+            "LANGUAGE_BLOCKED",
+            "MODALITY_BLOCKED",
+            "PACKAGE_INVALID",
+            "SECURITY_BLOCKED"
+          ]
+        },
+        "action_id": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

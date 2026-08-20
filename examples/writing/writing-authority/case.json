@@ -1,0 +1,22 @@
+{
+  "case_id": "writing-authority",
+  "domain": "writing",
+  "title": "Bilingual article revision without publication authority",
+  "synthetic": true,
+  "license": "MIT",
+  "publication_clearance": "APPROVED_BY_PROJECT_OWNER",
+  "status": "GOLD_CANDIDATE",
+  "human_verification": "NOT_PERFORMED",
+  "source_language": "zh-Hans",
+  "receipt_language": "en",
+  "coverage": [
+    "same_artifact",
+    "negative_knowledge",
+    "authority_boundary",
+    "language_preservation"
+  ],
+  "limitations": [
+    "Not a real user conversation",
+    "Not independent model evidence"
+  ]
+}

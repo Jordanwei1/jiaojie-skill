@@ -1,0 +1,109 @@
+{
+  "receipt_version": "0.1.0",
+  "package_id": "__LCH_PACKAGE_ID__",
+  "package_integrity_ref": {
+    "kind": "__LCH_PACKAGE_INTEGRITY_KIND__",
+    "sha256": "sha256:__LCH_PACKAGE_ROOT_SHA256_HEX__",
+    "byte_length": "__LCH_PACKAGE_ROOT_BYTE_LENGTH_UINT__"
+  },
+  "canonical_state_digest": "sha256:__LCH_CANONICAL_STATE_SHA256_HEX__",
+  "challenge_nonce": "__LCH_RECEIVING_CHALLENGE_NONCE__",
+  "received_at": "__LCH_RECEIVED_AT_RFC3339__",
+  "receiver": {
+    "runtime": "__LCH_RECEIVER_RUNTIME__",
+    "model": "__LCH_RECEIVER_MODEL__",
+    "implementation_version": "__LCH_RECEIVER_IMPLEMENTATION_VERSION__"
+  },
+  "receipt_issuer": {
+    "principal_id": "__LCH_RECEIVER_PRINCIPAL_ID__",
+    "tenant_id": "__LCH_RECEIVER_TENANT_ID__",
+    "authority": "receive_and_verify"
+  },
+  "receipt_attestation_ref": "__LCH_RECEIPT_ATTESTATION_OPAQUE_ID__",
+  "verification_mode": "model_only",
+  "verification_result_refs": {
+    "structure_conformance": null,
+    "byte_consistency": null,
+    "security_run": null,
+    "origin": null,
+    "inventory_authenticity": null,
+    "inventory_scope_coverage": null,
+    "package_vs_inventory_coverage": null,
+    "review_projection": null,
+    "approval": null
+  },
+  "verification_summary": {
+    "structure_conformance": "NOT_RUN",
+    "byte_consistency": "NOT_RUN",
+    "origin": "NOT_RUN",
+    "inventory_authenticity": "NOT_RUN",
+    "inventory_scope_coverage": "NOT_RUN",
+    "package_vs_inventory_coverage": "NOT_RUN",
+    "approval_statement_authenticity": "NOT_RUN",
+    "approval_verified_decision": "UNKNOWN",
+    "review_projection_conformance": "NOT_RUN",
+    "approval_gate": "NOT_RUN"
+  },
+  "observed_producer_claims": {
+    "content_coverage": {
+      "value": "UNKNOWN",
+      "package_claim_ref": "root.content_coverage"
+    },
+    "approval": {
+      "value": "PROPOSED",
+      "package_claim_ref": "root.approval_claim"
+    },
+    "semantic_actionability": {
+      "value": "UNKNOWN",
+      "package_claim_ref": "root.semantic_actionability_claim"
+    }
+  },
+  "receiver_execution_context": {
+    "tools": "DISABLED",
+    "side_effects": "DISABLED",
+    "sandbox_claim": "NONE"
+  },
+  "processing_coverage": "PARTIAL",
+  "runtime_limits": [],
+  "processed_modalities": [
+    "text"
+  ],
+  "unprocessed_modalities": [],
+  "read_object_ids": [],
+  "current_intent_id": "__LCH_INTENT_RECORD_ID__",
+  "active_decision_ids": [],
+  "rejected_decision_ids": [],
+  "failed_attempt_ids": [],
+  "active_constraint_ids": [],
+  "answered_question_ids": [],
+  "ready_action_ids": [],
+  "blocked_action_ids": [
+    "__LCH_ACTION_ID__"
+  ],
+  "recommended_action_id": null,
+  "selected_continuation_action_ids": [],
+  "selected_continuation_language": "__LCH_SELECTED_CONTINUATION_BCP47__",
+  "processing_basis": "original",
+  "protected_spans_failed": [],
+  "conflicts": [],
+  "material_ambiguities": [],
+  "external_state_rechecks": [],
+  "authorization_evaluations": [],
+  "authorization_summary": "UNKNOWN",
+  "blocking_reasons": [
+    {
+      "code": "SECURITY_BLOCKED",
+      "action_id": "__LCH_ACTION_ID__",
+      "evidence_refs": []
+    }
+  ],
+  "issues": [
+    {
+      "code": "__LCH_ISSUE_CODE__",
+      "severity": "warning",
+      "object_id": null
+    }
+  ],
+  "processing_status": "SECURITY_LIMITED",
+  "continuation_status": "BLOCKED"
+}

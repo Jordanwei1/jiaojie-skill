@@ -1,0 +1,440 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:lch:schema:0.1:state",
+  "title": "Lossless Context Handoff WARM canonical state v0.1",
+  "description": "Canonical WARM state for protocol version 0.1.0. current_projection is a derived cache; transition events remain authoritative.",
+  "x-lch-schema-version": "0.1.0",
+  "type": "object",
+  "required": [
+    "protocol_version",
+    "state_projection_version",
+    "boundaries",
+    "source_inventory",
+    "records",
+    "transition_events",
+    "action_graph",
+    "current_projection",
+    "content_coverage",
+    "consistency_claim",
+    "semantic_actionability_claim",
+    "language_profile",
+    "materiality_profile_ref"
+  ],
+  "properties": {
+    "protocol_version": {
+      "$ref": "urn:lch:schema:0.1:common#/$defs/protocolVersion"
+    },
+    "state_projection_version": {
+      "$ref": "urn:lch:schema:0.1:common#/$defs/stateProjectionVersion"
+    },
+    "boundaries": {
+      "$ref": "urn:lch:schema:0.1:common#/$defs/boundaries"
+    },
+    "source_inventory": {
+      "$ref": "urn:lch:schema:0.1:common#/$defs/sourceInventory"
+    },
+    "records": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/stateRecord"
+      }
+    },
+    "transition_events": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "urn:lch:schema:0.1:event"
+      }
+    },
+    "action_graph": {
+      "$ref": "urn:lch:schema:0.1:action-graph"
+    },
+    "current_projection": {
+      "type": "object",
+      "required": [
+        "current_intent_id",
+        "current_phase",
+        "active_decision_ids",
+        "rejected_decision_ids",
+        "failed_attempt_ids",
+        "active_constraint_ids",
+        "answered_question_ids",
+        "ready_action_ids",
+        "blocked_action_ids",
+        "recommended_action_id"
+      ],
+      "properties": {
+        "current_intent_id": {"$ref": "urn:lch:schema:0.1:common#/$defs/stableId"},
+        "current_phase": {"type": "string", "minLength": 1},
+        "active_decision_ids": {"$ref": "#/$defs/idArray"},
+        "rejected_decision_ids": {"$ref": "#/$defs/idArray"},
+        "failed_attempt_ids": {"$ref": "#/$defs/idArray"},
+        "active_constraint_ids": {"$ref": "#/$defs/idArray"},
+        "answered_question_ids": {"$ref": "#/$defs/idArray"},
+        "ready_action_ids": {"$ref": "#/$defs/idArray"},
+        "blocked_action_ids": {"$ref": "#/$defs/idArray"},
+        "recommended_action_id": {
+          "oneOf": [
+            {"$ref": "urn:lch:schema:0.1:common#/$defs/stableId"},
+            {"type": "null"}
+          ]
+        }
+      },
+      "additionalProperties": false,
+      "$comment": "This object is only a deterministic cache of event heads and the active action graph. A validator must compare it with the authoritative graphs."
+    },
+    "content_coverage": {
+      "$ref": "urn:lch:schema:0.1:common#/$defs/contentCoverage"
+    },
+    "consistency_claim": {
+      "enum": [
+        "CONSISTENT",
+        "DECLARED_CONFLICT",
+        "UNKNOWN"
+      ]
+    },
+    "semantic_actionability_claim": {
+      "enum": [
+        "SEMANTICALLY_READY",
+        "BLOCKED",
+        "UNKNOWN"
+      ]
+    },
+    "language_profile": {
+      "$ref": "urn:lch:schema:0.1:common#/$defs/languageProfile"
+    },
+    "materiality_profile_ref": {
+      "$ref": "urn:lch:schema:0.1:common#/$defs/materialityProfileRef"
+    }
+  },
+  "additionalProperties": false,
+  "$comment": "A deterministic validator must enforce globally unique IDs, valid evidence byte ranges, COLD or omission support for every material record, transition graph validity, action graph validity, and exact agreement of current_projection with event heads. An event record_id must resolve to either records[].id or action_graph.action_graph_revision.record_id; the latter is the graph record and is not duplicated in records[].",
+  "$defs": {
+    "idArray": {
+      "type": "array",
+      "items": {"$ref": "urn:lch:schema:0.1:common#/$defs/stableId"},
+      "uniqueItems": true
+    },
+    "baseRecord": {
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "assertion",
+        "evidence_spans",
+        "source_principal",
+        "ordering",
+        "temporal",
+        "related_records",
+        "transition_event_ids",
+        "scope_id",
+        "sensitivity"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+        },
+        "type": {
+          "enum": [
+            "intent",
+            "decision",
+            "claim",
+            "constraint",
+            "question",
+            "attempt",
+            "artifact",
+            "preference",
+            "next_action"
+          ]
+        },
+        "assertion": {
+          "allOf": [
+            {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/localizedText"
+            },
+            {
+              "properties": {
+                "kind": {
+                  "const": "canonical_assertion"
+                },
+                "authority": {
+                  "const": "canonical_assertion"
+                }
+              }
+            }
+          ]
+        },
+        "evidence_spans": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "urn:lch:schema:0.1:common#/$defs/evidenceSpan"
+          }
+        },
+        "source_principal": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/sourcePrincipal"
+        },
+        "ordering": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/ordering"
+        },
+        "temporal": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/temporal"
+        },
+        "related_records": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+          },
+          "uniqueItems": true
+        },
+        "transition_event_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+          },
+          "uniqueItems": true
+        },
+        "scope_id": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+        },
+        "sensitivity": {
+          "enum": [
+            "public",
+            "private",
+            "secret",
+            "restricted"
+          ]
+        }
+      }
+    },
+    "stateRecord": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/baseRecord"
+        },
+        {
+          "oneOf": [
+            {
+              "properties": {
+                "type": {
+                  "const": "intent"
+                },
+                "lifecycle": {
+                  "enum": [
+                    "PROPOSED",
+                    "ACTIVE",
+                    "SUPERSEDED",
+                    "ABANDONED"
+                  ]
+                }
+              },
+              "required": [
+                "type",
+                "lifecycle"
+              ]
+            },
+            {
+              "properties": {
+                "type": {
+                  "const": "decision"
+                },
+                "lifecycle": {
+                  "enum": [
+                    "CANDIDATE",
+                    "ACTIVE",
+                    "SUPERSEDED",
+                    "REJECTED"
+                  ]
+                }
+              },
+              "required": [
+                "type",
+                "lifecycle"
+              ]
+            },
+            {
+              "properties": {
+                "type": {
+                  "const": "claim"
+                },
+                "epistemic_basis": {
+                  "enum": [
+                    "USER_STATED",
+                    "TOOL_OBSERVED",
+                    "EXTERNAL_ASSERTED",
+                    "INFERRED",
+                    "ASSUMED",
+                    "UNKNOWN"
+                  ]
+                },
+                "verification": {
+                  "enum": [
+                    "UNVERIFIED",
+                    "CORROBORATED",
+                    "DISPUTED",
+                    "REFUTED"
+                  ]
+                },
+                "temporal_validity": {
+                  "enum": [
+                    "CURRENT",
+                    "STALE",
+                    "EXPIRED",
+                    "UNKNOWN"
+                  ]
+                }
+              },
+              "required": [
+                "type",
+                "epistemic_basis",
+                "verification",
+                "temporal_validity"
+              ]
+            },
+            {
+              "properties": {
+                "type": {
+                  "const": "constraint"
+                },
+                "lifecycle": {
+                  "enum": [
+                    "PROPOSED",
+                    "ACTIVE",
+                    "SUPERSEDED",
+                    "RELEASED"
+                  ]
+                },
+                "compliance": {
+                  "enum": [
+                    "SATISFIED",
+                    "VIOLATED",
+                    "UNKNOWN"
+                  ]
+                }
+              },
+              "required": [
+                "type",
+                "lifecycle",
+                "compliance"
+              ]
+            },
+            {
+              "properties": {
+                "type": {
+                  "const": "question"
+                },
+                "lifecycle": {
+                  "enum": [
+                    "OPEN",
+                    "ANSWERED",
+                    "DEFERRED",
+                    "CANCELLED"
+                  ]
+                }
+              },
+              "required": [
+                "type",
+                "lifecycle"
+              ]
+            },
+            {
+              "properties": {
+                "type": {
+                  "const": "attempt"
+                },
+                "outcome": {
+                  "enum": [
+                    "SUCCEEDED",
+                    "FAILED",
+                    "INCONCLUSIVE",
+                    "ABORTED"
+                  ]
+                }
+              },
+              "required": [
+                "type",
+                "outcome"
+              ]
+            },
+            {
+              "properties": {
+                "type": {
+                  "const": "artifact"
+                },
+                "availability": {
+                  "enum": [
+                    "PRESENT",
+                    "MISSING",
+                    "EXTERNAL_ONLY",
+                    "REDACTED"
+                  ]
+                },
+                "freshness": {
+                  "enum": [
+                    "CURRENT",
+                    "STALE",
+                    "UNKNOWN"
+                  ]
+                }
+              },
+              "required": [
+                "type",
+                "availability",
+                "freshness"
+              ]
+            },
+            {
+              "properties": {
+                "type": {
+                  "const": "preference"
+                },
+                "lifecycle": {
+                  "enum": [
+                    "PROPOSED",
+                    "ACTIVE",
+                    "SUPERSEDED",
+                    "RELEASED"
+                  ]
+                },
+                "authority": {
+                  "enum": [
+                    "USER_CONFIRMED",
+                    "OBSERVED_PATTERN",
+                    "INFERRED"
+                  ]
+                }
+              },
+              "required": [
+                "type",
+                "lifecycle",
+                "authority"
+              ]
+            },
+            {
+              "properties": {
+                "type": {
+                  "const": "next_action"
+                },
+                "eligibility": {
+                  "enum": [
+                    "READY",
+                    "BLOCKED",
+                    "COMPLETED",
+                    "SUPERSEDED"
+                  ]
+                }
+              },
+              "required": [
+                "type",
+                "eligibility"
+              ]
+            }
+          ]
+        }
+      ],
+      "unevaluatedProperties": false
+    }
+  }
+}

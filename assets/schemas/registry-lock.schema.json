@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:lch:schema:0.1:registry-lock",
+  "title": "Lossless Context Handoff registry lock v0.1",
+  "type": "object",
+  "required": [
+    "registry_lock_version",
+    "iana_language_subtag_registry",
+    "iana_language_tag_extensions_registry",
+    "unicode",
+    "qualification_rule"
+  ],
+  "properties": {
+    "registry_lock_version": {"const": "0.1.0"},
+    "iana_language_subtag_registry": {
+      "type": "object",
+      "required": ["file_date", "path", "byte_length", "sha256_raw"],
+      "properties": {
+        "file_date": {"const": "2026-08-08"},
+        "path": {"const": "iana-language-subtag-registry-2026-08-08.txt"},
+        "byte_length": {"const": 731799},
+        "sha256_raw": {"const": "sha256:be21e91b6851f750a7b1a687f11209d46ad5a8471d6b10a1efc8d1dac4c8a926"}
+      },
+      "additionalProperties": false
+    },
+    "iana_language_tag_extensions_registry": {
+      "type": "object",
+      "required": ["file_date", "path", "byte_length", "sha256_raw"],
+      "properties": {
+        "file_date": {"const": "2014-04-02"},
+        "path": {"const": "iana-language-tag-extensions-registry-2014-04-02.txt"},
+        "byte_length": {"const": 1069},
+        "sha256_raw": {"const": "sha256:fdf7764455c493c245a9b3b5b9cd3938391f0637302c3e943fde86aee652e376"}
+      },
+      "additionalProperties": false
+    },
+    "unicode": {
+      "type": "object",
+      "required": ["version", "normalization", "text_segmentation", "bidirectional_algorithm", "security_mechanisms"],
+      "properties": {
+        "version": {"const": "15.1.0"},
+        "normalization": {"const": "UAX15"},
+        "text_segmentation": {"const": "UAX29"},
+        "bidirectional_algorithm": {"const": "UAX9"},
+        "security_mechanisms": {"const": "UTS39"}
+      },
+      "additionalProperties": false
+    },
+    "qualification_rule": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,375 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:lch:schema:0.1:language-unicode-vector",
+  "title": "Lossless Context Handoff language and Unicode vector v0.1",
+  "type": "object",
+  "required": [
+    "vector_id",
+    "kind",
+    "protocol_version",
+    "registry_lock",
+    "unicode_runtime",
+    "bcp47_cases",
+    "unicode_cases",
+    "not_claimed"
+  ],
+  "properties": {
+    "vector_id": {
+      "const": "language-unicode-v1-001"
+    },
+    "kind": {
+      "const": "language_unicode_v1"
+    },
+    "protocol_version": {
+      "const": "0.1.0"
+    },
+    "registry_lock": {
+      "type": "object",
+      "required": [
+        "language_subtag_registry",
+        "language_tag_extensions_registry"
+      ],
+      "properties": {
+        "language_subtag_registry": {
+          "type": "object",
+          "required": [
+            "path",
+            "file_date",
+            "byte_length",
+            "sha256_raw"
+          ],
+          "properties": {
+            "path": {
+              "const": "assets/registry/iana-language-subtag-registry-2026-08-08.txt"
+            },
+            "file_date": {
+              "const": "2026-08-08"
+            },
+            "byte_length": {
+              "const": 731799
+            },
+            "sha256_raw": {
+              "const": "sha256:be21e91b6851f750a7b1a687f11209d46ad5a8471d6b10a1efc8d1dac4c8a926"
+            }
+          },
+          "additionalProperties": false
+        },
+        "language_tag_extensions_registry": {
+          "type": "object",
+          "required": [
+            "path",
+            "file_date",
+            "byte_length",
+            "sha256_raw"
+          ],
+          "properties": {
+            "path": {
+              "const": "assets/registry/iana-language-tag-extensions-registry-2014-04-02.txt"
+            },
+            "file_date": {
+              "const": "2014-04-02"
+            },
+            "byte_length": {
+              "const": 1069
+            },
+            "sha256_raw": {
+              "const": "sha256:fdf7764455c493c245a9b3b5b9cd3938391f0637302c3e943fde86aee652e376"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "unicode_runtime": {
+      "type": "object",
+      "required": [
+        "version",
+        "normalization_scope",
+        "bidi_detection_scope"
+      ],
+      "properties": {
+        "version": {
+          "const": "15.1.0"
+        },
+        "normalization_scope": {
+          "const": "NFC_AND_NFKC_VECTOR_CASES_ONLY"
+        },
+        "bidi_detection_scope": {
+          "const": "CODEPOINT_PRESENCE_ONLY"
+        }
+      },
+      "additionalProperties": false
+    },
+    "bcp47_cases": {
+      "type": "array",
+      "minItems": 22,
+      "items": {
+        "$ref": "#/$defs/bcp47Case"
+      },
+      "uniqueItems": true
+    },
+    "unicode_cases": {
+      "type": "object",
+      "required": [
+        "normalization",
+        "source_byte_preservation",
+        "protected_spans",
+        "bidi_control_detection"
+      ],
+      "properties": {
+        "normalization": {
+          "type": "array",
+          "minItems": 3,
+          "items": {
+            "$ref": "#/$defs/normalizationCase"
+          }
+        },
+        "source_byte_preservation": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "$ref": "#/$defs/bytePreservationCase"
+          }
+        },
+        "protected_spans": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "$ref": "#/$defs/protectedSpanCase"
+          }
+        },
+        "bidi_control_detection": {
+          "type": "array",
+          "minItems": 3,
+          "items": {
+            "$ref": "#/$defs/bidiCase"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "not_claimed": {
+      "const": [
+        {
+          "algorithm": "UAX9",
+          "result": "NOT_RUN"
+        },
+        {
+          "algorithm": "UAX29",
+          "result": "NOT_RUN"
+        },
+        {
+          "algorithm": "UTS39",
+          "result": "NOT_RUN"
+        },
+        {
+          "algorithm": "PACKAGE_CONTENT_NORMALIZATION",
+          "result": "NOT_RUN"
+        },
+        {
+          "algorithm": "PACKAGE_PROTECTED_SPAN_PRESERVATION",
+          "result": "NOT_RUN"
+        },
+        {
+          "algorithm": "PACKAGE_BIDI_CONTROL_SCAN",
+          "result": "NOT_RUN"
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "nullableString": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "bcp47Case": {
+      "type": "object",
+      "required": [
+        "case_id",
+        "input",
+        "expected"
+      ],
+      "properties": {
+        "case_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "input": {
+          "type": "string",
+          "minLength": 1
+        },
+        "expected": {
+          "type": "object",
+          "required": [
+            "valid",
+            "classification",
+            "canonical",
+            "deprecated",
+            "preferred_value",
+            "error_code"
+          ],
+          "properties": {
+            "valid": {
+              "type": "boolean"
+            },
+            "classification": {
+              "enum": [
+                "REGISTERED",
+                "DEPRECATED",
+                "PREFERRED_REPLACEMENT",
+                "GRANDFATHERED",
+                "GRANDFATHERED_DEPRECATED",
+                "EXTENSION",
+                "PRIVATE_USE",
+                "INVALID"
+              ]
+            },
+            "canonical": {
+              "$ref": "#/$defs/nullableString"
+            },
+            "deprecated": {
+              "type": "boolean"
+            },
+            "preferred_value": {
+              "$ref": "#/$defs/nullableString"
+            },
+            "error_code": {
+              "enum": [
+                null,
+                "SYNTAX",
+                "UNREGISTERED_SUBTAG",
+                "ORDER",
+                "EXTLANG_PREFIX",
+                "DUPLICATE_VARIANT",
+                "DUPLICATE_SINGLETON",
+                "UNREGISTERED_SINGLETON"
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "normalizationCase": {
+      "type": "object",
+      "required": [
+        "case_id",
+        "input",
+        "operation",
+        "expected",
+        "nfkc_expected"
+      ],
+      "properties": {
+        "case_id": {
+          "type": "string"
+        },
+        "input": {
+          "type": "string"
+        },
+        "operation": {
+          "const": "NFC"
+        },
+        "expected": {
+          "type": "string"
+        },
+        "nfkc_expected": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "bytePreservationCase": {
+      "type": "object",
+      "required": [
+        "case_id",
+        "source_utf8_hex",
+        "expected_source_utf8_hex",
+        "derived_nfc_utf8_hex"
+      ],
+      "properties": {
+        "case_id": {
+          "type": "string"
+        },
+        "source_utf8_hex": {
+          "type": "string",
+          "pattern": "^(?:[0-9a-f]{2})*$"
+        },
+        "expected_source_utf8_hex": {
+          "type": "string",
+          "pattern": "^(?:[0-9a-f]{2})*$"
+        },
+        "derived_nfc_utf8_hex": {
+          "type": "string",
+          "pattern": "^(?:[0-9a-f]{2})*$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "protectedSpanCase": {
+      "type": "object",
+      "required": [
+        "case_id",
+        "category",
+        "input",
+        "expected"
+      ],
+      "properties": {
+        "case_id": {
+          "type": "string"
+        },
+        "category": {
+          "enum": [
+            "code",
+            "identifier",
+            "number_or_unit",
+            "user_protected"
+          ]
+        },
+        "input": {
+          "type": "string"
+        },
+        "expected": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "bidiCase": {
+      "type": "object",
+      "required": [
+        "case_id",
+        "input",
+        "detected",
+        "control_codepoints",
+        "expected_unchanged"
+      ],
+      "properties": {
+        "case_id": {
+          "type": "string"
+        },
+        "input": {
+          "type": "string"
+        },
+        "detected": {
+          "type": "boolean"
+        },
+        "control_codepoints": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^U\\+[0-9A-F]{4,6}$"
+          }
+        },
+        "expected_unchanged": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

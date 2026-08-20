@@ -1,0 +1,53 @@
+{
+  "vector_set_version": "0.1.0",
+  "protocol_version": "0.1.0",
+  "fixture_format": "lch-golden-vector-index-0.1",
+  "vectors": [
+    {
+      "vector_id": "jcs-sha256-basic-001",
+      "path": "jcs-sha256-basic-001.json",
+      "kind": "jcs_sha256",
+      "byte_length_raw": 495,
+      "sha256_raw": "sha256:da5c7fd6fd47e818cb79dce2ad7693c5f357cc63d476398001cb635aada323dd",
+      "byte_length_canonical": 399,
+      "sha256_canonical": "sha256:c4bd9d4d31cbcbb1c44a0a6e63a781aa0655b9ebc747597e73d2e82d1bfd8a11",
+      "canonicalization": "RFC8785-JCS",
+      "hash": "sha-256"
+    },
+    {
+      "vector_id": "review-projection-v1-minimal-001",
+      "path": "review-projection-v1-minimal-001.json",
+      "kind": "review_projection_v1",
+      "byte_length_raw": 19486,
+      "sha256_raw": "sha256:84459fe5f4068c40d69c9d68cc3db0683ca21c34f274f0a5ece5c5604d725d9a",
+      "byte_length_canonical": 15744,
+      "sha256_canonical": "sha256:90d92e59c56fd89e64e1b681e848d7217394c6e78f914c6d4b445cd4afe4e8fd",
+      "projection_version": "review-v1",
+      "hash": "sha-256"
+    },
+    {
+      "vector_id": "derived-digests-v1-001",
+      "path": "derived-digests-v1-001.json",
+      "kind": "derived_digests_v1",
+      "byte_length_raw": 11081,
+      "sha256_raw": "sha256:3ab590c1590deac615fe1fee0bc0bc17d0d8c43efc8d2763ff68e9c60d260e9f",
+      "byte_length_canonical": 10580,
+      "sha256_canonical": "sha256:dc20203abea1dc39d366ee57b52b4f567a8693f99ce2d2c0334b24ff40647fea",
+      "digest_profile": "lch-derived-digest-v1",
+      "hash": "sha-256"
+    },
+    {
+      "vector_id": "language-unicode-v1-001",
+      "path": "language-unicode-v1-001.json",
+      "kind": "language_unicode_v1",
+      "byte_length_raw": 10125,
+      "sha256_raw": "sha256:17e129721d11aca7c15719b1234b54c1436c19a062d2629264cbcf3980c46720",
+      "byte_length_canonical": 6888,
+      "sha256_canonical": "sha256:6e41cbcbd0654bacdd39c71d8ee9cb941d664d0516b6f0fa2dff3f1350b37748",
+      "registry_file_date": "2026-08-08",
+      "extensions_registry_file_date": "2014-04-02",
+      "unicode_version": "15.1.0",
+      "qualification_scope": "REGISTERED_VECTOR_SCOPE_ONLY"
+    }
+  ]
+}

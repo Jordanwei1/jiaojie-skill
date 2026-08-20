@@ -1,0 +1,42 @@
+{
+  "conversion_origin": "__LCH_CONVERSION_ORIGIN__",
+  "source_version": "__LCH_LEGACY_SOURCE_VERSION__",
+  "source_sha256": "sha256:__LCH_LEGACY_SOURCE_SHA256_HEX__",
+  "detection_rules": [
+    "__LCH_DETECTION_RULE_ID__"
+  ],
+  "detection_confidence": "__LCH_DETECTION_CONFIDENCE_NUMBER__",
+  "parser_version": "__LCH_PARSER_VERSION__",
+  "format_override": null,
+  "CONVERSION_REPORT": "COMPLETED",
+  "STRUCTURE_RESULT_REF": null,
+  "SOURCE_ORIGIN_CLAIM": "UNKNOWN",
+  "CONTINUITY_EVAL_ELIGIBILITY_CLAIM": "INELIGIBLE",
+  "CONTENT_COVERAGE_CLAIM": "PARTIAL",
+  "COVERAGE_CLAIM_BASIS": "CONVERTER_DERIVED",
+  "COVERAGE_RESULT_REFS": [],
+  "APPROVAL_CLAIM": "PROPOSED",
+  "MISSING": [
+    "__LCH_MISSING_FIELD_OR_SECTION__"
+  ],
+  "mapping_report": [
+    {
+      "rule_id": "__LCH_MAPPING_RULE_ID__",
+      "source_line": null,
+      "source_json_pointer": "__LCH_SOURCE_JSON_POINTER_OR_NULL__",
+      "extraction_method": "__LCH_EXTRACTION_METHOD__",
+      "evidence_refs": [
+        "__LCH_MAPPING_EVIDENCE_REF__"
+      ]
+    }
+  ],
+  "unmapped_sections": [
+    "__LCH_UNMAPPED_SECTION_REF__"
+  ],
+  "conflicts": [
+    "__LCH_CONVERSION_CONFLICT__"
+  ],
+  "warnings": [
+    "__LCH_CONVERSION_WARNING__"
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "schema_version": "jiaojie-eval-run-v0.1",
+  "run_id": "replace-with-unique-run-id",
+  "status": "NOT_RUN",
+  "created_at": null,
+  "case_id": null,
+  "producer": {
+    "model": null,
+    "model_version": null,
+    "runtime": null,
+    "language": null,
+    "capabilities": []
+  },
+  "receiver": {
+    "model": null,
+    "model_version": null,
+    "runtime": null,
+    "language": null,
+    "capabilities": []
+  },
+  "sampling": {
+    "attempt_index": null,
+    "planned_attempt_count": null,
+    "temperature": null
+  },
+  "artifacts": {
+    "input_sha256": null,
+    "handoff_sha256": null,
+    "producer_output_sha256": null,
+    "receiver_output_sha256": null,
+    "score_sha256": null
+  },
+  "score": {
+    "weighted_total": null,
+    "hard_gates_passed": null,
+    "failed_hard_gates": []
+  },
+  "review": {
+    "automatic_scorer": null,
+    "human_reviewers": [],
+    "independent_reproducer": null
+  },
+  "limitations": []
+}

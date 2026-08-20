@@ -1,0 +1,22 @@
+{
+  "vector_version": "0.1.0",
+  "vector_id": "jcs-sha256-basic-001",
+  "fixture_format": "lch-golden-vector-0.1",
+  "kind": "jcs_sha256",
+  "applies_to": [
+    "bundle_manifest",
+    "t0_control",
+    "state_projection_v1"
+  ],
+  "input": {
+    "b": 1,
+    "a": "é"
+  },
+  "expected": {
+    "canonical_utf8": "{\"a\":\"é\",\"b\":1}",
+    "byte_length": 16,
+    "sha256": "sha256:aa58fba8483623bed37c1b02edfccbdd9a53123837c20bfa4cb4049993a2872e",
+    "bom": false,
+    "final_lf": false
+  }
+}

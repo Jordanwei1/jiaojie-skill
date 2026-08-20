@@ -1,0 +1,34 @@
+test_attachment_zip_has_only_handoff_and_attachments (test_fast_handoff.FormatRoundTripTests.test_attachment_zip_has_only_handoff_and_attachments) ... ok
+test_audit_byte_mutation_is_rejected (test_fast_handoff.FormatRoundTripTests.test_audit_byte_mutation_is_rejected) ... ok
+test_audit_zip_layout_and_byte_verification (test_fast_handoff.FormatRoundTripTests.test_audit_zip_layout_and_byte_verification) ... ok
+test_declared_but_missing_attachment_is_rejected (test_fast_handoff.FormatRoundTripTests.test_declared_but_missing_attachment_is_rejected) ... ok
+test_explicit_receipt_save_creates_one_requested_file (test_fast_handoff.FormatRoundTripTests.test_explicit_receipt_save_creates_one_requested_file) ... ok
+test_markdown_contract_rejects_missing_negative_knowledge (test_fast_handoff.FormatRoundTripTests.test_markdown_contract_rejects_missing_negative_knowledge) ... ok
+test_markdown_export_is_one_file_and_receipt_is_chat_only (test_fast_handoff.FormatRoundTripTests.test_markdown_export_is_one_file_and_receipt_is_chat_only) ... ok
+test_patch_shebang_is_inert_text_not_executable (test_fast_handoff.FormatRoundTripTests.test_patch_shebang_is_inert_text_not_executable) ... ok
+test_path_traversal_zip_is_rejected (test_fast_handoff.FormatRoundTripTests.test_path_traversal_zip_is_rejected) ... ok
+test_undeclared_attachment_is_rejected (test_fast_handoff.FormatRoundTripTests.test_undeclared_attachment_is_rejected) ... ok
+test_unfilled_template_is_rejected (test_fast_handoff.FormatRoundTripTests.test_unfilled_template_is_rejected) ... ok
+test_accessible_required_file_does_not_force_zip (test_fast_handoff.SelectionTests.test_accessible_required_file_does_not_force_zip) ... ok
+test_audit_reasons_upgrade_to_audit_zip (test_fast_handoff.SelectionTests.test_audit_reasons_upgrade_to_audit_zip) ... ok
+test_global_workspace_access_applies_when_material_has_no_override (test_fast_handoff.SelectionTests.test_global_workspace_access_applies_when_material_has_no_override) ... ok
+test_only_material_ambiguity_asks_user (test_fast_handoff.SelectionTests.test_only_material_ambiguity_asks_user) ... ok
+test_text_is_default (test_fast_handoff.SelectionTests.test_text_is_default) ... ok
+test_unavailable_required_file_upgrades_to_zip (test_fast_handoff.SelectionTests.test_unavailable_required_file_upgrades_to_zip) ... ok
+test_user_markdown_override_is_honored_and_partial (test_fast_handoff.SelectionTests.test_user_markdown_override_is_honored_and_partial) ... ok
+test_canonical_json_is_stable_and_rejects_ambiguous_numbers (test_public_contract.DeterministicProtocolTests.test_canonical_json_is_stable_and_rejects_ambiguous_numbers) ... ok
+test_protocol_assets_and_vectors_are_integrity_locked (test_public_contract.DeterministicProtocolTests.test_protocol_assets_and_vectors_are_integrity_locked) ... ok
+test_security_scan_detects_secret_bidi_and_active_content (test_public_contract.DeterministicProtocolTests.test_security_scan_detects_secret_bidi_and_active_content) ... ok
+test_corpus_covers_same_and_cross_language_semantics (test_public_contract.ExampleCorpusTests.test_corpus_covers_same_and_cross_language_semantics) ... ok
+test_every_case_contains_the_five_review_artifacts (test_public_contract.ExampleCorpusTests.test_every_case_contains_the_five_review_artifacts) ... ok
+test_seven_domains_have_one_public_candidate_each (test_public_contract.ExampleCorpusTests.test_seven_domains_have_one_public_candidate_each) ... ok
+test_repeated_legacy_import_is_byte_stable (test_public_contract.LegacyConversionTests.test_repeated_legacy_import_is_byte_stable) ... ok
+test_three_legacy_importers_stay_partial_and_ineligible (test_public_contract.LegacyConversionTests.test_three_legacy_importers_stay_partial_and_ineligible) ... ok
+test_openai_metadata_invokes_public_name (test_public_contract.SkillContractTests.test_openai_metadata_invokes_public_name) ... ok
+test_skill_frontmatter_has_only_public_fields (test_public_contract.SkillContractTests.test_skill_frontmatter_has_only_public_fields) ... ok
+
+----------------------------------------------------------------------
+Ran 28 tests in 0.116s
+
+OK
+PROJECT_CHECK_PASS

@@ -1,0 +1,30 @@
+{
+  "statement_id": "__LCH_APPROVAL_STATEMENT_ID__",
+  "issuer": {
+    "principal_id": "__LCH_APPROVER_PRINCIPAL_ID__",
+    "authority_at_issue": "approve_export_scope"
+  },
+  "subject": {
+    "package_id": "__LCH_PACKAGE_ID__",
+    "package_integrity_ref": {
+      "kind": "__LCH_PACKAGE_INTEGRITY_KIND__",
+      "sha256": "sha256:__LCH_PACKAGE_ROOT_SHA256_HEX__",
+      "byte_length": "__LCH_PACKAGE_ROOT_BYTE_LENGTH_UINT__"
+    },
+    "review_projection_ref": {
+      "kind": "__LCH_REVIEW_PROJECTION_KIND__",
+      "projection_version": "review-v1",
+      "sha256_raw": "sha256:__LCH_REVIEW_PROJECTION_SHA256_HEX__",
+      "byte_length": "__LCH_REVIEW_PROJECTION_BYTE_LENGTH_UINT__"
+    },
+    "canonical_state_digest": "sha256:__LCH_CANONICAL_STATE_SHA256_HEX__",
+    "scope_digest": "sha256:__LCH_SCOPE_SHA256_HEX__",
+    "material_exclusions_digest": "sha256:__LCH_MATERIAL_EXCLUSIONS_SHA256_HEX__",
+    "recipient_binding_digest": "sha256:__LCH_RECIPIENT_BINDING_SHA256_HEX__",
+    "approval_challenge_nonce": "__LCH_SINGLE_USE_APPROVAL_CHALLENGE_NONCE_OR_NULL__"
+  },
+  "decision": "__LCH_APPROVAL_DECISION__",
+  "issued_at": "__LCH_APPROVAL_STATEMENT_ISSUED_AT_RFC3339__",
+  "expires_at": "__LCH_APPROVAL_STATEMENT_EXPIRES_AT_RFC3339__",
+  "issuer_evidence_ref": "__LCH_APPROVER_ISSUER_EVIDENCE_REF__"
+}

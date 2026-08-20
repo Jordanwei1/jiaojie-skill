@@ -1,0 +1,324 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:lch:schema:0.1:profile-feature-registry",
+  "title": "Lossless Context Handoff profile and feature registry v0.1",
+  "type": "object",
+  "required": [
+    "registry_version",
+    "profiles",
+    "features",
+    "domain_guidance"
+  ],
+  "properties": {
+    "registry_version": {
+      "const": "0.1.0"
+    },
+    "profiles": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/coreMarkdown"
+        },
+        {
+          "$ref": "#/$defs/selfContained"
+        },
+        {
+          "$ref": "#/$defs/multilingual"
+        },
+        {
+          "$ref": "#/$defs/confidentialTransport"
+        }
+      ],
+      "items": false
+    },
+    "features": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 1,
+      "prefixItems": [
+        {
+          "$ref": "#/$defs/detachedEnvelopes"
+        }
+      ],
+      "items": false
+    },
+    "domain_guidance": {
+      "$ref": "#/$defs/domainGuidance"
+    }
+  },
+  "$defs": {
+    "requirements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9-]*:[a-z0-9][a-z0-9-]*$"
+      },
+      "uniqueItems": true
+    },
+    "qualification": {
+      "type": "object",
+      "required": [
+        "scope",
+        "vector_ids",
+        "excluded_claims"
+      ],
+      "properties": {
+        "scope": {
+          "enum": [
+            "SPECIFIED_V0_1",
+            "REGISTERED_VECTOR_SCOPE_ONLY",
+            "NOT_IMPLEMENTED"
+          ]
+        },
+        "vector_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*-[0-9]{3}$"
+          },
+          "uniqueItems": true
+        },
+        "excluded_claims": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "FULL_UAX9",
+              "FULL_UAX29",
+              "FULL_UTS39",
+              "PACKAGE_CONTENT_NORMALIZATION",
+              "PACKAGE_PROTECTED_SPAN_PRESERVATION",
+              "PACKAGE_BIDI_CONTROL_SCAN"
+            ]
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "profileBase": {
+      "type": "object",
+      "required": [
+        "id",
+        "version",
+        "status",
+        "selectable",
+        "requirements",
+        "qualification"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "version": {
+          "const": "0.1.0"
+        },
+        "status": {
+          "enum": [
+            "SUPPORTED",
+            "QUALIFIED_SUBSET",
+            "UNSUPPORTED"
+          ]
+        },
+        "selectable": {
+          "type": "boolean"
+        },
+        "requirements": {
+          "$ref": "#/$defs/requirements"
+        },
+        "qualification": {
+          "$ref": "#/$defs/qualification"
+        }
+      },
+      "additionalProperties": false
+    },
+    "coreMarkdown": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/profileBase"
+        },
+        {
+          "properties": {
+            "id": {
+              "const": "urn:lch:profile:core-markdown"
+            },
+            "status": {
+              "const": "SUPPORTED"
+            },
+            "selectable": {
+              "const": true
+            },
+            "qualification": {
+              "properties": {
+                "scope": {
+                  "const": "SPECIFIED_V0_1"
+                },
+                "vector_ids": {
+                  "const": [
+                    "jcs-sha256-basic-001",
+                    "review-projection-v1-minimal-001",
+                    "derived-digests-v1-001"
+                  ]
+                },
+                "excluded_claims": {
+                  "maxItems": 0
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "selfContained": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/profileBase"
+        },
+        {
+          "properties": {
+            "id": {
+              "const": "urn:lch:profile:self-contained"
+            },
+            "status": {
+              "const": "SUPPORTED"
+            },
+            "selectable": {
+              "const": true
+            }
+          }
+        }
+      ]
+    },
+    "multilingual": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/profileBase"
+        },
+        {
+          "properties": {
+            "id": {
+              "const": "urn:lch:profile:multilingual"
+            },
+            "status": {
+              "const": "QUALIFIED_SUBSET"
+            },
+            "selectable": {
+              "const": true
+            },
+            "qualification": {
+              "properties": {
+                "scope": {
+                  "const": "REGISTERED_VECTOR_SCOPE_ONLY"
+                },
+                "vector_ids": {
+                  "const": [
+                    "language-unicode-v1-001"
+                  ]
+                },
+                "excluded_claims": {
+                  "const": [
+                    "FULL_UAX9",
+                    "FULL_UAX29",
+                    "FULL_UTS39",
+                    "PACKAGE_CONTENT_NORMALIZATION",
+                    "PACKAGE_PROTECTED_SPAN_PRESERVATION",
+                    "PACKAGE_BIDI_CONTROL_SCAN"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "confidentialTransport": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/profileBase"
+        },
+        {
+          "properties": {
+            "id": {
+              "const": "urn:lch:profile:confidential-transport"
+            },
+            "status": {
+              "const": "UNSUPPORTED"
+            },
+            "selectable": {
+              "const": false
+            },
+            "qualification": {
+              "properties": {
+                "scope": {
+                  "const": "NOT_IMPLEMENTED"
+                },
+                "vector_ids": {
+                  "maxItems": 0
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "detachedEnvelopes": {
+      "type": "object",
+      "required": [
+        "id",
+        "version",
+        "status",
+        "requirements"
+      ],
+      "properties": {
+        "id": {
+          "const": "urn:lch:feature:detached-envelopes"
+        },
+        "version": {
+          "const": "0.1.0"
+        },
+        "status": {
+          "const": "SUPPORTED"
+        },
+        "requirements": {
+          "$ref": "#/$defs/requirements"
+        }
+      },
+      "additionalProperties": false
+    },
+    "domainGuidance": {
+      "type": "object",
+      "required": [
+        "version",
+        "status",
+        "wire_profile_id",
+        "guides"
+      ],
+      "properties": {
+        "version": {
+          "const": "0.1.0"
+        },
+        "status": {
+          "const": "CAPTURE_GUIDANCE_ONLY"
+        },
+        "wire_profile_id": {
+          "type": "null"
+        },
+        "guides": {
+          "type": "array",
+          "minItems": 7,
+          "maxItems": 7,
+          "items": {
+            "type": "string",
+            "pattern": "^references/domain-[a-z-]+\\.md$"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

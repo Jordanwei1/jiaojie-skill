@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:lch:schema:0.1:t0-control",
+  "title": "Lossless Context Handoff T0 control object v0.1",
+  "description": "The exact JCS control object committed by the LCH-T0 header. Detached frames are appended after rooted content and are excluded from this object.",
+  "x-lch-schema-version": "0.1.0",
+  "allOf": [
+    {
+      "$ref": "urn:lch:schema:0.1:common#/$defs/packageRoot"
+    },
+    {
+      "type": "object",
+      "required": [
+        "embedded_objects"
+      ],
+      "properties": {
+        "review_projection_ref": {
+          "allOf": [
+            {
+              "$ref": "urn:lch:schema:0.1:common#/$defs/reviewProjectionRef"
+            },
+            {
+              "properties": {
+                "kind": {
+                  "const": "t0_human_view"
+                }
+              }
+            }
+          ]
+        },
+        "embedded_objects": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/embeddedObject"
+          }
+        }
+      }
+    }
+  ],
+  "unevaluatedProperties": false,
+  "$comment": "The outer LCH-T0 framing carries control-byte-length and control-sha256 over the exact JCS bytes. Array order is canonical object order. A deterministic parser must additionally enforce unique IDs and ordinals, contiguous ordinal order, exact unpadded base64url lengths, fixed 4096-character chunks except the final chunk, decoded lengths and hashes, exact HUMAN-VIEW bytes, and exclusion of detached frames from the root.",
+  "$defs": {
+    "embeddedObject": {
+      "type": "object",
+      "required": [
+        "object_id",
+        "ordinal",
+        "media_type",
+        "encoding",
+        "encoded_byte_length",
+        "decoded_byte_length",
+        "chunk_size",
+        "chunk_count",
+        "sha256_raw"
+      ],
+      "properties": {
+        "object_id": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+        },
+        "ordinal": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "media_type": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/mediaType"
+        },
+        "encoding": {
+          "const": "base64url"
+        },
+        "encoded_byte_length": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "decoded_byte_length": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "chunk_size": {
+          "const": 4096
+        },
+        "chunk_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sha256_raw": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/sha256"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

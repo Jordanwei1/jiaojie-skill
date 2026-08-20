@@ -1,0 +1,321 @@
+{
+  "protocol_version": "__LCH_PROTOCOL_VERSION__",
+  "state_projection_version": "state-projection-v1",
+  "boundaries": {
+    "source_boundary": {},
+    "scope": {
+      "scope_id": "__LCH_SCOPE_ID__",
+      "statement": {
+        "text_id": "__LCH_SCOPE_TEXT_ID__",
+        "value": "__LCH_SCOPE_TEXT_UTF8__",
+        "lang": "__LCH_SCOPE_BCP47__",
+        "dir": "ltr",
+        "kind": "canonical_assertion",
+        "authority": "canonical_assertion",
+        "fidelity": "derived_restatement",
+        "translation_of": null,
+        "translation_method": null,
+        "review_status": "not_applicable"
+      },
+      "user_request_refs": [
+        "__LCH_ORIGINAL_USER_REQUEST_SOURCE_ID__"
+      ],
+      "selection_basis": "__LCH_SCOPE_SELECTION_BASIS__",
+      "material_exclusion_ids": [],
+      "approval_statement_slot": "__LCH_APPROVAL_STATEMENT_SLOT_ID__"
+    },
+    "policy_boundary": {},
+    "external_state_dependencies": []
+  },
+  "source_inventory": {
+    "inventory_id": "__LCH_INVENTORY_OBJECT_ID__",
+    "collector_claim": {
+      "principal_id": "__LCH_COLLECTOR_PRINCIPAL_ID__",
+      "method": "__LCH_INVENTORY_COLLECTION_METHOD__"
+    },
+    "tenant_id": "__LCH_TENANT_ID__",
+    "source_session_ids": [
+      "__LCH_SOURCE_SESSION_ID__"
+    ],
+    "capture_boundary": {
+      "started_at": "__LCH_CAPTURE_STARTED_AT_RFC3339__",
+      "ended_at": "__LCH_CAPTURE_ENDED_AT_RFC3339__",
+      "first_native_id": "__LCH_FIRST_NATIVE_SOURCE_ID__",
+      "last_native_id": "__LCH_LAST_NATIVE_SOURCE_ID__"
+    },
+    "entries": [
+      {
+        "ordinal": 1,
+        "source_id": "__LCH_SOURCE_ID__",
+        "stream_id": "__LCH_SOURCE_STREAM_ID__",
+        "source_principal_id": "__LCH_SOURCE_PRINCIPAL_ID__",
+        "source_role": "__LCH_SOURCE_ROLE__",
+        "observed_at": "__LCH_SOURCE_OBSERVED_AT_RFC3339__",
+        "object_id": "__LCH_COLD_OBJECT_ID__",
+        "object_sha256": "sha256:__LCH_COLD_SHA256_HEX__",
+        "attachment_object_ids": [],
+        "tool_result_object_ids": []
+      }
+    ],
+    "gaps": [],
+    "inventory_digest": "sha256:__LCH_INVENTORY_SHA256_HEX__",
+    "platform_attestation_ref": null
+  },
+  "records": [
+    {
+      "id": "__LCH_INTENT_RECORD_ID__",
+      "type": "intent",
+      "assertion": {
+        "text_id": "__LCH_INTENT_TEXT_ID__",
+        "value": "__LCH_INTENT_TEXT_UTF8__",
+        "lang": "__LCH_INTENT_BCP47__",
+        "dir": "ltr",
+        "kind": "canonical_assertion",
+        "authority": "canonical_assertion",
+        "fidelity": "derived_restatement",
+        "translation_of": null,
+        "translation_method": null,
+        "review_status": "not_applicable"
+      },
+      "evidence_spans": [
+        {
+          "object_id": "__LCH_COLD_OBJECT_ID__",
+          "source_id": "__LCH_SOURCE_ID__",
+          "byte_start": "__LCH_EVIDENCE_BYTE_START_UINT__",
+          "byte_end": "__LCH_EVIDENCE_BYTE_END_UINT__",
+          "sha256_raw": "sha256:__LCH_EVIDENCE_SPAN_SHA256_HEX__"
+        }
+      ],
+      "source_principal": {
+        "principal_id": "__LCH_SOURCE_PRINCIPAL_ID__",
+        "tenant_id": "__LCH_TENANT_ID__",
+        "source_role": "__LCH_SOURCE_ROLE__",
+        "authority_at_capture": "__LCH_AUTHORITY_AT_CAPTURE__"
+      },
+      "ordering": {
+        "stream_id": "__LCH_SOURCE_STREAM_ID__",
+        "sequence": "__LCH_SOURCE_SEQUENCE_UINT__",
+        "causal_parent_ids": [],
+        "logical_clock": "__LCH_LOGICAL_CLOCK_UINT__"
+      },
+      "temporal": {
+        "observed_at": "__LCH_SOURCE_OBSERVED_AT_RFC3339__",
+        "valid_from": null,
+        "expires_at": null,
+        "revalidate_before": null
+      },
+      "related_records": [],
+      "transition_event_ids": [
+        "__LCH_INTENT_EVENT_ID__"
+      ],
+      "scope_id": "__LCH_SCOPE_ID__",
+      "sensitivity": "__LCH_SENSITIVITY__",
+      "lifecycle": "PROPOSED"
+    },
+    {
+      "id": "__LCH_NEXT_ACTION_RECORD_ID__",
+      "type": "next_action",
+      "assertion": {
+        "text_id": "__LCH_NEXT_ACTION_TEXT_ID__",
+        "value": "__LCH_NEXT_ACTION_TEXT_UTF8__",
+        "lang": "__LCH_NEXT_ACTION_BCP47__",
+        "dir": "ltr",
+        "kind": "canonical_assertion",
+        "authority": "canonical_assertion",
+        "fidelity": "derived_restatement",
+        "translation_of": null,
+        "translation_method": null,
+        "review_status": "not_applicable"
+      },
+      "evidence_spans": [
+        {
+          "object_id": "__LCH_COLD_OBJECT_ID__",
+          "source_id": "__LCH_SOURCE_ID__",
+          "byte_start": "__LCH_ACTION_EVIDENCE_BYTE_START_UINT__",
+          "byte_end": "__LCH_ACTION_EVIDENCE_BYTE_END_UINT__",
+          "sha256_raw": "sha256:__LCH_ACTION_EVIDENCE_SPAN_SHA256_HEX__"
+        }
+      ],
+      "source_principal": {
+        "principal_id": "__LCH_SOURCE_PRINCIPAL_ID__",
+        "tenant_id": "__LCH_TENANT_ID__",
+        "source_role": "__LCH_SOURCE_ROLE__",
+        "authority_at_capture": "__LCH_AUTHORITY_AT_CAPTURE__"
+      },
+      "ordering": {
+        "stream_id": "__LCH_SOURCE_STREAM_ID__",
+        "sequence": "__LCH_ACTION_SOURCE_SEQUENCE_UINT__",
+        "causal_parent_ids": [],
+        "logical_clock": "__LCH_ACTION_LOGICAL_CLOCK_UINT__"
+      },
+      "temporal": {
+        "observed_at": "__LCH_SOURCE_OBSERVED_AT_RFC3339__",
+        "valid_from": null,
+        "expires_at": null,
+        "revalidate_before": null
+      },
+      "related_records": [],
+      "transition_event_ids": [
+        "__LCH_NEXT_ACTION_EVENT_ID__"
+      ],
+      "scope_id": "__LCH_SCOPE_ID__",
+      "sensitivity": "__LCH_SENSITIVITY__",
+      "eligibility": "BLOCKED"
+    }
+  ],
+  "transition_events": [
+    {
+      "event_id": "__LCH_INTENT_EVENT_ID__",
+      "event_stream_id": "__LCH_PRODUCER_EVENT_STREAM_ID__",
+      "event_sequence": 1,
+      "record_id": "__LCH_INTENT_RECORD_ID__",
+      "previous_event_ids": [],
+      "from": null,
+      "to": {
+        "lifecycle": "PROPOSED"
+      },
+      "reason_kind": "INITIALIZED",
+      "principal_id": "__LCH_SOURCE_PRINCIPAL_ID__",
+      "source_refs": [
+        "__LCH_SOURCE_ID__"
+      ],
+      "scope_id": "__LCH_SCOPE_ID__",
+      "occurred_at": "__LCH_EVENT_OCCURRED_AT_RFC3339__",
+      "logical_clock": 1
+    },
+    {
+      "event_id": "__LCH_NEXT_ACTION_EVENT_ID__",
+      "event_stream_id": "__LCH_PRODUCER_EVENT_STREAM_ID__",
+      "event_sequence": 2,
+      "record_id": "__LCH_NEXT_ACTION_RECORD_ID__",
+      "previous_event_ids": [],
+      "from": null,
+      "to": {
+        "eligibility": "BLOCKED"
+      },
+      "reason_kind": "INITIALIZED",
+      "principal_id": "__LCH_SOURCE_PRINCIPAL_ID__",
+      "source_refs": [
+        "__LCH_SOURCE_ID__"
+      ],
+      "scope_id": "__LCH_SCOPE_ID__",
+      "occurred_at": "__LCH_EVENT_OCCURRED_AT_RFC3339__",
+      "logical_clock": 2
+    },
+    {
+      "event_id": "__LCH_ACTION_GRAPH_EVENT_ID__",
+      "event_stream_id": "__LCH_PRODUCER_EVENT_STREAM_ID__",
+      "event_sequence": 3,
+      "record_id": "__LCH_ACTION_GRAPH_RECORD_ID__",
+      "previous_event_ids": [],
+      "from": null,
+      "to": {
+        "lifecycle": "ACTIVE"
+      },
+      "reason_kind": "ACTION_GRAPH_ACTIVATED",
+      "principal_id": "__LCH_SOURCE_PRINCIPAL_ID__",
+      "source_refs": [
+        "__LCH_SOURCE_ID__"
+      ],
+      "scope_id": "__LCH_SCOPE_ID__",
+      "occurred_at": "__LCH_EVENT_OCCURRED_AT_RFC3339__",
+      "logical_clock": 3
+    }
+  ],
+  "action_graph": {
+    "action_graph_revision": {
+      "record_id": "__LCH_ACTION_GRAPH_RECORD_ID__",
+      "revision_id": "__LCH_ACTION_GRAPH_REVISION_ID__",
+      "previous_revision_ids": [],
+      "activated_by_event_id": "__LCH_ACTION_GRAPH_EVENT_ID__",
+      "revision_digest": "sha256:__LCH_ACTION_GRAPH_REVISION_SHA256_HEX__"
+    },
+    "actions": [
+      {
+        "action_id": "__LCH_ACTION_ID__",
+        "next_action_record_id": "__LCH_NEXT_ACTION_RECORD_ID__",
+        "eligibility_projection": "BLOCKED",
+        "event_head_ids": [
+          "__LCH_NEXT_ACTION_EVENT_ID__"
+        ],
+        "completion_criteria": [],
+        "required_capabilities": [],
+        "required_authorization_specs": [],
+        "external_state_checks": []
+      }
+    ],
+    "action_edges": [],
+    "action_groups": [],
+    "recommended_action_id": null,
+    "recommendation_basis_ids": []
+  },
+  "current_projection": {
+    "current_intent_id": "__LCH_INTENT_RECORD_ID__",
+    "current_phase": "__LCH_CURRENT_PHASE__",
+    "active_decision_ids": [],
+    "rejected_decision_ids": [],
+    "failed_attempt_ids": [],
+    "active_constraint_ids": [],
+    "answered_question_ids": [],
+    "ready_action_ids": [],
+    "blocked_action_ids": [
+      "__LCH_ACTION_ID__"
+    ],
+    "recommended_action_id": null
+  },
+  "content_coverage": {
+    "claim": "UNKNOWN",
+    "claim_issuer": "producer",
+    "scope": {
+      "scope_id": "__LCH_SCOPE_ID__",
+      "statement": {
+        "text_id": "__LCH_SCOPE_TEXT_ID__",
+        "value": "__LCH_SCOPE_TEXT_UTF8__",
+        "lang": "__LCH_SCOPE_BCP47__",
+        "dir": "ltr",
+        "kind": "canonical_assertion",
+        "authority": "canonical_assertion",
+        "fidelity": "derived_restatement",
+        "translation_of": null,
+        "translation_method": null,
+        "review_status": "not_applicable"
+      },
+      "user_request_refs": [
+        "__LCH_ORIGINAL_USER_REQUEST_SOURCE_ID__"
+      ],
+      "selection_basis": "__LCH_SCOPE_SELECTION_BASIS__",
+      "material_exclusion_ids": [],
+      "approval_statement_slot": "__LCH_APPROVAL_STATEMENT_SLOT_ID__"
+    },
+    "source_access": "UNKNOWN",
+    "inventory_object_id": "__LCH_INVENTORY_OBJECT_ID__",
+    "raw_coverage": "UNKNOWN",
+    "artifact_coverage": "NOT_APPLICABLE",
+    "coverage_envelope_slot_ids": [],
+    "omissions": []
+  },
+  "consistency_claim": "UNKNOWN",
+  "semantic_actionability_claim": "BLOCKED",
+  "language_profile": {
+    "source_languages": [
+      {
+        "tag": "__LCH_SOURCE_BCP47__",
+        "provenance": "__LCH_SOURCE_LANGUAGE_PROVENANCE__"
+      }
+    ],
+    "content_languages": [
+      "__LCH_CONTENT_BCP47__"
+    ],
+    "continuation_language_ranges": [
+      "__LCH_CONTINUATION_BCP47_RANGE__"
+    ],
+    "selected_continuation_language": "__LCH_SELECTED_CONTINUATION_BCP47__",
+    "translation_policy": "original_authoritative",
+    "generated_text_normalization": "NFC"
+  },
+  "materiality_profile_ref": {
+    "id": "materiality-v1",
+    "version": "0.1.0",
+    "sha256": "sha256:1930541dda9af3a5374f892fd3621d8ac80b7025638e9d401b164e2e6178979c"
+  }
+}

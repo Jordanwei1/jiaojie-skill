@@ -1,0 +1,22 @@
+{
+  "case_id": "learning-intent-change",
+  "domain": "learning",
+  "title": "A learner changes from memorization to explanation practice",
+  "synthetic": true,
+  "license": "MIT",
+  "publication_clearance": "APPROVED_BY_PROJECT_OWNER",
+  "status": "GOLD_CANDIDATE",
+  "human_verification": "NOT_PERFORMED",
+  "source_language": "fr",
+  "receipt_language": "en",
+  "coverage": [
+    "intent_change",
+    "user_veto",
+    "technical_failure",
+    "answered_question"
+  ],
+  "limitations": [
+    "Not a real user conversation",
+    "Not independent model evidence"
+  ]
+}

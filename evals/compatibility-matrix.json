@@ -1,0 +1,28 @@
+{
+  "schema_version": "jiaojie-compatibility-matrix-v0.1",
+  "updated_at": "2026-08-20",
+  "claim_policy": "Only exact evidence-backed cells may move beyond NOT_RUN.",
+  "model_targets": [
+    {"family": "OpenAI", "producer": "NOT_RUN", "receiver": "NOT_RUN", "evidence": []},
+    {"family": "Anthropic", "producer": "NOT_RUN", "receiver": "NOT_RUN", "evidence": []},
+    {"family": "Google", "producer": "NOT_RUN", "receiver": "NOT_RUN", "evidence": []},
+    {"family": "DeepSeek", "producer": "NOT_RUN", "receiver": "NOT_RUN", "evidence": []},
+    {"family": "Qwen", "producer": "NOT_RUN", "receiver": "NOT_RUN", "evidence": []}
+  ],
+  "language_targets": [
+    {"direction": "zh-Hans -> en", "status": "NOT_RUN", "evidence": []},
+    {"direction": "en -> zh-Hans", "status": "NOT_RUN", "evidence": []},
+    {"direction": "zh-Hans -> fr", "status": "NOT_RUN", "evidence": []},
+    {"direction": "fr -> en", "status": "NOT_RUN", "evidence": []}
+  ],
+  "runtime_targets": [
+    {"runtime": "Codex", "install": "NOT_RUN", "behavior": "NOT_RUN", "evidence": []},
+    {"runtime": "Claude Code", "install": "NOT_RUN", "behavior": "NOT_RUN", "evidence": []},
+    {"runtime": "Cursor", "install": "NOT_RUN", "behavior": "NOT_RUN", "evidence": []},
+    {"runtime": "Gemini CLI", "install": "NOT_RUN", "behavior": "NOT_RUN", "evidence": []},
+    {"runtime": "OpenCode", "install": "NOT_RUN", "behavior": "NOT_RUN", "evidence": []},
+    {"runtime": "OpenClaw", "install": "NOT_RUN", "behavior": "NOT_RUN", "evidence": []},
+    {"runtime": "GitHub Copilot CLI", "install": "NOT_RUN", "behavior": "NOT_RUN", "evidence": []},
+    {"runtime": "Cline", "install": "NOT_RUN", "behavior": "NOT_RUN", "evidence": []}
+  ]
+}

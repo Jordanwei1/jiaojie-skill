@@ -1,0 +1,188 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:lch:schema:0.1:legacy-conversion-report",
+  "title": "Lossless Context Handoff legacy conversion report v0.1",
+  "description": "Conservative first-version conversion report for a frozen HANDOFF.md, OCH Snapshot, or LTM Packet mapping.",
+  "x-lch-schema-version": "0.1.0",
+  "type": "object",
+  "required": [
+    "conversion_origin",
+    "source_version",
+    "source_sha256",
+    "detection_rules",
+    "detection_confidence",
+    "parser_version",
+    "format_override",
+    "mapping_report",
+    "unmapped_sections",
+    "conflicts",
+    "warnings",
+    "CONVERSION_REPORT",
+    "STRUCTURE_RESULT_REF",
+    "SOURCE_ORIGIN_CLAIM",
+    "CONTINUITY_EVAL_ELIGIBILITY_CLAIM",
+    "CONTENT_COVERAGE_CLAIM",
+    "COVERAGE_CLAIM_BASIS",
+    "COVERAGE_RESULT_REFS",
+    "APPROVAL_CLAIM",
+    "MISSING"
+  ],
+  "properties": {
+    "conversion_origin": {
+      "enum": [
+        "handoff_markdown",
+        "och_snapshot",
+        "ltm_packet"
+      ]
+    },
+    "source_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_sha256": {
+      "$ref": "urn:lch:schema:0.1:common#/$defs/sha256"
+    },
+    "detection_rules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+      },
+      "uniqueItems": true
+    },
+    "detection_confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "parser_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "format_override": {
+      "enum": [
+        null,
+        "handoff_markdown",
+        "och_snapshot",
+        "ltm_packet"
+      ]
+    },
+    "mapping_report": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/mappingEntry"
+      }
+    },
+    "unmapped_sections": {
+      "type": "array"
+    },
+    "conflicts": {
+      "type": "array"
+    },
+    "warnings": {
+      "type": "array"
+    },
+    "CONVERSION_REPORT": {
+      "const": "COMPLETED"
+    },
+    "STRUCTURE_RESULT_REF": {
+      "type": "null"
+    },
+    "SOURCE_ORIGIN_CLAIM": {
+      "const": "UNKNOWN"
+    },
+    "CONTINUITY_EVAL_ELIGIBILITY_CLAIM": {
+      "const": "INELIGIBLE"
+    },
+    "CONTENT_COVERAGE_CLAIM": {
+      "const": "PARTIAL"
+    },
+    "COVERAGE_CLAIM_BASIS": {
+      "const": "CONVERTER_DERIVED"
+    },
+    "COVERAGE_RESULT_REFS": {
+      "type": "array",
+      "maxItems": 0
+    },
+    "APPROVAL_CLAIM": {
+      "const": "PROPOSED"
+    },
+    "MISSING": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": false,
+  "$comment": "RECEIVER_RUN_RESULT is intentionally absent: conversion must not issue a Receiver result. A deterministic validator must bind source_sha256 to the rooted imported_source object, verify frozen format detection and mapping rules, and prove repeatability only for deterministic options. Model-assisted proposals remain PROPOSED and UNTRUSTED outside ACTIVE canonical state.",
+  "$defs": {
+    "mappingEntry": {
+      "type": "object",
+      "required": [
+        "rule_id",
+        "source_line",
+        "source_json_pointer",
+        "extraction_method",
+        "evidence_refs"
+      ],
+      "properties": {
+        "rule_id": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+        },
+        "source_line": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source_json_pointer": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^(?:/(?:[^~/]|~0|~1)*)*$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "extraction_method": {
+          "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:lch:schema:0.1:common#/$defs/stableId"
+          },
+          "uniqueItems": true
+        }
+      },
+      "anyOf": [
+        {
+          "properties": {
+            "source_line": {
+              "type": "integer"
+            }
+          }
+        },
+        {
+          "properties": {
+            "source_json_pointer": {
+              "type": "string"
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    }
+  }
+}
