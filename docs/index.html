@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <title>交接 Skill（Jiaojie）— 跨模型 AI 上下文交接</title>
+  <meta name="description" content="交接 Skill（Jiaojie）是跨窗口、跨模型、跨设备、跨语言的开源 AI 上下文交接工具。保存目标、决策、废案、产物和下一步，让另一个 AI 原地继续。">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://jordanwei1.github.io/jiaojie-skill/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="交接 Skill（Jiaojie）— 换模型，不重来">
+  <meta property="og:description" content="一个跨窗口、跨模型、跨设备、跨语言的开源 AI 上下文交接工具。">
+  <meta property="og:url" content="https://jordanwei1.github.io/jiaojie-skill/">
+  <meta property="og:image" content="https://raw.githubusercontent.com/Jordanwei1/jiaojie-skill/main/assets/hero-source.png">
+  <meta property="og:locale" content="zh_CN">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Jiaojie — Switch models. Keep the work.">
+  <meta name="twitter:description" content="Open-source AI context handoff across chats, models, devices, and languages.">
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/Jordanwei1/jiaojie-skill/main/assets/hero-source.png">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareSourceCode",
+    "name": "交接 Skill（Jiaojie）",
+    "alternateName": "Jiaojie Skill",
+    "description": "Open-source AI context handoff across chats, models, devices, and languages.",
+    "codeRepository": "https://github.com/Jordanwei1/jiaojie-skill",
+    "url": "https://jordanwei1.github.io/jiaojie-skill/",
+    "license": "https://opensource.org/license/mit",
+    "version": "0.1.0",
+    "programmingLanguage": ["Markdown", "Python"],
+    "author": {
+      "@type": "Person",
+      "name": "Jordan Wei",
+      "url": "https://github.com/Jordanwei1"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #070817;
+      --panel: rgba(20, 22, 50, .72);
+      --line: rgba(255, 255, 255, .11);
+      --text: #f7f7ff;
+      --muted: #aeb2cc;
+      --cyan: #5ee7f2;
+      --violet: #9b87ff;
+      --yellow: #ffd166;
+      --green: #67e8a5;
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 20% 0%, rgba(75, 93, 255, .22), transparent 34rem),
+        radial-gradient(circle at 90% 25%, rgba(94, 231, 242, .14), transparent 32rem),
+        var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+        "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      line-height: 1.7;
+    }
+
+    a { color: inherit; }
+
+    .wrap {
+      width: min(1120px, calc(100% - 36px));
+      margin: auto;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 0;
+    }
+
+    .brand {
+      font-size: 18px;
+      font-weight: 800;
+      text-decoration: none;
+      letter-spacing: -.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav-links a { text-decoration: none; }
+    .nav-links a:hover { color: var(--text); }
+
+    .hero {
+      padding: 80px 0 64px;
+      text-align: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 7px 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .04);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 14px var(--green);
+    }
+
+    h1 {
+      max-width: 900px;
+      margin: 26px auto 18px;
+      font-size: clamp(48px, 8vw, 92px);
+      line-height: .98;
+      letter-spacing: -.07em;
+    }
+
+    .gradient {
+      color: transparent;
+      background: linear-gradient(90deg, var(--cyan), #d8d1ff 48%, var(--violet));
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .lead {
+      max-width: 730px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: clamp(17px, 2vw, 21px);
+    }
+
+    .en {
+      display: block;
+      margin-top: 8px;
+      color: #777d9e;
+      font-size: 15px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 20px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, .05);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .button.primary {
+      color: #080916;
+      border: 0;
+      background: linear-gradient(90deg, var(--cyan), #b8adff);
+    }
+
+    .demo {
+      margin-top: 58px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: 0 35px 100px rgba(0, 0, 0, .38);
+    }
+
+    .demo img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    section { padding: 72px 0; }
+
+    .section-title {
+      max-width: 760px;
+      margin-bottom: 34px;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: clamp(32px, 5vw, 52px);
+      line-height: 1.1;
+      letter-spacing: -.045em;
+    }
+
+    .section-title p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .flow, .grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .flow { grid-template-columns: repeat(5, 1fr); }
+    .grid { grid-template-columns: repeat(3, 1fr); }
+
+    .card {
+      position: relative;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--panel);
+    }
+
+    .number {
+      display: block;
+      margin-bottom: 22px;
+      color: var(--cyan);
+      font: 700 13px ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .install {
+      padding: 30px;
+      border: 1px solid rgba(94, 231, 242, .25);
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(94, 231, 242, .09), rgba(155, 135, 255, .09));
+    }
+
+    pre {
+      overflow-x: auto;
+      margin: 22px 0 0;
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #050610;
+      color: var(--green);
+      font: 14px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    .boundary {
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 36px 0 48px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    footer a { color: var(--text); }
+
+    @media (max-width: 820px) {
+      .flow { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr; }
+      .hero { padding-top: 54px; }
+      .nav-links a:not(:last-child) { display: none; }
+      footer { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <nav aria-label="主导航">
+      <a class="brand" href="#">交接.skill / Jiaojie</a>
+      <div class="nav-links">
+        <a href="#how">工作原理</a>
+        <a href="#features">能力</a>
+        <a href="#install">安装</a>
+        <a href="https://github.com/Jordanwei1/jiaojie-skill">GitHub ↗</a>
+      </div>
+    </nav>
+
+    <main>
+      <header class="hero">
+        <div class="pill"><span class="dot"></span> Open source · MIT · v0.1.0</div>
+
+        <h1>
+          AI 换了<br>
+          <span class="gradient">工作没断</span>
+        </h1>
+
+        <p class="lead">
+          交接 Skill（Jiaojie）把目标、决策、废案、关键产物和下一步交给另一个 AI，让它从真正停下的位置继续。
+          <span class="en">Switch models. Keep the work.</span>
+        </p>
+
+        <div class="actions">
+          <a class="button primary" href="#install">立即安装</a>
+          <a class="button" href="https://github.com/Jordanwei1/jiaojie-skill">查看 GitHub</a>
+        </div>
+
+        <div class="demo">
+          <img
+            src="https://raw.githubusercontent.com/Jordanwei1/jiaojie-skill/main/assets/hero.gif"
+            alt="交接 Skill 跨窗口和跨模型继续工作的动态演示">
+        </div>
+      </header>
+
+      <section id="how">
+        <div class="section-title">
+          <h2>一句“交接一下”，让另一个 AI 原地继续</h2>
+          <p>不是只有聊天摘要，而是恢复声明范围内的工作连续性。</p>
+        </div>
+
+        <div class="flow">
+          <article class="card">
+            <span class="number">01</span>
+            <h3>长会话</h3>
+            <p>目标、决策和纠偏不断积累。</p>
+          </article>
+          <article class="card">
+            <span class="number">02</span>
+            <h3>交接一下</h3>
+            <p>生成结构化、可读的交接包。</p>
+          </article>
+          <article class="card">
+            <span class="number">03</span>
+            <h3>切换 AI</h3>
+            <p>换窗口、模型、设备或语言。</p>
+          </article>
+          <article class="card">
+            <span class="number">04</span>
+            <h3>接收回执</h3>
+            <p>先证明理解，再继续工作。</p>
+          </article>
+          <article class="card">
+            <span class="number">05</span>
+            <h3>原地继续</h3>
+            <p>不重复提问，不复活废案。</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="features">
+        <div class="section-title">
+          <h2>交接真正影响下一步的信息</h2>
+          <p>Markdown-first，面向人类审核，也面向兼容 Agent Skills 的 AI runtime。</p>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <h3>意图与决策演化</h3>
+            <p>不仅保存结论，也保存结论如何变化、什么已被覆盖。</p>
+          </article>
+          <article class="card">
+            <h3>废案与失败原因</h3>
+            <p>区分用户否决和技术失败，避免接收 AI 重走旧路。</p>
+          </article>
+          <article class="card">
+            <h3>关键产物与下一步</h3>
+            <p>定位文件、证据和当前动作，让工作能够直接衔接。</p>
+          </article>
+          <article class="card">
+            <h3>完整性声明</h3>
+            <p>明确 complete 或 partial，以及具体缺失范围。</p>
+          </article>
+          <article class="card">
+            <h3>跨语言交接</h3>
+            <p>允许发送与接收使用不同语言，同时保留规范化语义。</p>
+          </article>
+          <article class="card">
+            <h3>安全与验证</h3>
+            <p>提供结构检查、哈希、安全边界和连续性评测设计。</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="install">
+        <div class="install">
+          <div class="section-title">
+            <h2>一行安装</h2>
+            <p>支持 Agent Skills 的 runtime 可以直接从 GitHub 安装。</p>
+          </div>
+
+          <pre><code>npx skills add Jordanwei1/jiaojie-skill</code></pre>
+
+          <pre><code>帮我安装这个 Skill：
+https://github.com/Jordanwei1/jiaojie-skill</code></pre>
+
+          <div class="actions">
+            <a class="button primary" href="https://github.com/Jordanwei1/jiaojie-skill#安装">查看完整安装说明</a>
+            <a class="button" href="https://github.com/Jordanwei1/jiaojie-skill/releases/tag/v0.1.0">下载 v0.1.0</a>
+          </div>
+
+          <p class="boundary">
+            Jiaojie 不声称保存模型的隐藏推理或神经状态；它保存用户可见知识边界内、声明范围内的工作连续性。
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>交接.skill · Jiaojie · MIT License</span>
+      <span>
+        Built by <a href="https://github.com/Jordanwei1">Jordan Wei</a>
+        · <a href="https://github.com/Jordanwei1/jiaojie-skill">Source</a>
+      </span>
+    </footer>
+  </div>
+</body>
+</html>
