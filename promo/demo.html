@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="dark" />
+  <title>Jiaojie · 60 秒核心演示</title>
+  <style>
+    :root {
+      --ink: #f7f8ff;
+      --muted: #a9afc7;
+      --line: rgba(255,255,255,.1);
+      --panel: rgba(16,19,42,.82);
+      --panel-strong: #11152f;
+      --violet: #8b7cff;
+      --cyan: #36dfd0;
+      --amber: #ffc55a;
+      --red: #ff7188;
+      --green: #64e99a;
+      --progress: 0%;
+      --packet-x: 50%;
+      --packet-y: 49%;
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 18% 12%, rgba(65,212,205,.14), transparent 30%),
+        radial-gradient(circle at 83% 8%, rgba(139,124,255,.2), transparent 30%),
+        #080a18;
+    }
+
+    button { font: inherit; }
+
+    .app {
+      width: min(1500px, 100%);
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .brand { display: flex; align-items: center; gap: 11px; min-width: 0; }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: #080a18;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--cyan), var(--amber));
+      box-shadow: 0 8px 26px rgba(54,223,208,.2);
+    }
+
+    .brand-copy strong { display: block; font-size: 15px; letter-spacing: .04em; }
+    .brand-copy span { display: block; color: var(--muted); font-size: 12px; margin-top: 2px; }
+
+    .controls { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+
+    .control {
+      min-height: 38px;
+      padding: 0 13px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      color: var(--ink);
+      background: rgba(255,255,255,.055);
+      cursor: pointer;
+      transition: border-color .2s ease, background .2s ease, transform .2s ease;
+    }
+
+    .control:hover { border-color: rgba(139,124,255,.7); background: rgba(139,124,255,.13); }
+    .control:active { transform: translateY(1px); }
+    .control.primary { color: #090b1b; border-color: transparent; background: linear-gradient(135deg, var(--cyan), #77eab9); font-weight: 800; }
+    .control[aria-pressed="true"] { border-color: var(--cyan); background: rgba(54,223,208,.12); }
+
+    .frame-wrap { display: grid; place-items: center; }
+
+    .demo-frame {
+      position: relative;
+      width: min(100%, 1440px);
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: 24px;
+      background:
+        linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px),
+        radial-gradient(circle at 50% -15%, rgba(139,124,255,.2), transparent 42%),
+        #0b0d20;
+      background-size: 36px 36px, 36px 36px, auto, auto;
+      box-shadow: 0 28px 100px rgba(0,0,0,.5);
+      isolation: isolate;
+    }
+
+    body.portrait .demo-frame { width: min(100%, 520px); aspect-ratio: 9 / 16; }
+
+    .topline {
+      position: absolute;
+      inset: 0 0 auto;
+      height: 6px;
+      z-index: 20;
+      background: rgba(255,255,255,.08);
+    }
+
+    .topline::after {
+      content: "";
+      display: block;
+      width: var(--progress);
+      height: 100%;
+      background: linear-gradient(90deg, var(--cyan), var(--violet), var(--amber));
+      box-shadow: 0 0 18px rgba(54,223,208,.55);
+      transition: width .08s linear;
+    }
+
+    .demo-head {
+      position: absolute;
+      z-index: 8;
+      inset: 30px 38px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .eyebrow { color: var(--cyan); font-size: 11px; font-weight: 900; letter-spacing: .18em; text-transform: uppercase; }
+
+    .demo-title {
+      margin: 7px 0 0;
+      font-size: clamp(24px, 3vw, 48px);
+      line-height: 1.05;
+      letter-spacing: -.035em;
+    }
+
+
+    .workspace {
+      position: absolute;
+      z-index: 4;
+      inset: 126px 38px 112px;
+      display: grid;
+      grid-template-columns: 1fr 70px 1fr;
+      gap: 16px;
+      min-height: 0;
+    }
+
+    .agent-panel {
+      position: relative;
+      min-width: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--panel);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.045);
+      transition: opacity .55s ease, transform .55s ease, border-color .55s ease;
+    }
+
+    .agent-panel.inactive { opacity: .35; transform: scale(.98); }
+    .agent-panel.active { border-color: rgba(54,223,208,.42); }
+
+    .panel-bar {
+      height: 48px;
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.025);
+    }
+
+    .agent-id { display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 800; }
+    .agent-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--violet); box-shadow: 0 0 14px rgba(139,124,255,.8); }
+    .receiver .agent-dot { background: var(--cyan); box-shadow: 0 0 14px rgba(54,223,208,.8); }
+    .model { color: var(--muted); font-size: 11px; }
+
+    .chat {
+      min-height: 0;
+      flex: 1;
+      overflow: hidden;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .message {
+      opacity: 0;
+      transform: translateY(9px);
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 12px;
+      border-radius: 12px;
+      font-size: clamp(10px, 1vw, 14px);
+      line-height: 1.45;
+      transition: opacity .45s ease, transform .45s ease, max-height .45s ease, padding .45s ease;
+    }
+
+    .message.show { opacity: 1; transform: translateY(0); max-height: 100px; padding: 9px 12px; }
+    .message.user { align-self: flex-end; margin-left: 10%; color: #f7f8ff; background: rgba(139,124,255,.16); border: 1px solid rgba(139,124,255,.25); }
+    .message.ai { align-self: flex-start; margin-right: 7%; color: #dfe4ff; background: rgba(255,255,255,.055); border: 1px solid rgba(255,255,255,.07); }
+    .message.command { border-color: rgba(255,197,90,.5); background: rgba(255,197,90,.12); }
+    .message.receipt { border-color: rgba(54,223,208,.34); background: rgba(54,223,208,.08); }
+    .message.success { border-color: rgba(100,233,154,.38); background: rgba(100,233,154,.09); }
+
+    .bridge { position: relative; display: grid; place-items: center; }
+
+    .bridge-line {
+      width: 2px;
+      height: 72%;
+      background: linear-gradient(transparent, rgba(54,223,208,.55), rgba(139,124,255,.55), transparent);
+      opacity: .5;
+    }
+
+    .bridge-label {
+      position: absolute;
+      transform: rotate(-90deg);
+      white-space: nowrap;
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: .16em;
+    }
+
+    .packet {
+      position: absolute;
+      z-index: 15;
+      left: var(--packet-x);
+      top: var(--packet-y);
+      width: 94px;
+      height: 58px;
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(.72) rotate(-4deg);
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,197,90,.8);
+      border-radius: 15px;
+      color: #211500;
+      background: linear-gradient(135deg, #fff1b0, var(--amber));
+      box-shadow: 0 0 0 8px rgba(255,197,90,.08), 0 18px 50px rgba(255,197,90,.34);
+      transition: opacity .35s ease, left .1s linear, top .1s linear, transform .35s ease;
+    }
+
+    .packet.show { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(-2deg); }
+    .packet strong { display: block; font-size: 11px; }
+    .packet span { display: block; margin-top: 3px; font-size: 8px; font-weight: 800; opacity: .65; }
+
+    .guard-card {
+      position: absolute;
+      z-index: 12;
+      left: 50%;
+      top: 52%;
+      width: min(460px, 42%);
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, -46%) scale(.9);
+      padding: 18px;
+      border: 1px solid rgba(255,113,136,.45);
+      border-radius: 17px;
+      background: rgba(30,10,27,.96);
+      box-shadow: 0 24px 80px rgba(0,0,0,.55);
+      transition: opacity .4s ease, transform .4s ease;
+    }
+
+    .guard-card.show { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    .guard-card h3 { margin: 0 0 10px; color: #ffdbe2; font-size: 15px; }
+    .guard-row { display: flex; gap: 9px; align-items: center; margin-top: 8px; color: #f4b8c3; font-size: 12px; }
+    .guard-row del { opacity: .72; }
+    .lock { color: var(--red); }
+
+    .scene-flash {
+      position: absolute;
+      z-index: 16;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+      display: grid;
+      place-items: center;
+      background: rgba(8,10,24,.88);
+      backdrop-filter: blur(16px);
+      transition: opacity .25s ease;
+    }
+
+    .scene-flash.show { opacity: 1; }
+    .scene-flash strong { font-size: clamp(22px, 4vw, 54px); letter-spacing: -.04em; }
+    .scene-flash span { display: block; margin-top: 10px; text-align: center; color: var(--cyan); font-size: 12px; letter-spacing: .18em; }
+
+    .caption {
+      position: absolute;
+      z-index: 10;
+      left: 50%;
+      bottom: 59px;
+      width: min(900px, 84%);
+      transform: translateX(-50%);
+      text-align: center;
+    }
+
+    .caption strong {
+      display: block;
+      font-size: clamp(17px, 2.2vw, 31px);
+      line-height: 1.2;
+      letter-spacing: -.02em;
+    }
+
+    .caption span { display: block; margin-top: 7px; color: var(--muted); font-size: clamp(9px, 1vw, 13px); }
+
+    .timeline {
+      position: absolute;
+      z-index: 10;
+      inset: auto 38px 22px;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+    }
+
+    .chapter {
+      min-width: 0;
+      overflow: hidden;
+      padding: 7px 8px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: #7f859f;
+      background: rgba(255,255,255,.025);
+      font-size: 9px;
+      text-align: center;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      transition: color .25s ease, border-color .25s ease, background .25s ease;
+    }
+
+    .chapter.active { color: var(--ink); border-color: rgba(54,223,208,.48); background: rgba(54,223,208,.1); }
+    .chapter.done { color: #8fcab8; }
+
+    .status {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .status kbd { padding: 2px 6px; border: 1px solid var(--line); border-radius: 5px; color: #dfe4ff; background: rgba(255,255,255,.05); font-family: inherit; }
+
+    body.clean .toolbar, body.clean .status { display: none; }
+    body.clean .app { width: 100%; padding: 0; }
+    body.clean .demo-frame { width: 100vw; max-height: 100vh; border: 0; border-radius: 0; }
+
+    body.portrait .demo-head { inset: 24px 24px auto; }
+    body.portrait .demo-title { max-width: 270px; font-size: 29px; }
+    body.portrait .workspace { inset: 112px 22px 154px; grid-template-columns: 1fr; grid-template-rows: 1fr 34px 1fr; gap: 10px; }
+    body.portrait .bridge-line { width: 68%; height: 2px; }
+    body.portrait .bridge-label { transform: none; font-size: 8px; }
+    body.portrait .panel-bar { height: 42px; }
+    body.portrait .chat { padding: 10px; gap: 6px; }
+    body.portrait .message { font-size: 10px; }
+    body.portrait .message.show { padding: 7px 9px; max-height: 75px; }
+    body.portrait .caption { bottom: 94px; width: 88%; }
+    body.portrait .caption strong { font-size: 19px; }
+    body.portrait .caption span { font-size: 9px; }
+    body.portrait .timeline { inset: auto 22px 25px; grid-template-columns: repeat(4, 1fr); }
+    body.portrait .chapter { font-size: 7px; padding: 5px 4px; }
+    body.portrait .guard-card { width: 82%; top: 52%; }
+    body.portrait .packet { width: 80px; height: 50px; }
+
+    .finale::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: -30%;
+      background: radial-gradient(circle, rgba(54,223,208,.13), transparent 48%);
+      animation: breathe 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes breathe { to { transform: scale(1.12); opacity: .55; } }
+
+    @media (max-width: 760px) {
+      .app { padding: 10px; }
+      .toolbar { align-items: flex-start; }
+      .brand-copy span { display: none; }
+      .controls { gap: 5px; }
+      .control { min-height: 34px; padding: 0 9px; font-size: 11px; }
+      body:not(.portrait) .demo-head { inset: 20px 24px auto; }
+      body:not(.portrait) .workspace { inset: 100px 24px 100px; }
+      body:not(.portrait) .timeline { inset: auto 24px 18px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="toolbar" aria-label="演示控制">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">J</div>
+        <div class="brand-copy">
+          <strong>Jiaojie · 交接.skill</strong>
+          <span>单文件 · 60 秒 · 可直接录屏</span>
+        </div>
+      </div>
+      <div class="controls">
+        <button class="control primary" id="playButton" type="button">▶ 播放</button>
+        <button class="control" id="restartButton" type="button">↺ 重播</button>
+        <button class="control" id="landscapeButton" type="button" aria-pressed="true">X · 16:9</button>
+        <button class="control" id="portraitButton" type="button" aria-pressed="false">小红书 · 9:16</button>
+        <button class="control" id="fullscreenButton" type="button">⛶ 全屏</button>
+      </div>
+    </header>
+
+    <div class="frame-wrap">
+      <section class="demo-frame" id="demoFrame" aria-label="Jiaojie 60 秒核心演示">
+        <div class="topline"></div>
+
+        <header class="demo-head">
+          <div>
+            <div class="eyebrow" id="stageLabel">01 · LONG CONTEXT</div>
+            <h1 class="demo-title">AI 换了，<br />工作没断。</h1>
+          </div>
+        </header>
+
+        <div class="workspace">
+          <article class="agent-panel producer active" id="producerPanel">
+            <div class="panel-bar">
+              <div class="agent-id"><span class="agent-dot"></span>AI A · 原会话</div>
+              <div class="model">中文 · 长上下文</div>
+            </div>
+            <div class="chat">
+              <div class="message user" data-at="0.7">支付 webhook 偶尔会被重复处理，不能换数据库和支付平台。</div>
+              <div class="message ai" data-at="2.5"><b>request_id 方案失败：</b>同一事件重投时 ID 会变化。</div>
+              <div class="message user" data-at="4.5">不要 Redis 锁，我不接受新的运行依赖。</div>
+              <div class="message ai" data-at="6.5">当前决定：使用 <b>event_id + 数据库唯一约束</b>。</div>
+              <div class="message user command" data-at="10.5">下一步并行修改 handler.py 和 replay 测试。<b>交接一下。</b></div>
+              <div class="message ai" data-at="13.4">已保留目标、决定、废案、失败原因、文件与下一步。</div>
+            </div>
+          </article>
+
+          <div class="bridge" aria-hidden="true">
+            <div class="bridge-line"></div>
+            <div class="bridge-label">CONTEXT HANDOFF</div>
+          </div>
+
+          <article class="agent-panel receiver inactive" id="receiverPanel">
+            <div class="panel-bar">
+              <div class="agent-id"><span class="agent-dot"></span>AI B · 新窗口</div>
+              <div class="model">新模型 · 无原会话</div>
+            </div>
+            <div class="chat">
+              <div class="message user" data-at="29.0">接收这个交接包。用法语回复，但不要继续执行。</div>
+              <div class="message ai receipt" data-at="32.0"><b>Réception réussie.</b> Je n’ai pas poursuivi.</div>
+              <div class="message ai receipt" data-at="35.0">目标：用 event_id 和唯一约束阻止重复处理。</div>
+              <div class="message ai receipt" data-at="38.0">request_id 是技术失败；Redis 是用户否决。</div>
+              <div class="message ai receipt" data-at="41.0">下一步：并行修改 handler.py 与 replay 测试。</div>
+              <div class="message user" data-at="52.5">确认，继续执行建议下一步。</div>
+              <div class="message ai success" data-at="55.0">✓ handler.py 已修改　✓ replay tests 通过</div>
+            </div>
+          </article>
+        </div>
+
+        <div class="packet" id="packet" aria-hidden="true">
+          <div><strong>handoff.md</strong><span>目标 · 决策 · 废案 · 下一步</span></div>
+        </div>
+
+        <aside class="guard-card" id="guardCard" aria-label="没有复活的废案">
+          <h3>🔒 废案没有复活</h3>
+          <div class="guard-row"><span class="lock">✕</span><del>request_id</del><span>技术失败</span></div>
+          <div class="guard-row"><span class="lock">✕</span><del>Redis lock</del><span>用户明确否决</span></div>
+        </aside>
+
+        <div class="scene-flash" id="sceneFlash" aria-hidden="true">
+          <div><strong>全新窗口 · 全新模型</strong><span>NO ORIGINAL CHAT · ZERO HIDDEN CONTEXT</span></div>
+        </div>
+
+        <div class="caption" id="caption" aria-live="polite">
+          <strong>180 轮讨论后，真正重要的不是摘要</strong>
+          <span>而是当前目标、决定为什么改变，以及下一步在哪里。</span>
+        </div>
+
+        <nav class="timeline" aria-label="演示章节">
+          <div class="chapter active">长会话</div>
+          <div class="chapter">交接一下</div>
+          <div class="chapter">生成交接</div>
+          <div class="chapter">新窗口</div>
+          <div class="chapter">接收回执</div>
+          <div class="chapter">废案锁定</div>
+          <div class="chapter">原地继续</div>
+        </nav>
+      </section>
+    </div>
+
+    <footer class="status">
+      <span>提示：按 <kbd>Space</kbd> 播放/暂停，按 <kbd>R</kbd> 重播；录屏前点“全屏”。</span>
+      <span id="runStatus">准备就绪 · 00:00 / 01:00</span>
+    </footer>
+  </main>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const DURATION = 60;
+      const stages = [
+        { start: 0,  end: 10, label: "01 · LONG CONTEXT", title: "180 轮讨论后，真正重要的不是摘要", sub: "而是当前目标、决定为什么改变，以及下一步在哪里。" },
+        { start: 10, end: 16, label: "02 · ONE COMMAND", title: "只说一句：交接一下", sub: "Jiaojie 识别停止点，并选择最小充分的交接格式。" },
+        { start: 16, end: 27, label: "03 · HANDOFF", title: "目标、决策、废案和下一步，一起过去", sub: "不复制隐藏思维，不把整个工作区塞进压缩包。" },
+        { start: 27, end: 32, label: "04 · FRESH SESSION", title: "换窗口 · 换模型 · 没有原会话", sub: "接收方只看到公开交接包。" },
+        { start: 32, end: 45, label: "05 · RECEIPT", title: "接收方先证明它真的接住了", sub: "目标、停止点、有效决定、缺口和下一步逐项确认。" },
+        { start: 45, end: 52, label: "06 · NEGATIVE KNOWLEDGE", title: "最关键的能力：不复活废案", sub: "技术失败和用户否决被分别保留。" },
+        { start: 52, end: 60.01, label: "07 · CONTINUE", title: "AI 换了，工作没断", sub: "Switch models. Keep the work." }
+      ];
+
+      const root = document.documentElement;
+      const body = document.body;
+      const frame = document.getElementById("demoFrame");
+      const playButton = document.getElementById("playButton");
+      const restartButton = document.getElementById("restartButton");
+      const landscapeButton = document.getElementById("landscapeButton");
+      const portraitButton = document.getElementById("portraitButton");
+      const fullscreenButton = document.getElementById("fullscreenButton");
+      const runStatus = document.getElementById("runStatus");
+      const stageLabel = document.getElementById("stageLabel");
+      const caption = document.getElementById("caption");
+      const chapters = [...document.querySelectorAll(".chapter")];
+      const messages = [...document.querySelectorAll(".message[data-at]")];
+      const producerPanel = document.getElementById("producerPanel");
+      const receiverPanel = document.getElementById("receiverPanel");
+      const packet = document.getElementById("packet");
+      const guardCard = document.getElementById("guardCard");
+      const sceneFlash = document.getElementById("sceneFlash");
+
+      let currentTime = 0;
+      let playing = false;
+      let startedAt = 0;
+      let animationFrame = 0;
+      let activeStage = -1;
+
+      const pad = value => String(Math.floor(value)).padStart(2, "0");
+      const formatTime = seconds => `${pad(seconds / 60)}:${pad(seconds % 60)}`;
+      const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+      const ease = value => value < .5 ? 2 * value * value : 1 - Math.pow(-2 * value + 2, 2) / 2;
+
+      function setLayout(layout) {
+        const portrait = layout === "portrait";
+        body.classList.toggle("portrait", portrait);
+        portraitButton.setAttribute("aria-pressed", String(portrait));
+        landscapeButton.setAttribute("aria-pressed", String(!portrait));
+        render(currentTime, true);
+      }
+
+      function setPlaying(next) {
+        playing = next;
+        playButton.textContent = playing ? "Ⅱ 暂停" : "▶ 播放";
+        if (playing) {
+          if (currentTime >= DURATION) currentTime = 0;
+          startedAt = performance.now() - currentTime * 1000;
+          cancelAnimationFrame(animationFrame);
+          animationFrame = requestAnimationFrame(tick);
+        } else {
+          cancelAnimationFrame(animationFrame);
+        }
+      }
+
+      function tick(now) {
+        if (!playing) return;
+        currentTime = clamp((now - startedAt) / 1000, 0, DURATION);
+        render(currentTime);
+        if (currentTime >= DURATION) {
+          setPlaying(false);
+          playButton.textContent = "↺ 再看一次";
+          render(currentTime, true);
+          return;
+        }
+        animationFrame = requestAnimationFrame(tick);
+      }
+
+      function restart() {
+        currentTime = 0;
+        activeStage = -1;
+        render(0, true);
+        setPlaying(true);
+      }
+
+      function render(time, force = false) {
+        root.style.setProperty("--progress", `${(time / DURATION) * 100}%`);
+        runStatus.textContent = `${playing ? "播放中" : time >= DURATION ? "演示完成" : "已暂停"} · ${formatTime(time)} / 01:00`;
+
+        const stageIndex = stages.findIndex(stage => time >= stage.start && time < stage.end);
+        const safeStage = stageIndex < 0 ? stages.length - 1 : stageIndex;
+        if (force || safeStage !== activeStage) {
+          activeStage = safeStage;
+          const stage = stages[safeStage];
+          stageLabel.textContent = stage.label;
+          caption.innerHTML = `<strong>${stage.title}</strong><span>${stage.sub}</span>`;
+          chapters.forEach((chapter, index) => {
+            chapter.classList.toggle("active", index === safeStage);
+            chapter.classList.toggle("done", index < safeStage);
+          });
+        }
+
+        messages.forEach(message => message.classList.toggle("show", time >= Number(message.dataset.at)));
+
+        const receiverActive = time >= 27;
+        producerPanel.classList.toggle("inactive", receiverActive);
+        producerPanel.classList.toggle("active", !receiverActive);
+        receiverPanel.classList.toggle("inactive", !receiverActive);
+        receiverPanel.classList.toggle("active", receiverActive);
+
+        const packetVisible = time >= 16 && time < 30;
+        packet.classList.toggle("show", packetVisible);
+        const travel = ease(clamp((time - 17) / 10, 0, 1));
+        if (body.classList.contains("portrait")) {
+          root.style.setProperty("--packet-x", "50%");
+          root.style.setProperty("--packet-y", `${34 + travel * 31}%`);
+        } else {
+          root.style.setProperty("--packet-x", `${27 + travel * 46}%`);
+          root.style.setProperty("--packet-y", "49%");
+        }
+
+        guardCard.classList.toggle("show", time >= 45 && time < 52.4);
+        sceneFlash.classList.toggle("show", time >= 27 && time < 28.2);
+        frame.classList.toggle("finale", time >= 52);
+      }
+
+      playButton.addEventListener("click", () => setPlaying(!playing));
+      restartButton.addEventListener("click", restart);
+      landscapeButton.addEventListener("click", () => setLayout("landscape"));
+      portraitButton.addEventListener("click", () => setLayout("portrait"));
+      fullscreenButton.addEventListener("click", async () => {
+        try {
+          if (!document.fullscreenElement) await frame.requestFullscreen();
+          else await document.exitFullscreen();
+        } catch (_) { /* Fullscreen is optional. */ }
+      });
+
+      document.addEventListener("keydown", event => {
+        if (event.code === "Space") {
+          event.preventDefault();
+          setPlaying(!playing);
+        }
+        if (event.key.toLowerCase() === "r") restart();
+      });
+
+      const params = new URLSearchParams(location.search);
+      if (params.get("layout") === "portrait") setLayout("portrait");
+      if (params.get("clean") === "1") body.classList.add("clean");
+      render(0, true);
+      if (params.get("autoplay") === "1") setPlaying(true);
+    })();
+  </script>
+</body>
+</html>
